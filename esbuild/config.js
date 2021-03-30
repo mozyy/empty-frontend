@@ -1,5 +1,5 @@
-exports = {
-  entryPoints: ['../src/index.tsx'],
+module.exports = {
+  entryPoints: ['src/index.tsx'],
   bundle: true,
   sourcemap: true,
   target: [
@@ -9,7 +9,7 @@ exports = {
     // 'safari11',
     // 'edge16',
   ],
-  outfile: 'dist/out.js',
+  outfile: 'build/out.js',
   define: {
     'process.env.NODE_ENV':'"development"'
   },

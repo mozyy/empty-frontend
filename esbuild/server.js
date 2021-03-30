@@ -3,7 +3,7 @@ const start = new Date()
 console.log(123, start)
 
 require('esbuild').serve({
-  servedir: 'dist',
+  servedir: 'build',
   port: 8000,
 }, {
   ...config,
