@@ -1,13 +1,13 @@
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { FC } from 'react';
-import './App.css';
+import React, { FC } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
 } from 'react-router-dom';
+import './App.css';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const App:FC = () => {
   const classes = useStyles();
+  console.log(classes);
   return (
     <Router>
       <div>

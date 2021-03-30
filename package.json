@@ -14,7 +14,8 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "eslint": "^7.23.0",
+    "esbuild": "^0.11.1",
+    "eslint": "^7.11.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-import": "^2.22.0",
@@ -45,7 +46,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "es:server": "node esbuild/server.js",
+    "es:build": "node esbuild/build.js"
   },
   "eslintConfig": {
     "extends": [
@@ -57,7 +60,8 @@
       "project": "./tsconfig.json"
     },
     "rules": {
-      "react/react-in-jsx-scope": 0
+      "react/react-in-jsx-scope": 0,
+      "no-console": 0
     }
   },
   "browserslist": {
