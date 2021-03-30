@@ -14,3 +14,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 # [Optional] Uncomment if you want to install more global node modules
 # RUN su node -c "npm install -g <your-package-list-here>"
+# RUN su node -c 'git config --global -l'
+
+# RUN su node -c 'git config --global --unset http.proxy && \
+#     git config --global --unset https.proxy'
+# RUN cat ~/.gitconfig && cat /home/node/.gitconfig

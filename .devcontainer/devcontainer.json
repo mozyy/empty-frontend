@@ -10,7 +10,8 @@
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
-		"terminal.integrated.shell.linux": "/bin/bash"
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"remote.containers.copyGitConfig": false
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
@@ -18,11 +19,18 @@
 		"dbaeumer.vscode-eslint"
 	],
 
+	"containerEnv": {
+		"http_proxy": "${localEnv:proxy_addr}",
+		"https_proxy": "${localEnv:proxy_addr}"
+	},
+
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [3000, 8000],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
+	// "postCreateCommand": "",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "node"
