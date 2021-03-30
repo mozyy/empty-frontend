@@ -1,26 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
+import Button from '@material-ui/core/Button';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { FC } from 'react';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
 
-function App() {
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
+
+const App:FC = () => {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <div className={classes.root}>
+          <Link to="/">
+            <Button variant="contained">home</Button>
+          </Link>
+          <Button variant="contained">Default</Button>
+          <Link to="/about">
+            <Button variant="contained" color="primary">
+              about
+            </Button>
+          </Link>
+          <Link to="/users">
+            <Button variant="contained" color="secondary">
+              users
+            </Button>
+          </Link>
+          <Button variant="contained" disabled>
+            Disabled
+          </Button>
+          <Button variant="contained" color="primary" href="#contained-buttons">
+            Link
+          </Button>
+        </div>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <div>about</div>
+          </Route>
+          <Route path="/users">
+            <div>user</div>
+          </Route>
+          <Route path="/">
+            <div>home</div>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+
   );
-}
+};
 
 export default App;
