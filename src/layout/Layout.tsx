@@ -27,7 +27,7 @@ export const Layout:React.FC = ({children}) => {
   return (
     <Box sx={{ flexGrow: 1, display: 'flex',flexDirection: 'column', minHeight: '100vh' }}>
       <Header />
-      <Box  sx={{ flexGrow: 1 }}>
+      <Box  sx={{ flexGrow: 1, display: 'flex' }}>
         {children}
       </Box>
       <Footer />
