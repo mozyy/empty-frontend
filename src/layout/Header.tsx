@@ -100,8 +100,8 @@ export const Header:React.FC = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>设置</MenuItem>
+      <MenuItem onClick={handleMenuClose}>我的</MenuItem>
     </Menu>
   );
 
@@ -128,7 +128,7 @@ export const Header:React.FC = () => {
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p>消息</p>
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
@@ -136,7 +136,7 @@ export const Header:React.FC = () => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>通知</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -147,13 +147,13 @@ export const Header:React.FC = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>个人</p>
       </MenuItem>
     </Menu>
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -170,14 +170,14 @@ export const Header:React.FC = () => {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Material-UI
+            个人网站
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="搜索"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
