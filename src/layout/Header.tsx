@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const Header:React.FC = () => {
+const Header:React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [
     mobileMoreAnchorEl,
@@ -221,4 +221,6 @@ export const Header:React.FC = () => {
       {renderMenu}
     </Box>
   );
-}
+};
+
+export default Header;

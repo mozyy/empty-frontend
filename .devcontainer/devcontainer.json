@@ -11,12 +11,15 @@
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
+		"editor.codeActionsOnSave": {"source.fixAll.eslint": true }
 		// "remote.containers.copyGitConfig": false
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"yang-yue.switch-hosts",
+		"esbenp.prettier-vscode",
 	],
 
 	"containerEnv": {

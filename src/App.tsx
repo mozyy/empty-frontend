@@ -1,50 +1,47 @@
-import Button from '@material-ui/core/Button';
-import {
-  createStyles, makeStyles, Theme, createMuiTheme, ThemeProvider,
-} from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue'
-import pink from '@material-ui/core/colors/pink'
-import React, { FC } from 'react';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import blue from '@material-ui/core/colors/blue';
+import pink from '@material-ui/core/colors/pink';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { zhCN } from '@material-ui/core/locale';
 import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+  createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
+import React, { FC } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
 } from 'react-router-dom';
+import {
+  RecoilRoot,
+} from 'recoil';
 import './App.css';
-import { Routers } from './router/Routers';
+import Routers from './router/Routers';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: pink,
-    secondary: blue,
+const theme = createMuiTheme(
+  {
+    palette: {
+      primary: pink,
+      secondary: blue,
+    },
   },
-},zhCN);
+  zhCN,
+);
 
-const App:FC = () => {
-  return (
-    <RecoilRoot>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          
-          {/* A <Switch> looks through its children <Route>s and
+const App: FC = () => (
+  <RecoilRoot>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+
+        {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
-          <Routers />
-        </ThemeProvider>
-      </Router>
-    </RecoilRoot>
-
-  );
-};
+        <Routers />
+      </ThemeProvider>
+    </Router>
+  </RecoilRoot>
+);
 
 export default App;

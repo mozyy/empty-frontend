@@ -2,7 +2,7 @@ import * as React from 'react';
 import { experimentalStyled as styled, alpha } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-import { Header } from './Header';
+import Header from './Header';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -20,12 +20,9 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-export const Layout:React.FC = () => {
-  
-
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Header />
-    </Box>
-  );
-}
+const Layout:React.FC = () => (
+  <Box sx={{ flexGrow: 1 }}>
+    <Header />
+  </Box>
+);
+export default Layout;
