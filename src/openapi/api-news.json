@@ -1,35 +1,25 @@
 {
   "components": {
     "requestBodies": {
-      "NewsCallRequest": {
+      "NewsNewsListRequest": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Request"
+              "$ref": "#/components/schemas/EmptyMsg"
             }
           }
         },
-        "description": "NewsCallRequest"
+        "description": "NewsNewsListRequest"
       },
-      "NewsPingPongRequest": {
+      "NewsNewsRequest": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Ping"
+              "$ref": "#/components/schemas/EmptyMsg"
             }
           }
         },
-        "description": "NewsPingPongRequest"
-      },
-      "NewsStreamRequest": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/StreamingRequest"
-            }
-          }
-        },
-        "description": "NewsStreamRequest"
+        "description": "NewsNewsRequest"
       }
     },
     "responses": {
@@ -65,38 +55,32 @@
         },
         "description": "Error from the Micro API"
       },
-      "NewsCallResponse": {
+      "NewsNewsListResponse": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Response"
+              "$ref": "#/components/schemas/NewsResponse"
             }
           }
         },
-        "description": "NewsCallResponse"
+        "description": "NewsNewsListResponse"
       },
-      "NewsPingPongResponse": {
+      "NewsNewsResponse": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Pong"
+              "$ref": "#/components/schemas/NewsItem"
             }
           }
         },
-        "description": "NewsPingPongResponse"
-      },
-      "NewsStreamResponse": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/StreamingResponse"
-            }
-          }
-        },
-        "description": "NewsStreamResponse"
+        "description": "NewsNewsResponse"
       }
     },
     "schemas": {
+      "EmptyMsg": {
+        "title": "EmptyMsg",
+        "type": "object"
+      },
       "ListRequest": {
         "properties": {
           "name": {
@@ -113,15 +97,6 @@
           }
         },
         "title": "ListResponse",
-        "type": "object"
-      },
-      "Message": {
-        "properties": {
-          "say": {
-            "type": "string"
-          }
-        },
-        "title": "Message",
         "type": "object"
       },
       "NewsItem": {
@@ -191,64 +166,6 @@
         },
         "title": "NewsResponse",
         "type": "object"
-      },
-      "Ping": {
-        "properties": {
-          "stroke": {
-            "format": "int64",
-            "type": "number"
-          }
-        },
-        "title": "Ping",
-        "type": "object"
-      },
-      "Pong": {
-        "properties": {
-          "stroke": {
-            "format": "int64",
-            "type": "number"
-          }
-        },
-        "title": "Pong",
-        "type": "object"
-      },
-      "Request": {
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "title": "Request",
-        "type": "object"
-      },
-      "Response": {
-        "properties": {
-          "msg": {
-            "type": "string"
-          }
-        },
-        "title": "Response",
-        "type": "object"
-      },
-      "StreamingRequest": {
-        "properties": {
-          "count": {
-            "format": "int64",
-            "type": "number"
-          }
-        },
-        "title": "StreamingRequest",
-        "type": "object"
-      },
-      "StreamingResponse": {
-        "properties": {
-          "count": {
-            "format": "int64",
-            "type": "number"
-          }
-        },
-        "title": "StreamingResponse",
-        "type": "object"
       }
     },
     "securitySchemes": {
@@ -272,7 +189,7 @@
   },
   "openapi": "3.0.0",
   "paths": {
-    "/news/News/Call": {
+    "/news/News/News": {
       "parameters": [
         {
           "in": "header",
@@ -285,11 +202,11 @@
       ],
       "post": {
         "requestBody": {
-          "$ref": "#/components/requestBodies/NewsCallRequest"
+          "$ref": "#/components/requestBodies/NewsNewsRequest"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/NewsCallResponse"
+            "$ref": "#/components/responses/NewsNewsResponse"
           },
           "default": {
             "$ref": "#/components/responses/MicroAPIError"
@@ -300,10 +217,10 @@
             "MicroAPIToken": []
           }
         ],
-        "summary": "News.Call(Request)"
+        "summary": "News.News(EmptyMsg)"
       }
     },
-    "/news/News/PingPong": {
+    "/news/News/NewsList": {
       "parameters": [
         {
           "in": "header",
@@ -316,11 +233,11 @@
       ],
       "post": {
         "requestBody": {
-          "$ref": "#/components/requestBodies/NewsPingPongRequest"
+          "$ref": "#/components/requestBodies/NewsNewsListRequest"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/NewsPingPongResponse"
+            "$ref": "#/components/responses/NewsNewsListResponse"
           },
           "default": {
             "$ref": "#/components/responses/MicroAPIError"
@@ -331,38 +248,7 @@
             "MicroAPIToken": []
           }
         ],
-        "summary": "News.PingPong(Ping)"
-      }
-    },
-    "/news/News/Stream": {
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Micro-Namespace",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "requestBody": {
-          "$ref": "#/components/requestBodies/NewsStreamRequest"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/NewsStreamResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/MicroAPIError"
-          }
-        },
-        "security": [
-          {
-            "MicroAPIToken": []
-          }
-        ],
-        "summary": "News.Stream(StreamingRequest)"
+        "summary": "News.NewsList(EmptyMsg)"
       }
     }
   },
