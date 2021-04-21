@@ -8,7 +8,6 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
   ${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`;
 }
 
-
 const itemData = [
   {
     img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
@@ -70,27 +69,23 @@ const itemData = [
   },
 ];
 
+const Gallery: React.FC = () => (
+  <ImageList
+    sx={{ width: 500, padding: 1, margin: '0 auto' }}
+    variant="quilted"
+    cols={4}
+    rowHeight={121}
+  >
+    {itemData.map((item) => (
+      <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
+        <img
+          srcSet={srcset(item.img, 121, item.rows, item.cols)}
+          alt={item.title}
+          loading="lazy"
+        />
+      </ImageListItem>
+    ))}
+  </ImageList>
+);
 
-const Gallery: React.FC = () => {
-  return (
-    <ImageList
-      sx={{ width: 500, padding: 1,margin: '0 auto' }}
-      variant="quilted"
-      cols={4}
-      rowHeight={121}
-    >
-      {itemData.map((item) => (
-        <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-          <img
-            srcSet={srcset(item.img, 121, item.rows, item.cols)}
-            alt={item.title}
-            loading="lazy"
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
-  );
-}
-
-
-export default Gallery
+export default Gallery;
