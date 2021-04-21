@@ -1,6 +1,16 @@
 {
   "components": {
     "requestBodies": {
+      "NewsHelloRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/HelloRequest"
+            }
+          }
+        },
+        "description": "NewsHelloRequest"
+      },
       "NewsNewsListRequest": {
         "content": {
           "application/json": {
@@ -55,6 +65,16 @@
         },
         "description": "Error from the Micro API"
       },
+      "NewsHelloResponse": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/HelloResponse"
+            }
+          }
+        },
+        "description": "NewsHelloResponse"
+      },
       "NewsNewsListResponse": {
         "content": {
           "application/json": {
@@ -79,6 +99,24 @@
     "schemas": {
       "EmptyMsg": {
         "title": "EmptyMsg",
+        "type": "object"
+      },
+      "HelloRequest": {
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "title": "HelloRequest",
+        "type": "object"
+      },
+      "HelloResponse": {
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "title": "HelloResponse",
         "type": "object"
       },
       "ListRequest": {
@@ -189,6 +227,37 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/news/News/Hello": {
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Micro-Namespace",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "requestBody": {
+          "$ref": "#/components/requestBodies/NewsHelloRequest"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/NewsHelloResponse"
+          },
+          "default": {
+            "$ref": "#/components/responses/MicroAPIError"
+          }
+        },
+        "security": [
+          {
+            "MicroAPIToken": []
+          }
+        ],
+        "summary": "News.Hello(HelloRequest)"
+      }
+    },
     "/news/News/News": {
       "parameters": [
         {
