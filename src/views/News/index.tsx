@@ -7,9 +7,9 @@ const News: React.FC = () => {
     // class NewsService {
     //   constructor(public newsService:EmptyClient) {}
     // }
-    const newsService = new NewsClient('https://yyue.vip/api');
+    const newsService = new NewsClient('http://localhost:8080');
     newsService.newsList(new Empty(), null).then((res) => {
-      console.log(res);
+      console.log(res.toObject());
     });
   }, []);
   return null;
