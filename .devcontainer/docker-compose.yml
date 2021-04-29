@@ -47,6 +47,8 @@ services:
         - HTTP_PROXY=${proxy_addr}
         - HTTPS_PROXY=${proxy_addr}
     image: mozyy/empty-compose-news
+    networks:
+      - envoymesh
   empty-envoy:
     build: 
       context: .
@@ -54,9 +56,11 @@ services:
     image: mozyy/empty-compose-envoy
     depends_on: 
       - empty-news
-    links: 
-      - empty-news
+    networks:
+      - envoymesh
     ports:
-      - "8080:8080"
-      - "9901:9901"
+      - "50051:50051"
+      # - "9901:9901"
 
+networks:
+  envoymesh: {}
