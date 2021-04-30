@@ -4,6 +4,7 @@ import Layout from '../layout/Layout';
 import Doc from '../views/Doc';
 import Gallery from '../views/Gallery';
 import News from '../views/News';
+import NewsDetail from '../views/NewsDetail';
 
 const Routers:FC = () => (
   <Switch>
@@ -21,6 +22,9 @@ const Routers:FC = () => (
       {/* <Layout>
         <Gallery />
       </Layout> */}
+    </Route>
+    <Route path="/newsDetail/:link">
+      <NewsDetail />
     </Route>
   </Switch>
 );

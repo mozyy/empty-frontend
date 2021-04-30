@@ -8,6 +8,7 @@ import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CommentIcon from '@material-ui/icons/Comment';
+import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { NewsItem } from '../../../proto/news/news_pb';
 
 export interface ItemProps {
@@ -22,17 +23,23 @@ const StyledBox = styled(Box)({
 export const Item: React.FC<ItemProps> = (props) => {
   const { item } = props;
   const obj = item.toObject();
+  const to = obj.link;
+  const renderLink = React.useMemo(() => React.forwardRef<HTMLAnchorElement, Omit<RouterLinkProps, 'to'>>(
+    (itemProps, ref) => <RouterLink to={to} ref={ref} {...itemProps} />,
+  ),
+  [to]);
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem sx={{ alignItems: 'stretch' }} component={renderLink}>
       <ListItemAvatar>
         <img src={obj.image} referrerPolicy="no-referrer" alt={obj.title} />
       </ListItemAvatar>
       <ListItemText
         primary={obj.title}
+        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
         secondary={(
           <StyledBox>
-            <Typography variant="body2" align="center">
-              <AccessTimeIcon />
+            <Typography variant="body2" align="center" alignItems="cneter">
+              <AccessTimeIcon fontSize="small" />
               {obj.time}
             </Typography>
             <Typography>

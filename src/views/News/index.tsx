@@ -12,10 +12,14 @@ const News: React.FC = () => {
     //   constructor(public newsService:EmptyClient) {}
     // }
     const newsService = new NewsClient('https://yyue.vip/api');
-    newsService.newsList(new Empty(), null).then((res) => {
+    newsService.list(new Empty(), null).then((res) => {
       console.log(res.toObject());
       setNews(res.getListList());
     });
+    // const stream = newsService.news(new Empty());
+    // stream.on('data', (res) => {
+    //   console.log(123, res.toObject());
+    // });
   }, []);
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
