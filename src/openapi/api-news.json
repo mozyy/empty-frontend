@@ -72,7 +72,7 @@
       },
       "DetailRequest": {
         "properties": {
-          "url": {
+          "URL": {
             "type": "string"
           }
         },

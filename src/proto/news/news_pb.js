@@ -709,7 +709,7 @@ proto.news.DetailRequest.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string url = 1;
+ * optional string URL = 1;
  * @return {string}
  */
 proto.news.DetailRequest.prototype.getUrl = function() {
