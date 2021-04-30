@@ -1,56 +1,7 @@
 import * as jspb from 'google-protobuf'
 
+import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
-
-export class EmptyMsg extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): EmptyMsg.AsObject;
-  static toObject(includeInstance: boolean, msg: EmptyMsg): EmptyMsg.AsObject;
-  static serializeBinaryToWriter(message: EmptyMsg, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): EmptyMsg;
-  static deserializeBinaryFromReader(message: EmptyMsg, reader: jspb.BinaryReader): EmptyMsg;
-}
-
-export namespace EmptyMsg {
-  export type AsObject = {
-  }
-}
-
-export class HelloRequest extends jspb.Message {
-  getName(): string;
-  setName(value: string): HelloRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): HelloRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: HelloRequest): HelloRequest.AsObject;
-  static serializeBinaryToWriter(message: HelloRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): HelloRequest;
-  static deserializeBinaryFromReader(message: HelloRequest, reader: jspb.BinaryReader): HelloRequest;
-}
-
-export namespace HelloRequest {
-  export type AsObject = {
-    name: string,
-  }
-}
-
-export class HelloResponse extends jspb.Message {
-  getName(): string;
-  setName(value: string): HelloResponse;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): HelloResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: HelloResponse): HelloResponse.AsObject;
-  static serializeBinaryToWriter(message: HelloResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): HelloResponse;
-  static deserializeBinaryFromReader(message: HelloResponse, reader: jspb.BinaryReader): HelloResponse;
-}
-
-export namespace HelloResponse {
-  export type AsObject = {
-    name: string,
-  }
-}
 
 export class NewsItem extends jspb.Message {
   getLink(): string;
@@ -94,47 +45,11 @@ export namespace NewsItem {
   }
 }
 
-export class NewsResponse extends jspb.Message {
-  getListList(): Array<NewsItem>;
-  setListList(value: Array<NewsItem>): NewsResponse;
-  clearListList(): NewsResponse;
-  addList(value?: NewsItem, index?: number): NewsItem;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): NewsResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: NewsResponse): NewsResponse.AsObject;
-  static serializeBinaryToWriter(message: NewsResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): NewsResponse;
-  static deserializeBinaryFromReader(message: NewsResponse, reader: jspb.BinaryReader): NewsResponse;
-}
-
-export namespace NewsResponse {
-  export type AsObject = {
-    listList: Array<NewsItem.AsObject>,
-  }
-}
-
-export class ListRequest extends jspb.Message {
-  getName(): string;
-  setName(value: string): ListRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ListRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: ListRequest): ListRequest.AsObject;
-  static serializeBinaryToWriter(message: ListRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ListRequest;
-  static deserializeBinaryFromReader(message: ListRequest, reader: jspb.BinaryReader): ListRequest;
-}
-
-export namespace ListRequest {
-  export type AsObject = {
-    name: string,
-  }
-}
-
 export class ListResponse extends jspb.Message {
-  getMsg(): string;
-  setMsg(value: string): ListResponse;
+  getListList(): Array<NewsItem>;
+  setListList(value: Array<NewsItem>): ListResponse;
+  clearListList(): ListResponse;
+  addList(value?: NewsItem, index?: number): NewsItem;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListResponse.AsObject;
@@ -146,7 +61,83 @@ export class ListResponse extends jspb.Message {
 
 export namespace ListResponse {
   export type AsObject = {
-    msg: string,
+    listList: Array<NewsItem.AsObject>,
+  }
+}
+
+export class DetailRequest extends jspb.Message {
+  getUrl(): string;
+  setUrl(value: string): DetailRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DetailRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DetailRequest): DetailRequest.AsObject;
+  static serializeBinaryToWriter(message: DetailRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DetailRequest;
+  static deserializeBinaryFromReader(message: DetailRequest, reader: jspb.BinaryReader): DetailRequest;
+}
+
+export namespace DetailRequest {
+  export type AsObject = {
+    url: string,
+  }
+}
+
+export class DetailContent extends jspb.Message {
+  getType(): number;
+  setType(value: number): DetailContent;
+
+  getContent(): string;
+  setContent(value: string): DetailContent;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DetailContent.AsObject;
+  static toObject(includeInstance: boolean, msg: DetailContent): DetailContent.AsObject;
+  static serializeBinaryToWriter(message: DetailContent, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DetailContent;
+  static deserializeBinaryFromReader(message: DetailContent, reader: jspb.BinaryReader): DetailContent;
+}
+
+export namespace DetailContent {
+  export type AsObject = {
+    type: number,
+    content: string,
+  }
+}
+
+export class DetailResponse extends jspb.Message {
+  getTitle(): string;
+  setTitle(value: string): DetailResponse;
+
+  getFrom(): string;
+  setFrom(value: string): DetailResponse;
+
+  getTime(): string;
+  setTime(value: string): DetailResponse;
+
+  getSummary(): string;
+  setSummary(value: string): DetailResponse;
+
+  getContentList(): Array<DetailContent>;
+  setContentList(value: Array<DetailContent>): DetailResponse;
+  clearContentList(): DetailResponse;
+  addContent(value?: DetailContent, index?: number): DetailContent;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DetailResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: DetailResponse): DetailResponse.AsObject;
+  static serializeBinaryToWriter(message: DetailResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DetailResponse;
+  static deserializeBinaryFromReader(message: DetailResponse, reader: jspb.BinaryReader): DetailResponse;
+}
+
+export namespace DetailResponse {
+  export type AsObject = {
+    title: string,
+    from: string,
+    time: string,
+    summary: string,
+    contentList: Array<DetailContent.AsObject>,
   }
 }
 

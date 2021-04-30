@@ -1,35 +1,15 @@
 {
   "components": {
     "requestBodies": {
-      "NewsHelloRequest": {
+      "NewsDetailRequest": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/HelloRequest"
+              "$ref": "#/components/schemas/DetailRequest"
             }
           }
         },
-        "description": "NewsHelloRequest"
-      },
-      "NewsNewsListRequest": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/EmptyMsg"
-            }
-          }
-        },
-        "description": "NewsNewsListRequest"
-      },
-      "NewsNewsRequest": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/EmptyMsg"
-            }
-          }
-        },
-        "description": "NewsNewsRequest"
+        "description": "NewsDetailRequest"
       }
     },
     "responses": {
@@ -65,88 +45,61 @@
         },
         "description": "Error from the Micro API"
       },
-      "NewsHelloResponse": {
+      "NewsDetailResponse": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/HelloResponse"
+              "$ref": "#/components/schemas/DetailResponse"
             }
           }
         },
-        "description": "NewsHelloResponse"
-      },
-      "NewsNewsListResponse": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/NewsResponse"
-            }
-          }
-        },
-        "description": "NewsNewsListResponse"
-      },
-      "NewsNewsResponse": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/NewsItem"
-            }
-          }
-        },
-        "description": "NewsNewsResponse"
+        "description": "NewsDetailResponse"
       }
     },
     "schemas": {
-      "EmptyMsg": {
-        "title": "EmptyMsg",
-        "type": "object"
-      },
-      "HelloRequest": {
+      "DetailContent": {
         "properties": {
-          "name": {
+          "content": {
             "type": "string"
-          }
-        },
-        "title": "HelloRequest",
-        "type": "object"
-      },
-      "HelloResponse": {
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "title": "HelloResponse",
-        "type": "object"
-      },
-      "ListRequest": {
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "title": "ListRequest",
-        "type": "object"
-      },
-      "ListResponse": {
-        "properties": {
-          "msg": {
-            "type": "string"
-          }
-        },
-        "title": "ListResponse",
-        "type": "object"
-      },
-      "NewsItem": {
-        "properties": {
-          "comment": {
+          },
+          "type": {
             "format": "int32",
             "type": "number"
+          }
+        },
+        "title": "DetailContent",
+        "type": "object"
+      },
+      "DetailRequest": {
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "title": "DetailRequest",
+        "type": "object"
+      },
+      "DetailResponse": {
+        "properties": {
+          "content": {
+            "items": {
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "type": {
+                  "format": "int32",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
           },
-          "image": {
+          "from": {
             "type": "string"
           },
-          "link": {
+          "summary": {
             "type": "string"
           },
           "time": {
@@ -154,20 +107,12 @@
           },
           "title": {
             "type": "string"
-          },
-          "type": {
-            "description": "1: 业界, 2: 科学, 3: 影视, 4: 游戏",
-            "type": "string"
-          },
-          "view": {
-            "format": "int32",
-            "type": "number"
           }
         },
-        "title": "NewsItem",
+        "title": "DetailResponse",
         "type": "object"
       },
-      "NewsResponse": {
+      "ListResponse": {
         "properties": {
           "list": {
             "items": {
@@ -202,7 +147,37 @@
             "type": "array"
           }
         },
-        "title": "NewsResponse",
+        "title": "ListResponse",
+        "type": "object"
+      },
+      "NewsItem": {
+        "properties": {
+          "comment": {
+            "format": "int32",
+            "type": "number"
+          },
+          "image": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "description": "1: 业界, 2: 科学, 3: 影视, 4: 游戏",
+            "type": "string"
+          },
+          "view": {
+            "format": "int32",
+            "type": "number"
+          }
+        },
+        "title": "NewsItem",
         "type": "object"
       }
     },
@@ -227,7 +202,7 @@
   },
   "openapi": "3.0.0",
   "paths": {
-    "/news/News/Hello": {
+    "/news/News/Detail": {
       "parameters": [
         {
           "in": "header",
@@ -240,11 +215,11 @@
       ],
       "post": {
         "requestBody": {
-          "$ref": "#/components/requestBodies/NewsHelloRequest"
+          "$ref": "#/components/requestBodies/NewsDetailRequest"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/NewsHelloResponse"
+            "$ref": "#/components/responses/NewsDetailResponse"
           },
           "default": {
             "$ref": "#/components/responses/MicroAPIError"
@@ -255,69 +230,7 @@
             "MicroAPIToken": []
           }
         ],
-        "summary": "News.Hello(HelloRequest)"
-      }
-    },
-    "/news/News/News": {
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Micro-Namespace",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "requestBody": {
-          "$ref": "#/components/requestBodies/NewsNewsRequest"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/NewsNewsResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/MicroAPIError"
-          }
-        },
-        "security": [
-          {
-            "MicroAPIToken": []
-          }
-        ],
-        "summary": "News.News(EmptyMsg)"
-      }
-    },
-    "/news/News/NewsList": {
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Micro-Namespace",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "requestBody": {
-          "$ref": "#/components/requestBodies/NewsNewsListRequest"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/NewsNewsListResponse"
-          },
-          "default": {
-            "$ref": "#/components/responses/MicroAPIError"
-          }
-        },
-        "security": [
-          {
-            "MicroAPIToken": []
-          }
-        ],
-        "summary": "News.NewsList(EmptyMsg)"
+        "summary": "News.Detail(DetailRequest)"
       }
     }
   },
