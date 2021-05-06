@@ -76,6 +76,46 @@ export class NewsClient {
     this.methodInfoList);
   }
 
+  methodInfoCategory = new grpcWeb.AbstractClientBase.MethodInfo(
+    news_news_pb.CategoryResponse,
+    (request: google_protobuf_empty_pb.Empty) => {
+      return request.serializeBinary();
+    },
+    news_news_pb.CategoryResponse.deserializeBinary
+  );
+
+  category(
+    request: google_protobuf_empty_pb.Empty,
+    metadata: grpcWeb.Metadata | null): Promise<news_news_pb.CategoryResponse>;
+
+  category(
+    request: google_protobuf_empty_pb.Empty,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: news_news_pb.CategoryResponse) => void): grpcWeb.ClientReadableStream<news_news_pb.CategoryResponse>;
+
+  category(
+    request: google_protobuf_empty_pb.Empty,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: news_news_pb.CategoryResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/news.News/Category',
+        request,
+        metadata || {},
+        this.methodInfoCategory,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/news.News/Category',
+    request,
+    metadata || {},
+    this.methodInfoCategory);
+  }
+
   methodInfoDetail = new grpcWeb.AbstractClientBase.MethodInfo(
     news_news_pb.DetailResponse,
     (request: news_news_pb.DetailRequest) => {
