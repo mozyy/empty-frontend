@@ -5,8 +5,9 @@ import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { NewsItem } from '../../proto/news/news_pb';
 import { Item } from './components/Item';
 
-const News: React.FC = () => {
+const NewsDetail: React.FC = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
+
   useEffect(() => {
     // class NewsService {
     //   constructor(public newsService:EmptyClient) {}
@@ -28,4 +29,4 @@ const News: React.FC = () => {
   );
 };
 
-export default News;
+export default NewsDetail;
