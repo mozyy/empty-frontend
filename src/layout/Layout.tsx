@@ -1,19 +1,21 @@
-import * as React from 'react';
 import Box from '@material-ui/core/Box';
-
-import Header from './Header';
+import * as React from 'react';
 import Footer from './Footer';
+import Header from './Header';
 
 const Layout:React.FC = ({ children }) => (
   <Box sx={{
-    flexGrow: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh',
+    flexGrow: 1, display: 'flex', flexDirection: 'column', height: '100vh',
   }}
   >
     <Header />
-    <Box sx={{ flexGrow: 1, display: 'flex' }}>
+    <Box sx={{
+      flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'auto',
+    }}
+    >
       {children}
+      <Footer />
     </Box>
-    <Footer />
   </Box>
 );
 

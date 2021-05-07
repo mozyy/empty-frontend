@@ -1,5 +1,5 @@
 FROM golang
 
-RUN go install github.com/mozyy/empty-news@411df51
+RUN go install github.com/mozyy/empty-news@06c3572
 
 CMD ["empty-news"]

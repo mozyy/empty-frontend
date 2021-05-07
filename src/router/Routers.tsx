@@ -9,23 +9,27 @@ import NewsDetail from '../views/NewsDetail';
 const Routers:FC = () => (
   <Switch>
 
-    <Route path="/home">
-      <Layout>
-        <Gallery />
-      </Layout>
-    </Route>
     <Route path="/doc">
       <Doc />
     </Route>
+
     <Route path="/">
-      <News />
-      {/* <Layout>
-        <Gallery />
-      </Layout> */}
+      <Layout>
+        <Switch>
+          <Route path="/newsDetail/:link">
+            <NewsDetail />
+          </Route>
+          <Route path="/gallery">
+            <Gallery />
+          </Route>
+          <Route path="/">
+            <News />
+          </Route>
+        </Switch>
+        {/* <Redirect to="index" /> */}
+      </Layout>
     </Route>
-    <Route path="/newsDetail/:link">
-      <NewsDetail />
-    </Route>
+
   </Switch>
 );
 

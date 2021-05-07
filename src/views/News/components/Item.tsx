@@ -2,55 +2,59 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
+// import { Box } from '@material-ui/core';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CommentIcon from '@material-ui/icons/Comment';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { NewsItem } from '../../../proto/news/news_pb';
 
 export interface ItemProps {
-  item: NewsItem
+  item: NewsItem.AsObject
 }
-const StyledBox = styled(Box)({
-  display: 'flex',
+const StyledTypography = styled((props:TypographyProps) => <Typography variant="body2" component="span" sx={{ display: 'inline-flex' }} alignItems="center" {...props} />)({
 
   // backgroundColor: '#292929'
 });
 
 export const Item: React.FC<ItemProps> = (props) => {
   const { item } = props;
-  const obj = item.toObject();
-  const to = obj.link;
+  const to = item.link;
   const renderLink = React.useMemo(() => React.forwardRef<HTMLAnchorElement, Omit<RouterLinkProps, 'to'>>(
-    (itemProps, ref) => <RouterLink to={to} ref={ref} {...itemProps} />,
+    (itemProps, ref) => <RouterLink to={`/newsDetail/${encodeURIComponent(to)}`} ref={ref} {...itemProps} />,
   ),
   [to]);
   return (
     <ListItem sx={{ alignItems: 'stretch' }} component={renderLink}>
       <ListItemAvatar>
-        <img src={obj.image} referrerPolicy="no-referrer" alt={obj.title} />
+        <img src={item.image} referrerPolicy="no-referrer" alt={item.title} />
       </ListItemAvatar>
       <ListItemText
-        primary={obj.title}
+        primary={item.title}
         sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
         secondary={(
-          <StyledBox>
-            <Typography variant="body2" align="center" alignItems="cneter">
+          <>
+            {/* <StyledBox> */}
+            <StyledTypography>
               <AccessTimeIcon fontSize="small" />
-              {obj.time}
-            </Typography>
-            <Typography>
+              {item.time}
+            </StyledTypography>
+            {!!item.view && (
+            <StyledTypography>
               <EqualizerIcon />
-              {obj.view}
-            </Typography>
-            <Typography>
+              {item.view}
+            </StyledTypography>
+            )}
+            {!!item.comment && (
+            <StyledTypography>
               <CommentIcon />
-              {obj.comment}
-            </Typography>
-          </StyledBox>
+              {item.comment}
+            </StyledTypography>
+            )}
+            {/* </StyledBox> */}
+          </>
         )}
       />
     </ListItem>

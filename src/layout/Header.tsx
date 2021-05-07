@@ -1,20 +1,27 @@
-import * as React from 'react';
-import { experimentalStyled as styled, alpha } from '@material-ui/core/styles';
+import {
+  List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer,
+} from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import MenuItem from '@material-ui/core/MenuItem';
+import { alpha, experimentalStyled as styled } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import SearchIcon from '@material-ui/icons/Search';
+import * as React from 'react';
+import { useState } from 'react';
+import HomeIcon from '@material-ui/icons/Home';
+import ImageIcon from '@material-ui/icons/Image';
+import { useHistory } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -62,6 +69,8 @@ const Header:React.FC = () => {
     mobileMoreAnchorEl,
     setMobileMoreAnchorEl,
   ] = React.useState<null | HTMLElement>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const history = useHistory();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -151,6 +160,10 @@ const Header:React.FC = () => {
       </MenuItem>
     </Menu>
   );
+  const toPage = (path:string) => () => {
+    setDrawerOpen(false);
+    history.push(path);
+  };
 
   return (
     <Box>
@@ -161,6 +174,7 @@ const Header:React.FC = () => {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={() => setDrawerOpen(true)}
           >
             <MenuIcon />
           </IconButton>
@@ -219,6 +233,29 @@ const Header:React.FC = () => {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <SwipeableDrawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        onOpen={() => setDrawerOpen(true)}
+      >
+        <Box sx={{ width: 250 }}>
+          <List>
+            <ListItem onClick={toPage('/')}>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="首页" />
+            </ListItem>
+            <ListItem onClick={toPage('/gallery')}>
+              <ListItemIcon>
+                <ImageIcon />
+              </ListItemIcon>
+              <ListItemText primary="图库" />
+            </ListItem>
+          </List>
+        </Box>
+      </SwipeableDrawer>
     </Box>
   );
 };

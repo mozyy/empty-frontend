@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { experimentalStyled as styled } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 // import Toolbar from '@material-ui/core/Toolbar';
 // import IconButton from '@material-ui/core/IconButton';
@@ -16,16 +15,11 @@ import Box from '@material-ui/core/Box';
 // import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from '@material-ui/core';
 
-const StyledBox = styled(Box)({
-  textAlign: 'center',
-  // backgroundColor: '#292929'
-});
-
 const Footer:React.FC = () => {
   const year = new Date().getFullYear();
 
   return (
-    <StyledBox>
+    <Box sx={{ textAlign: 'center', mt: 2 }}>
       © 2021-
       {year}
       {' '}
@@ -34,7 +28,7 @@ const Footer:React.FC = () => {
       版权所有
       <br />
       <Link href="https://beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备2021007564号-1</Link>
-    </StyledBox>
+    </Box>
   );
 };
 
