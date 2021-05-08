@@ -1,4 +1,4 @@
-const envStr = 'test';
+const envStr = 'prod';
 
 const configs = {
   dev: {
