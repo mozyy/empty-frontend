@@ -33,5 +33,5 @@ FROM nginx
 # FROM nginx:alpine
 
 
-COPY build /etc/nginx/conf.d/empty-frontend.conf
-COPY --from=builder /workspace/empty-frontend/build /usr/share/nginx/empty-frontend
+COPY empty-frontend.conf /etc/nginx/conf.d/empty-frontend.conf
+COPY build /usr/share/nginx/empty-frontend
