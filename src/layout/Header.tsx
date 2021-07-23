@@ -18,10 +18,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import ImageIcon from '@material-ui/icons/Image';
 import { useHistory } from 'react-router-dom';
+import SystemUpdateIcon from '@material-ui/icons/SystemUpdate';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -71,9 +72,59 @@ const Header:React.FC = () => {
   ] = React.useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
+  const installingViaButtonRef = React.useRef(false);
+  const [beforeInstallEvent, setBeforeInstallEvent] = useState<BeforeInstallPromptEvent>();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+    const onBeforeInstallPromptEvent = (event: BeforeInstallPromptEvent) => {
+      // Don't show the mini-infobar on mobile
+      event.preventDefault();
+      // Save the beforeinstallprompt event so it can be called later.
+      setBeforeInstallEvent(event);
+    };
+    const onAppInstalled = () => {
+    // We don't need the install button, if it's shown
+      setBeforeInstallEvent(undefined);
+      installingViaButtonRef.current = false;
+    };
+    // Listen for beforeinstallprompt events, indicating Squoosh is installable.
+    window.addEventListener(
+      'beforeinstallprompt',
+      onBeforeInstallPromptEvent,
+    );
+
+    // Listen for the appinstalled event, indicating Squoosh has been installed.
+    window.addEventListener('appinstalled', onAppInstalled);
+    return () => {
+      window.removeEventListener(
+        'beforeinstallprompt',
+        onBeforeInstallPromptEvent,
+      );
+      window.removeEventListener('appinstalled', onAppInstalled);
+    };
+  }, []);
+
+  const onInstallClick = async () => {
+    // Get the deferred beforeinstallprompt event
+    // If there's no deferred prompt, bail.
+    if (!beforeInstallEvent) return;
+
+    installingViaButtonRef.current = true;
+
+    // Show the browser install prompt
+    beforeInstallEvent.prompt();
+
+    // Wait for the user to accept or dismiss the install prompt
+    const { outcome } = await beforeInstallEvent.userChoice;
+
+    // If the prompt was dismissed, we aren't going to install via the button.
+    if (outcome === 'dismissed') {
+      installingViaButtonRef.current = false;
+    }
+  };
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -158,6 +209,14 @@ const Header:React.FC = () => {
         </IconButton>
         <p>个人</p>
       </MenuItem>
+      {!beforeInstallEvent && (
+      <MenuItem onClick={onInstallClick}>
+        <IconButton color="inherit">
+          <SystemUpdateIcon />
+        </IconButton>
+        <p>安装</p>
+      </MenuItem>
+      )}
     </Menu>
   );
   const toPage = (path:string) => () => {

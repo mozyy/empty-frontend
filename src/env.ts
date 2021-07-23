@@ -1,8 +1,8 @@
-const envStr = 'prod';
+const envStr = 'dev';
 
 const configs = {
   dev: {
-    grpcAddress: 'https://yyue.vip/api',
+    grpcAddress: 'http://localhost:50051/api',
   },
   test: {
     grpcAddress: 'http://localhost:50051/api',

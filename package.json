@@ -57,6 +57,7 @@
     "workbox-streams": "^5.1.3"
   },
   "scripts": {
+    "start": "npm run rs:start",
     "dev": "vite",
     "build": "vite build",
     "build:tsc": "tsc && vite build",

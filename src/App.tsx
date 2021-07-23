@@ -27,6 +27,9 @@ const theme = createMuiTheme(
       secondary: blue,
     },
   },
+  // typography: {
+  //   pxToRem: (px: number) => `${(px / 16) * coef}rem`,
+  // },
   zhCN,
 );
 

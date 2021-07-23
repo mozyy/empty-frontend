@@ -14,7 +14,9 @@ const Layout:React.FC = ({ children }) => (
     }}
     >
       {children}
-      <Footer />
+      <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Footer />
+      </Box>
     </Box>
   </Box>
 );
