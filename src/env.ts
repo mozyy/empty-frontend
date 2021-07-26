@@ -1,6 +1,10 @@
-const envStr = 'dev';
+const envStr = process.env.REACT_APP_MODE || 'dev';
 
-const configs = {
+interface EnvConfig {
+  grpcAddress: string,
+}
+
+const configs:{ [key: string]: EnvConfig } = {
   dev: {
     grpcAddress: 'http://localhost:50051/api',
   },

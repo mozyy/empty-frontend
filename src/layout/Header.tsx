@@ -209,7 +209,7 @@ const Header:React.FC = () => {
         </IconButton>
         <p>个人</p>
       </MenuItem>
-      {!beforeInstallEvent && (
+      {beforeInstallEvent && (
       <MenuItem onClick={onInstallClick}>
         <IconButton color="inherit">
           <SystemUpdateIcon />
@@ -288,6 +288,16 @@ const Header:React.FC = () => {
               <MoreIcon />
             </IconButton>
           </Box>
+          {beforeInstallEvent && (
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              onClick={onInstallClick}
+              color="inherit"
+            >
+              <SystemUpdateIcon />
+            </IconButton>
+          </Box>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
