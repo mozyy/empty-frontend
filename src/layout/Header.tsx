@@ -276,6 +276,14 @@ const Header:React.FC = () => {
             >
               <AccountCircle />
             </IconButton>
+            {beforeInstallEvent && (
+              <IconButton
+                onClick={onInstallClick}
+                color="inherit"
+              >
+                <SystemUpdateIcon />
+              </IconButton>
+            )}
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -288,16 +296,6 @@ const Header:React.FC = () => {
               <MoreIcon />
             </IconButton>
           </Box>
-          {beforeInstallEvent && (
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              onClick={onInstallClick}
-              color="inherit"
-            >
-              <SystemUpdateIcon />
-            </IconButton>
-          </Box>
-          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

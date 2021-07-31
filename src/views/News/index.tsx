@@ -32,7 +32,7 @@ const News: React.FC = () => {
     //   constructor(public newsService:EmptyClient) {}
     // }
     setLoading(true);
-    const newsService = new NewsClient(envConfig.grpcAddress);
+    const newsService = new NewsClient(envConfig.grpcAddress, {});
     newsService.list(new Empty(), null).then((res) => {
       console.log(res.toObject());
       setNews(res.toObject().listList);

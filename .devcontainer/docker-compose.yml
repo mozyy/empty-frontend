@@ -59,7 +59,7 @@ services:
     networks:
       - envoymesh
     ports:
-      - "50051:50051"
+      - "50053:50051"
       - "9901:9901"
 
 networks:

@@ -6,10 +6,10 @@ interface EnvConfig {
 
 const configs:{ [key: string]: EnvConfig } = {
   dev: {
-    grpcAddress: 'http://localhost:50051/api',
+    grpcAddress: 'http://localhost:50052/api',
   },
   test: {
-    grpcAddress: 'http://localhost:50051/api',
+    grpcAddress: 'http://localhost:50053/api',
   },
   prod: {
     grpcAddress: 'https://yyue.vip/api',
