@@ -7,6 +7,7 @@ import { experimentalStyled as styled } from '@material-ui/core/styles';
 import envConfig from '../../env';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { DetailRequest, DetailResponse } from '../../proto/news/news_pb';
+import { UnaryInterceptorAuth } from '../../utils/grpcClient';
 
 const StyledImg = styled('img')({
   width: '100%',
@@ -21,7 +22,8 @@ const NewsDetail: React.FC = () => {
     // class NewsService {
     //   constructor(public newsService:EmptyClient) {}
     // }
-    const newsService = new NewsClient(envConfig.grpcAddress);
+    const newsService = new NewsClient(envConfig.grpcAddress, {},
+      { unaryInterceptors: [new UnaryInterceptorAuth()] });
     const detailRequest = new DetailRequest();
     detailRequest.setUrl(decodeURIComponent(link));
     newsService.detail(detailRequest, null).then((res) => {
