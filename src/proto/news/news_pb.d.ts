@@ -65,51 +65,6 @@ export namespace ListResponse {
   }
 }
 
-export class CategoryResponse extends jspb.Message {
-  getCategorysList(): Array<CategoryResponse.CategoryItem>;
-  setCategorysList(value: Array<CategoryResponse.CategoryItem>): CategoryResponse;
-  clearCategorysList(): CategoryResponse;
-  addCategorys(value?: CategoryResponse.CategoryItem, index?: number): CategoryResponse.CategoryItem;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CategoryResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: CategoryResponse): CategoryResponse.AsObject;
-  static serializeBinaryToWriter(message: CategoryResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CategoryResponse;
-  static deserializeBinaryFromReader(message: CategoryResponse, reader: jspb.BinaryReader): CategoryResponse;
-}
-
-export namespace CategoryResponse {
-  export type AsObject = {
-    categorysList: Array<CategoryResponse.CategoryItem.AsObject>,
-  }
-
-  export class CategoryItem extends jspb.Message {
-    getType(): string;
-    setType(value: string): CategoryItem;
-
-    getListList(): Array<NewsItem>;
-    setListList(value: Array<NewsItem>): CategoryItem;
-    clearListList(): CategoryItem;
-    addList(value?: NewsItem, index?: number): NewsItem;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): CategoryItem.AsObject;
-    static toObject(includeInstance: boolean, msg: CategoryItem): CategoryItem.AsObject;
-    static serializeBinaryToWriter(message: CategoryItem, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): CategoryItem;
-    static deserializeBinaryFromReader(message: CategoryItem, reader: jspb.BinaryReader): CategoryItem;
-  }
-
-  export namespace CategoryItem {
-    export type AsObject = {
-      type: string,
-      listList: Array<NewsItem.AsObject>,
-    }
-  }
-
-}
-
 export class DetailRequest extends jspb.Message {
   getUrl(): string;
   setUrl(value: string): DetailRequest;
