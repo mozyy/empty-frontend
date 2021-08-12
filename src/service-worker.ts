@@ -13,6 +13,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -79,3 +80,17 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+registerRoute(
+  `${self.location.origin}/api/news.News/List`,
+  new StaleWhileRevalidate({
+    cacheName: 'api-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        headers: {
+          'X-Is-Cacheable': 'true',
+        },
+      }),
+    ],
+  }),
+);
