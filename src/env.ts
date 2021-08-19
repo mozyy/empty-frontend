@@ -1,21 +1,23 @@
 const envStr = process.env.REACT_APP_MODE || 'dev';
 
 interface EnvConfig {
-  grpcAddress: string,
+  host: string,
+  // grpcAddress: string,
 }
 
 const configs:{ [key: string]: EnvConfig } = {
   dev: {
-    grpcAddress: 'http://localhost:50052/api',
+    host: 'http://localhost:50052',
   },
   test: {
-    grpcAddress: 'http://localhost:50053/api',
+    host: 'http://localhost:50053',
   },
   prod: {
-    grpcAddress: 'https://yyue.vip/api',
+    host: 'https://yyue.vip',
   },
 };
 
 const envConfig = configs[envStr];
+export const grpcAddress = `${envConfig.host}/i/api`;
 
 export default envConfig;

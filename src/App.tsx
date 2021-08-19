@@ -7,7 +7,7 @@ import pink from '@material-ui/core/colors/pink';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { zhCN } from '@material-ui/core/locale';
 import {
-  createMuiTheme,
+  createTheme,
   ThemeProvider,
 } from '@material-ui/core/styles';
 import React, { FC } from 'react';
@@ -20,7 +20,7 @@ import {
 import './App.css';
 import Routers from './router/Routers';
 
-const theme = createMuiTheme(
+const theme = createTheme(
   {
     palette: {
       primary: pink,

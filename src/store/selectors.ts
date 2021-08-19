@@ -7,14 +7,14 @@ export const jwtStrState = selector({
   key: 'jwtStrState',
   get: ({ get }) => {
     const oauth = get(oauthState);
-    return oauth.access_token;
+    return oauth?.accessToken;
   },
 });
 export const jwtState = selector({
   key: 'jwtState',
   get: ({ get }) => {
     const oauth = get(oauthState);
-    const value = jwtDecode<JwtContent>(oauth.access_token);
+    const value = jwtDecode<JwtContent>(oauth?.accessToken || '');
     return value;
   },
 });

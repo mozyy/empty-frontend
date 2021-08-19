@@ -6,9 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { NewsItem } from '../../proto/news/news_pb';
 import { Item } from './components/Item';
-import envConfig from '../../env';
-import { UnaryInterceptorAuth } from '../../utils/grpcClient';
 import useGrpcClient from '../../hooks/grpcClient';
+import useOauth from '../../hooks/oauth';
 // interface NewsClass {
 //   type: string
 //   list:
@@ -29,11 +28,9 @@ const News: React.FC = () => {
   const [loading, setLoading] = useState(true);
   console.log(loading);
   const newsService = useGrpcClient(NewsClient);
+  useOauth();
 
   useEffect(() => {
-    // class NewsService {
-    //   constructor(public newsService:EmptyClient) {}
-    // }
     setLoading(true);
     newsService.list(new Empty(), null).then((res) => {
       console.log(res.toObject());
@@ -41,10 +38,6 @@ const News: React.FC = () => {
     }).finally(() => {
       setLoading(false);
     });
-    // const stream = newsService.news(new Empty());
-    // stream.on('data', (res) => {
-    //   console.log(123, res.toObject());
-    // });
   }, [newsService]);
 
   const category = useMemo(() => {

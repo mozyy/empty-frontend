@@ -4,37 +4,31 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import envConfig from '../../env';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { DetailRequest, DetailResponse } from '../../proto/news/news_pb';
-import { UnaryInterceptorAuth } from '../../utils/grpcClient';
+import useGrpcClient from '../../hooks/grpcClient';
 
 const StyledImg = styled('img')({
   width: '100%',
   // backgroundColor: '#292929'
 });
 
+interface Params {
+  link: string
+}
+
 const NewsDetail: React.FC = () => {
   const [detail, setDetail] = useState<DetailResponse.AsObject>();
-  const { link } = useParams<{ link: string }>();
-  console.log(link);
+  const { link } = useParams<Params>();
+  const newsService = useGrpcClient(NewsClient);
   useEffect(() => {
-    // class NewsService {
-    //   constructor(public newsService:EmptyClient) {}
-    // }
-    const newsService = new NewsClient(envConfig.grpcAddress, {},
-      { unaryInterceptors: [new UnaryInterceptorAuth()] });
     const detailRequest = new DetailRequest();
     detailRequest.setUrl(decodeURIComponent(link));
     newsService.detail(detailRequest, null).then((res) => {
       console.log(res.toObject());
       setDetail(res.toObject());
     });
-    // const stream = newsService.news(new Empty());
-    // stream.on('data', (res) => {
-    //   console.log(123, res.toObject());
-    // });
-  }, [link]);
+  }, [link, newsService]);
 
   return (
     <Box sx={{ padding: 1 }}>
