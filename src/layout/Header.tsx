@@ -12,6 +12,7 @@ import { alpha, experimentalStyled as styled } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import LoginIcon from '@material-ui/icons/Login';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -129,6 +130,9 @@ const Header:React.FC = () => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleLogin = () => {
+
+  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -208,6 +212,17 @@ const Header:React.FC = () => {
           <AccountCircle />
         </IconButton>
         <p>个人</p>
+      </MenuItem>
+      <MenuItem onClick={handleLogin}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <LoginIcon />
+        </IconButton>
+        <p>登录</p>
       </MenuItem>
       {beforeInstallEvent && (
       <MenuItem onClick={onInstallClick}>

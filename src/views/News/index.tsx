@@ -8,6 +8,7 @@ import { NewsItem } from '../../proto/news/news_pb';
 import { Item } from './components/Item';
 import envConfig from '../../env';
 import { UnaryInterceptorAuth } from '../../utils/grpcClient';
+import useGrpcClient from '../../hooks/grpcClient';
 // interface NewsClass {
 //   type: string
 //   list:
@@ -27,14 +28,13 @@ const News: React.FC = () => {
   const [news, setNews] = useState<NewsItem.AsObject[]>([]);
   const [loading, setLoading] = useState(true);
   console.log(loading);
+  const newsService = useGrpcClient(NewsClient);
 
   useEffect(() => {
     // class NewsService {
     //   constructor(public newsService:EmptyClient) {}
     // }
     setLoading(true);
-    const newsService = new NewsClient(envConfig.grpcAddress, {},
-      { unaryInterceptors: [new UnaryInterceptorAuth()] });
     newsService.list(new Empty(), null).then((res) => {
       console.log(res.toObject());
       setNews(res.toObject().listList);
@@ -45,7 +45,7 @@ const News: React.FC = () => {
     // stream.on('data', (res) => {
     //   console.log(123, res.toObject());
     // });
-  }, []);
+  }, [newsService]);
 
   const category = useMemo(() => {
     const cate:{ [key: string]:NewsItem.AsObject[] } = {};
