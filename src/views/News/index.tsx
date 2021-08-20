@@ -7,7 +7,7 @@ import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { NewsItem } from '../../proto/news/news_pb';
 import { Item } from './components/Item';
 import useGrpcClient from '../../hooks/grpcClient';
-import useOauth from '../../hooks/oauth';
+// import useOauth from '../../hooks/oauth';
 // interface NewsClass {
 //   type: string
 //   list:
@@ -28,7 +28,7 @@ const News: React.FC = () => {
   const [loading, setLoading] = useState(true);
   console.log(loading);
   const newsService = useGrpcClient(NewsClient);
-  useOauth();
+  // useOauth();
 
   useEffect(() => {
     setLoading(true);
