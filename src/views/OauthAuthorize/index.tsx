@@ -2,9 +2,8 @@ import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useInputField } from '../../hooks/inputField';
-import ELink from '../../components/ELink';
 
-const Login: React.FC = () => {
+const OauthAuthorize: React.FC = () => {
   const [state, setState] = useInputField({
     mobile: '',
     password: '',
@@ -28,11 +27,8 @@ const Login: React.FC = () => {
         />
       </Box>
       <Button sx={{ flex: 1, marginTop: 1 }} variant="contained" type="submit">登录</Button>
-      <ELink to="/register">
-        <Button sx={{ flex: 1, marginTop: 1 }}>注册</Button>
-      </ELink>
     </Box>
   );
 };
 
-export default Login;
+export default OauthAuthorize;

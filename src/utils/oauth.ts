@@ -1,7 +1,7 @@
 import ClientOAuth2 from 'client-oauth2';
 
 const oAuth = new ClientOAuth2({
-  clientId: 'abc',
+  clientId: '1',
   // clientSecret: '123',
   // accessTokenUri: 'https://github.com/login/oauth/access_token',
   authorizationUri: '/oauth/authorize',

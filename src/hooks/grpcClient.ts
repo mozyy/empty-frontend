@@ -29,9 +29,9 @@ const useGrpcClient = <T>(Client:new (...args:any[]) => T) => {
           console.log(getOAuthUrl({
             redirectUri: window.location.href,
           }));
-          // window.location.href = getOAuthUrl({
-          //   // redirectUri: encodeURIComponent(window.location.href),
-          // });
+          history.push(getOAuthUrl({
+            redirectUri: window.location.href,
+          }));
         }
         console.error('grpc error:', (request.getMethodDescriptor() as any)?.name, e);
         return Promise.reject(e);

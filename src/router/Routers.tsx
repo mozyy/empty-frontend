@@ -3,6 +3,9 @@ import React, { FC, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 const Doc = lazy(() => import('../views/Doc'));
+const Login = lazy(() => import('../views/Login'));
+const Register = lazy(() => import('../views/Register'));
+const OauthAuthorize = lazy(() => import('../views/OauthAuthorize'));
 const Layout = lazy(() => import('../layout/Layout'));
 const Gallery = lazy(() => import('../views/Gallery'));
 const News = lazy(() => import('../views/News'));
@@ -12,6 +15,9 @@ const Routers:FC = () => (
   <Suspense fallback={<CircularProgress />}>
     <Switch>
       <Route path="/doc" component={Doc} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/oauth/authorize" component={OauthAuthorize} />
 
       <Route path="/">
         <Layout>

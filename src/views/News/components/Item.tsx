@@ -8,9 +8,10 @@ import { experimentalStyled as styled, useTheme } from '@material-ui/core/styles
 // import { Box } from '@material-ui/core';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CommentIcon from '@material-ui/icons/Comment';
-import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
+import { LinkProps } from 'react-router-dom';
 import Skeleton from '@material-ui/core/Skeleton';
 import { NewsItem } from '../../../proto/news/news_pb';
+import ELink from '../../../components/ELink';
 
 export interface ItemProps {
   item: NewsItem.AsObject
@@ -53,13 +54,13 @@ export const ItemViewSkeleton: React.FC = () => (
 export const Item: React.FC<ItemProps> = (props) => {
   const { item } = props;
   const to = item.link;
-  const renderLink = React.useMemo(() => React.forwardRef<HTMLAnchorElement, Omit<RouterLinkProps, 'to'>>(
-    (itemProps, ref) => <RouterLink to={`/newsDetail/${encodeURIComponent(to)}`} ref={ref} {...itemProps} />,
+  const RenderLink = React.useMemo(() => React.forwardRef<HTMLAnchorElement, Omit<LinkProps, 'to'>>(
+    (itemProps, ref) => <ELink to={`/newsDetail/${encodeURIComponent(to)}`} ref={ref} {...itemProps} />,
   ),
   [to]);
 
   return (
-    <ItemView component={renderLink} avatar={<img src={item.image} referrerPolicy="no-referrer" alt={item.title} />}>
+    <ItemView component={RenderLink} avatar={<img src={item.image} referrerPolicy="no-referrer" alt={item.title} />}>
       <ListItemText
         primary={item.title}
         sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
