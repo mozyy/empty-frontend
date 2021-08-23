@@ -1,32 +1,34 @@
 import * as React from 'react';
-import { Box, Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import { useInputField } from '../../hooks/inputField';
+import { Box } from '@material-ui/core';
+import { useRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
+import useRouterParams from '../../hooks/routerParams';
+import { oauthState } from '../../store/atoms';
 
 const OauthAuthorize: React.FC = () => {
-  const [state, setState] = useInputField({
-    mobile: '',
-    password: '',
-  });
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(123, state);
-    e.preventDefault();
-  };
+  const params = useRouterParams();
+  console.log(params.forEach(console.log));
+  const history = useHistory();
+  const [oauth, setOauth] = useRecoilState(oauthState);
+  React.useEffect(() => {
+    if (oauth) {
+      if (oauth.expired()) {
+        oauth.refresh().then((res) => {
+          setOauth(res);
+        }, () => {
+          history.push('/login');
+        });
+      } else {
+        console.log(1111, oauth);
+      }
+    } else {
+      history.push('/login');
+    }
+  }, [oauth, history, setOauth]);
+
   return (
-    <Box component="form" onSubmit={onSubmit} sx={{ padding: 1, display: 'flex', flexDirection: 'column' }}>
-      <Box>
-        <TextField
-          label="mobile"
-          value={state.mobile}
-          onChange={setState('mobile')}
-        />
-        <TextField
-          label="password"
-          value={state.password}
-          onChange={setState('password')}
-        />
-      </Box>
-      <Button sx={{ flex: 1, marginTop: 1 }} variant="contained" type="submit">登录</Button>
+    <Box sx={{ padding: 1, display: 'flex', flexDirection: 'column' }}>
+      loading
     </Box>
   );
 };

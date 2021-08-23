@@ -1,12 +1,12 @@
 import ClientOAuth2 from 'client-oauth2';
 
-const oAuth = new ClientOAuth2({
+export const oAuth = new ClientOAuth2({
   clientId: '1',
-  // clientSecret: '123',
-  // accessTokenUri: 'https://github.com/login/oauth/access_token',
+  clientSecret: '22222222',
+  accessTokenUri: 'http://localhost:50052/i/oauth/oauth/token',
   authorizationUri: '/oauth/authorize',
   redirectUri: `${window.location.origin}/auth/github/callback`,
-  scopes: ['notifications', 'gist'],
+  scopes: ['admin'],
 });
 
 const getOAuthUrl = (options?: ClientOAuth2.Options) => oAuth.token.getUri(options);

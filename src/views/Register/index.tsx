@@ -1,15 +1,29 @@
 import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import { useHistory } from 'react-router-dom';
 import { useInputField } from '../../hooks/inputField';
+import useGrpcClient from '../../hooks/grpcClient';
+import { UserClient } from '../../proto/user/UserServiceClientPb';
+import { RegisterRequest } from '../../proto/user/user_pb';
 
 const Register: React.FC = () => {
   const [state, setState] = useInputField({
     mobile: '',
     password: '',
   });
+  const history = useHistory();
+  const userClient = useGrpcClient(UserClient);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(123, state);
+    const req = new RegisterRequest();
+    req.setMobile(state.mobile);
+    req.setPassword(state.password);
+    userClient.register(req, { Authorization: 'Bearer some-secret-token' })
+      .then((res) => {
+        console.log(123123, res.getAuth());
+        history.goBack();
+      });
     e.preventDefault();
   };
   return (

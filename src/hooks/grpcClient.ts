@@ -31,6 +31,7 @@ const useGrpcClient = <T>(Client:new (...args:any[]) => T) => {
           }));
           history.push(getOAuthUrl({
             redirectUri: window.location.href,
+            scopes: ['admin'],
           }));
         }
         console.error('grpc error:', (request.getMethodDescriptor() as any)?.name, e);

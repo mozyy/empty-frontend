@@ -1,16 +1,24 @@
 import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import { useSetRecoilState } from 'recoil';
 import { useInputField } from '../../hooks/inputField';
 import ELink from '../../components/ELink';
+import { oAuth } from '../../utils/oauth';
+import { oauthState } from '../../store/atoms';
 
 const Login: React.FC = () => {
   const [state, setState] = useInputField({
     mobile: '',
     password: '',
   });
+  const setOauth = useSetRecoilState(oauthState);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(123, state);
+    oAuth.owner.getToken(state.mobile, state.password).then((token) => {
+      console.log(2222, token);
+      setOauth(token);
+    });
     e.preventDefault();
   };
   return (
