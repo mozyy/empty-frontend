@@ -22,7 +22,7 @@ const useGrpcClient = <T>(Client:new (...args:any[]) => T) => {
           setOauth(newToken);
           return Promise.reject(Error('token refresh'));
         }
-        reqMeta.Authorization = reqMeta.Authorization ?? `${token.tokenType} ${token.accessToken}`;
+        reqMeta.Authorization = reqMeta.Authorization ?? `${token.tokenType || 'Bearer'} ${token.accessToken}`;
       }
       const response = await invoker(request).catch((e: grpcWeb.Error) => {
         if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
