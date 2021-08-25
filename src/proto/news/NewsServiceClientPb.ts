@@ -14,7 +14,7 @@
 import * as grpcWeb from 'grpc-web';
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-import * as news_news_pb from '../news/news_pb';
+import * as proto_news_news_pb from '../../proto/news/news_pb';
 
 
 export class NewsClient {
@@ -37,28 +37,28 @@ export class NewsClient {
   }
 
   methodInfoList = new grpcWeb.AbstractClientBase.MethodInfo(
-    news_news_pb.ListResponse,
+    proto_news_news_pb.ListResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    news_news_pb.ListResponse.deserializeBinary
+    proto_news_news_pb.ListResponse.deserializeBinary
   );
 
   list(
     request: google_protobuf_empty_pb.Empty,
-    metadata: grpcWeb.Metadata | null): Promise<news_news_pb.ListResponse>;
+    metadata: grpcWeb.Metadata | null): Promise<proto_news_news_pb.ListResponse>;
 
   list(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: news_news_pb.ListResponse) => void): grpcWeb.ClientReadableStream<news_news_pb.ListResponse>;
+               response: proto_news_news_pb.ListResponse) => void): grpcWeb.ClientReadableStream<proto_news_news_pb.ListResponse>;
 
   list(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: news_news_pb.ListResponse) => void) {
+               response: proto_news_news_pb.ListResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
@@ -77,28 +77,28 @@ export class NewsClient {
   }
 
   methodInfoDetail = new grpcWeb.AbstractClientBase.MethodInfo(
-    news_news_pb.DetailResponse,
-    (request: news_news_pb.DetailRequest) => {
+    proto_news_news_pb.DetailResponse,
+    (request: proto_news_news_pb.DetailRequest) => {
       return request.serializeBinary();
     },
-    news_news_pb.DetailResponse.deserializeBinary
+    proto_news_news_pb.DetailResponse.deserializeBinary
   );
 
   detail(
-    request: news_news_pb.DetailRequest,
-    metadata: grpcWeb.Metadata | null): Promise<news_news_pb.DetailResponse>;
+    request: proto_news_news_pb.DetailRequest,
+    metadata: grpcWeb.Metadata | null): Promise<proto_news_news_pb.DetailResponse>;
 
   detail(
-    request: news_news_pb.DetailRequest,
+    request: proto_news_news_pb.DetailRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: news_news_pb.DetailResponse) => void): grpcWeb.ClientReadableStream<news_news_pb.DetailResponse>;
+               response: proto_news_news_pb.DetailResponse) => void): grpcWeb.ClientReadableStream<proto_news_news_pb.DetailResponse>;
 
   detail(
-    request: news_news_pb.DetailRequest,
+    request: proto_news_news_pb.DetailRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: news_news_pb.DetailResponse) => void) {
+               response: proto_news_news_pb.DetailResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +

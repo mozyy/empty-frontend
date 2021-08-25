@@ -30,7 +30,9 @@ const Login: React.FC = () => {
     req.setPassword(state.password);
     userClient.login(req, { Authorization: 'Bearer some-secret-token' }).then((res) => {
       console.log(123, res);
-      const oauth = oAuth.createToken(res.getAuth(), {});
+      const oauth = oAuth.createToken(res.getAccessToken(),
+        res.getRefreshToken(), res.getTokenType(), { });
+
       setOauth(oauth);
       history.replace('/');
     });

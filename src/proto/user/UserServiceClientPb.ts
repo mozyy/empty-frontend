@@ -14,7 +14,8 @@
 import * as grpcWeb from 'grpc-web';
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-import * as user_user_pb from '../user/user_pb';
+import * as proto_model_oauth_pb from '../../proto/model/oauth_pb';
+import * as proto_user_user_pb from '../../proto/user/user_pb';
 
 
 export class UserClient {
@@ -37,28 +38,28 @@ export class UserClient {
   }
 
   methodInfoRegister = new grpcWeb.AbstractClientBase.MethodInfo(
-    user_user_pb.LoginResponse,
-    (request: user_user_pb.RegisterRequest) => {
+    proto_model_oauth_pb.OAuthToken,
+    (request: proto_user_user_pb.RegisterRequest) => {
       return request.serializeBinary();
     },
-    user_user_pb.LoginResponse.deserializeBinary
+    proto_model_oauth_pb.OAuthToken.deserializeBinary
   );
 
   register(
-    request: user_user_pb.RegisterRequest,
-    metadata: grpcWeb.Metadata | null): Promise<user_user_pb.LoginResponse>;
+    request: proto_user_user_pb.RegisterRequest,
+    metadata: grpcWeb.Metadata | null): Promise<proto_model_oauth_pb.OAuthToken>;
 
   register(
-    request: user_user_pb.RegisterRequest,
+    request: proto_user_user_pb.RegisterRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: user_user_pb.LoginResponse) => void): grpcWeb.ClientReadableStream<user_user_pb.LoginResponse>;
+               response: proto_model_oauth_pb.OAuthToken) => void): grpcWeb.ClientReadableStream<proto_model_oauth_pb.OAuthToken>;
 
   register(
-    request: user_user_pb.RegisterRequest,
+    request: proto_user_user_pb.RegisterRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: user_user_pb.LoginResponse) => void) {
+               response: proto_model_oauth_pb.OAuthToken) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
@@ -77,28 +78,28 @@ export class UserClient {
   }
 
   methodInfoLogin = new grpcWeb.AbstractClientBase.MethodInfo(
-    user_user_pb.LoginResponse,
-    (request: user_user_pb.LoginRequest) => {
+    proto_model_oauth_pb.OAuthToken,
+    (request: proto_user_user_pb.LoginRequest) => {
       return request.serializeBinary();
     },
-    user_user_pb.LoginResponse.deserializeBinary
+    proto_model_oauth_pb.OAuthToken.deserializeBinary
   );
 
   login(
-    request: user_user_pb.LoginRequest,
-    metadata: grpcWeb.Metadata | null): Promise<user_user_pb.LoginResponse>;
+    request: proto_user_user_pb.LoginRequest,
+    metadata: grpcWeb.Metadata | null): Promise<proto_model_oauth_pb.OAuthToken>;
 
   login(
-    request: user_user_pb.LoginRequest,
+    request: proto_user_user_pb.LoginRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: user_user_pb.LoginResponse) => void): grpcWeb.ClientReadableStream<user_user_pb.LoginResponse>;
+               response: proto_model_oauth_pb.OAuthToken) => void): grpcWeb.ClientReadableStream<proto_model_oauth_pb.OAuthToken>;
 
   login(
-    request: user_user_pb.LoginRequest,
+    request: proto_user_user_pb.LoginRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: user_user_pb.LoginResponse) => void) {
+               response: proto_model_oauth_pb.OAuthToken) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
@@ -117,28 +118,28 @@ export class UserClient {
   }
 
   methodInfoInfo = new grpcWeb.AbstractClientBase.MethodInfo(
-    user_user_pb.InfoResponse,
+    proto_user_user_pb.InfoResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    user_user_pb.InfoResponse.deserializeBinary
+    proto_user_user_pb.InfoResponse.deserializeBinary
   );
 
   info(
     request: google_protobuf_empty_pb.Empty,
-    metadata: grpcWeb.Metadata | null): Promise<user_user_pb.InfoResponse>;
+    metadata: grpcWeb.Metadata | null): Promise<proto_user_user_pb.InfoResponse>;
 
   info(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: user_user_pb.InfoResponse) => void): grpcWeb.ClientReadableStream<user_user_pb.InfoResponse>;
+               response: proto_user_user_pb.InfoResponse) => void): grpcWeb.ClientReadableStream<proto_user_user_pb.InfoResponse>;
 
   info(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: user_user_pb.InfoResponse) => void) {
+               response: proto_user_user_pb.InfoResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +

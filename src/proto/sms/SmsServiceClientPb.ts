@@ -14,7 +14,7 @@
 import * as grpcWeb from 'grpc-web';
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-import * as sms_sms_pb from '../sms/sms_pb';
+import * as proto_sms_sms_pb from '../../proto/sms/sms_pb';
 
 
 export class SMSClient {
@@ -38,24 +38,24 @@ export class SMSClient {
 
   methodInfoSend = new grpcWeb.AbstractClientBase.MethodInfo(
     google_protobuf_empty_pb.Empty,
-    (request: sms_sms_pb.SendRequest) => {
+    (request: proto_sms_sms_pb.SendRequest) => {
       return request.serializeBinary();
     },
     google_protobuf_empty_pb.Empty.deserializeBinary
   );
 
   send(
-    request: sms_sms_pb.SendRequest,
+    request: proto_sms_sms_pb.SendRequest,
     metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
 
   send(
-    request: sms_sms_pb.SendRequest,
+    request: proto_sms_sms_pb.SendRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   send(
-    request: sms_sms_pb.SendRequest,
+    request: proto_sms_sms_pb.SendRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
                response: google_protobuf_empty_pb.Empty) => void) {
@@ -78,24 +78,24 @@ export class SMSClient {
 
   methodInfoValidation = new grpcWeb.AbstractClientBase.MethodInfo(
     google_protobuf_empty_pb.Empty,
-    (request: sms_sms_pb.ValidationRequest) => {
+    (request: proto_sms_sms_pb.ValidationRequest) => {
       return request.serializeBinary();
     },
     google_protobuf_empty_pb.Empty.deserializeBinary
   );
 
   validation(
-    request: sms_sms_pb.ValidationRequest,
+    request: proto_sms_sms_pb.ValidationRequest,
     metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
 
   validation(
-    request: sms_sms_pb.ValidationRequest,
+    request: proto_sms_sms_pb.ValidationRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   validation(
-    request: sms_sms_pb.ValidationRequest,
+    request: proto_sms_sms_pb.ValidationRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
                response: google_protobuf_empty_pb.Empty) => void) {

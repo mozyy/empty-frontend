@@ -20,8 +20,7 @@ const Register: React.FC = () => {
     req.setMobile(state.mobile);
     req.setPassword(state.password);
     userClient.register(req, { Authorization: 'Bearer some-secret-token' })
-      .then((res) => {
-        console.log(123123, res.getAuth());
+      .then(() => {
         history.goBack();
       });
     e.preventDefault();

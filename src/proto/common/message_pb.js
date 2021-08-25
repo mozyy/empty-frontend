@@ -1,4 +1,4 @@
-// source: common/message.proto
+// source: proto/common/message.proto
 /**
  * @fileoverview
  * @enhanceable

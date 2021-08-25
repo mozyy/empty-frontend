@@ -1,6 +1,7 @@
 import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
+import * as proto_model_oauth_pb from '../../proto/model/oauth_pb';
 
 
 export class RegisterRequest extends jspb.Message {
@@ -44,24 +45,6 @@ export namespace LoginRequest {
   export type AsObject = {
     mobile: string,
     password: string,
-  }
-}
-
-export class LoginResponse extends jspb.Message {
-  getAuth(): string;
-  setAuth(value: string): LoginResponse;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): LoginResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: LoginResponse): LoginResponse.AsObject;
-  static serializeBinaryToWriter(message: LoginResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): LoginResponse;
-  static deserializeBinaryFromReader(message: LoginResponse, reader: jspb.BinaryReader): LoginResponse;
-}
-
-export namespace LoginResponse {
-  export type AsObject = {
-    auth: string,
   }
 }
 
