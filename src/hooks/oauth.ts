@@ -1,5 +1,9 @@
-import { useHistory } from 'react-router-dom';
-import getOAuthUrl from '../utils/oauth';
+import { stringify } from 'qs';
+import { useCallback } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { oauthState } from '../store/atoms';
+import { getOAuthUri } from '../utils/oauth';
 
 // Can also just pass the raw `data` object in place of an argument.
 // githubAuth.token.getToken(uri)
@@ -28,11 +32,30 @@ import getOAuthUrl from '../utils/oauth';
 //   url: 'https://api.github.com/users',
 // }); //= > { method, url, headers, ... }
 
-const useOauth = (scopes?: string[]) => {
+export const useOauth = (scopes?: string[]) => {
   const history = useHistory();
   const opt = scopes ? { scopes } : undefined;
-  const url = getOAuthUrl(opt);
+  const url = getOAuthUri(opt);
   history.push(url);
 };
 
-export default useOauth;
+export const useOauthRefresh = () => {
+  const [oauth, setOauth] = useRecoilState(oauthState);
+  const history = useHistory();
+  const location = useLocation();
+  return useCallback(() => {
+    const redireURI = `/login?${stringify({ redirectURI: location.pathname + location.search })}`;
+    if (!oauth) {
+      history.push(redireURI);
+      return Promise.reject(Error('no token'));
+    }
+    return oauth.refresh().then((newOauth) => {
+      setOauth(newOauth);
+      return newOauth;
+    }, (err) => {
+      setOauth(undefined);
+      history.push(redireURI);
+      return Promise.reject(Error(`token refresh error: ${err}`));
+    });
+  }, [location.pathname, location.search, oauth, history, setOauth]);
+};

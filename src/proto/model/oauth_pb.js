@@ -94,7 +94,8 @@ proto.model.OAuthToken.toObject = function(includeInstance, msg) {
   var f, obj = {
     accessToken: jspb.Message.getFieldWithDefault(msg, 1, ""),
     tokenType: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    refreshToken: jspb.Message.getFieldWithDefault(msg, 3, "")
+    refreshToken: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    expiresSeconds: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0)
   };
 
   if (includeInstance) {
@@ -143,6 +144,10 @@ proto.model.OAuthToken.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setRefreshToken(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setExpiresSeconds(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -190,6 +195,13 @@ proto.model.OAuthToken.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getExpiresSeconds();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      4,
       f
     );
   }
@@ -247,6 +259,24 @@ proto.model.OAuthToken.prototype.getRefreshToken = function() {
  */
 proto.model.OAuthToken.prototype.setRefreshToken = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional double expires_seconds = 4;
+ * @return {number}
+ */
+proto.model.OAuthToken.prototype.getExpiresSeconds = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.model.OAuthToken} returns this
+ */
+proto.model.OAuthToken.prototype.setExpiresSeconds = function(value) {
+  return jspb.Message.setProto3FloatField(this, 4, value);
 };
 
 

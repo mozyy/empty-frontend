@@ -13,6 +13,9 @@ export class OAuthToken extends jspb.Message {
   getRefreshToken(): string;
   setRefreshToken(value: string): OAuthToken;
 
+  getExpiresSeconds(): number;
+  setExpiresSeconds(value: number): OAuthToken;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OAuthToken.AsObject;
   static toObject(includeInstance: boolean, msg: OAuthToken): OAuthToken.AsObject;
@@ -26,6 +29,7 @@ export namespace OAuthToken {
     accessToken: string,
     tokenType: string,
     refreshToken: string,
+    expiresSeconds: number,
   }
 }
 
