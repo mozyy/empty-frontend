@@ -1,9 +1,28 @@
 import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
+import * as protoc$gen$orm_orm_orm_pb from '../../protoc-gen-orm/orm/orm_pb';
 
 
 export class OAuthToken extends jspb.Message {
+  getId(): number;
+  setId(value: number): OAuthToken;
+
+  getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): OAuthToken;
+  hasCreatedAt(): boolean;
+  clearCreatedAt(): OAuthToken;
+
+  getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): OAuthToken;
+  hasUpdatedAt(): boolean;
+  clearUpdatedAt(): OAuthToken;
+
+  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): OAuthToken;
+  hasDeletedAt(): boolean;
+  clearDeletedAt(): OAuthToken;
+
   getAccessToken(): string;
   setAccessToken(value: string): OAuthToken;
 
@@ -26,6 +45,10 @@ export class OAuthToken extends jspb.Message {
 
 export namespace OAuthToken {
   export type AsObject = {
+    id: number,
+    createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     accessToken: string,
     tokenType: string,
     refreshToken: string,

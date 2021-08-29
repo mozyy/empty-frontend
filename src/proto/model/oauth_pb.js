@@ -16,6 +16,8 @@ var global = Function('return this')();
 
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
+var protoc$gen$orm_orm_orm_pb = require('../../protoc-gen-orm/orm/orm_pb.js');
+goog.object.extend(proto, protoc$gen$orm_orm_orm_pb);
 goog.exportSymbol('proto.model.OAuthClient', null, global);
 goog.exportSymbol('proto.model.OAuthToken', null, global);
 /**
@@ -92,10 +94,14 @@ proto.model.OAuthToken.prototype.toObject = function(opt_includeInstance) {
  */
 proto.model.OAuthToken.toObject = function(includeInstance, msg) {
   var f, obj = {
-    accessToken: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    tokenType: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    refreshToken: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    expiresSeconds: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0)
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    deletedAt: (f = msg.getDeletedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    accessToken: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    tokenType: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    refreshToken: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    expiresSeconds: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0)
   };
 
   if (includeInstance) {
@@ -133,18 +139,37 @@ proto.model.OAuthToken.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setUpdatedAt(value);
+      break;
+    case 4:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setDeletedAt(value);
+      break;
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setAccessToken(value);
       break;
-    case 2:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setTokenType(value);
       break;
-    case 3:
+    case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setRefreshToken(value);
       break;
-    case 4:
+    case 8:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setExpiresSeconds(value);
       break;
@@ -177,31 +202,62 @@ proto.model.OAuthToken.prototype.serializeBinary = function() {
  */
 proto.model.OAuthToken.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getDeletedAt();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
   f = message.getAccessToken();
   if (f.length > 0) {
     writer.writeString(
-      1,
+      5,
       f
     );
   }
   f = message.getTokenType();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      6,
       f
     );
   }
   f = message.getRefreshToken();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      7,
       f
     );
   }
   f = message.getExpiresSeconds();
   if (f !== 0.0) {
     writer.writeDouble(
-      4,
+      8,
       f
     );
   }
@@ -209,11 +265,140 @@ proto.model.OAuthToken.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string access_token = 1;
+ * optional uint32 ID = 1;
+ * @return {number}
+ */
+proto.model.OAuthToken.prototype.getId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.model.OAuthToken} returns this
+ */
+proto.model.OAuthToken.prototype.setId = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 2;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.model.OAuthToken.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.model.OAuthToken} returns this
+*/
+proto.model.OAuthToken.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.OAuthToken} returns this
+ */
+proto.model.OAuthToken.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.OAuthToken.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp updated_at = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.model.OAuthToken.prototype.getUpdatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.model.OAuthToken} returns this
+*/
+proto.model.OAuthToken.prototype.setUpdatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.OAuthToken} returns this
+ */
+proto.model.OAuthToken.prototype.clearUpdatedAt = function() {
+  return this.setUpdatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.OAuthToken.prototype.hasUpdatedAt = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp deleted_at = 4;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.model.OAuthToken.prototype.getDeletedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.model.OAuthToken} returns this
+*/
+proto.model.OAuthToken.prototype.setDeletedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.OAuthToken} returns this
+ */
+proto.model.OAuthToken.prototype.clearDeletedAt = function() {
+  return this.setDeletedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.OAuthToken.prototype.hasDeletedAt = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional string access_token = 5;
  * @return {string}
  */
 proto.model.OAuthToken.prototype.getAccessToken = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
@@ -222,16 +407,16 @@ proto.model.OAuthToken.prototype.getAccessToken = function() {
  * @return {!proto.model.OAuthToken} returns this
  */
 proto.model.OAuthToken.prototype.setAccessToken = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional string token_type = 2;
+ * optional string token_type = 6;
  * @return {string}
  */
 proto.model.OAuthToken.prototype.getTokenType = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
@@ -240,16 +425,16 @@ proto.model.OAuthToken.prototype.getTokenType = function() {
  * @return {!proto.model.OAuthToken} returns this
  */
 proto.model.OAuthToken.prototype.setTokenType = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
 /**
- * optional string refresh_token = 3;
+ * optional string refresh_token = 7;
  * @return {string}
  */
 proto.model.OAuthToken.prototype.getRefreshToken = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
@@ -258,16 +443,16 @@ proto.model.OAuthToken.prototype.getRefreshToken = function() {
  * @return {!proto.model.OAuthToken} returns this
  */
 proto.model.OAuthToken.prototype.setRefreshToken = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 
 /**
- * optional double expires_seconds = 4;
+ * optional double expires_seconds = 8;
  * @return {number}
  */
 proto.model.OAuthToken.prototype.getExpiresSeconds = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
 };
 
 
@@ -276,7 +461,7 @@ proto.model.OAuthToken.prototype.getExpiresSeconds = function() {
  * @return {!proto.model.OAuthToken} returns this
  */
 proto.model.OAuthToken.prototype.setExpiresSeconds = function(value) {
-  return jspb.Message.setProto3FloatField(this, 4, value);
+  return jspb.Message.setProto3FloatField(this, 8, value);
 };
 
 
