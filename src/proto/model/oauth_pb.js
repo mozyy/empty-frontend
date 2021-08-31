@@ -503,7 +503,7 @@ proto.model.OAuthClient.toObject = function(includeInstance, msg) {
     deletedAt: (f = msg.getDeletedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     secret: jspb.Message.getFieldWithDefault(msg, 5, ""),
     domain: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    userId: jspb.Message.getFieldWithDefault(msg, 7, "")
+    userid: jspb.Message.getFieldWithDefault(msg, 7, "")
   };
 
   if (includeInstance) {
@@ -569,7 +569,7 @@ proto.model.OAuthClient.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUserId(value);
+      msg.setUserid(value);
       break;
     default:
       reader.skipField();
@@ -645,7 +645,7 @@ proto.model.OAuthClient.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getUserId();
+  f = message.getUserid();
   if (f.length > 0) {
     writer.writeString(
       7,
@@ -821,10 +821,10 @@ proto.model.OAuthClient.prototype.setDomain = function(value) {
 
 
 /**
- * optional string user_ID = 7;
+ * optional string userID = 7;
  * @return {string}
  */
-proto.model.OAuthClient.prototype.getUserId = function() {
+proto.model.OAuthClient.prototype.getUserid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
@@ -833,7 +833,7 @@ proto.model.OAuthClient.prototype.getUserId = function() {
  * @param {string} value
  * @return {!proto.model.OAuthClient} returns this
  */
-proto.model.OAuthClient.prototype.setUserId = function(value) {
+proto.model.OAuthClient.prototype.setUserid = function(value) {
   return jspb.Message.setProto3StringField(this, 7, value);
 };
 

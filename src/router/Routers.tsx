@@ -8,7 +8,8 @@ const Register = lazy(() => import('../views/Register'));
 const OauthAuthorize = lazy(() => import('../views/OauthAuthorize'));
 const Layout = lazy(() => import('../layout/Layout'));
 const Gallery = lazy(() => import('../views/Gallery'));
-const News = lazy(() => import('../views/News'));
+// const News = lazy(() => import('../views/News'));
+const IndexTest = lazy(() => import('../views/News/indexTest'));
 const NewsDetail = lazy(() => import('../views/NewsDetail'));
 
 const Routers:FC = () => (
@@ -27,7 +28,10 @@ const Routers:FC = () => (
                 <NewsDetail />
               </Route>
               <Route path="/gallery" component={Gallery} />
-              <Route path="/" component={News} />
+              {/* <Route path="/" component={News} /> */}
+              <Suspense fallback={<div>loading......</div>}>
+                <Route path="/" component={IndexTest} />
+              </Suspense>
             </Switch>
           </Suspense>
         </Layout>

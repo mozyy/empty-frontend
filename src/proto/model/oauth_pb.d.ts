@@ -81,8 +81,8 @@ export class OAuthClient extends jspb.Message {
   getDomain(): string;
   setDomain(value: string): OAuthClient;
 
-  getUserId(): string;
-  setUserId(value: string): OAuthClient;
+  getUserid(): string;
+  setUserid(value: string): OAuthClient;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OAuthClient.AsObject;
@@ -100,7 +100,7 @@ export namespace OAuthClient {
     deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     secret: string,
     domain: string,
-    userId: string,
+    userid: string,
   }
 }
 

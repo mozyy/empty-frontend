@@ -56,3 +56,51 @@ export namespace Conf {
   }
 }
 
+export class ConfApi extends jspb.Message {
+  getId(): number;
+  setId(value: number): ConfApi;
+
+  getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): ConfApi;
+  hasCreatedAt(): boolean;
+  clearCreatedAt(): ConfApi;
+
+  getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): ConfApi;
+  hasUpdatedAt(): boolean;
+  clearUpdatedAt(): ConfApi;
+
+  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): ConfApi;
+  hasDeletedAt(): boolean;
+  clearDeletedAt(): ConfApi;
+
+  getApi(): string;
+  setApi(value: string): ConfApi;
+
+  getScope(): string;
+  setScope(value: string): ConfApi;
+
+  getDesc(): string;
+  setDesc(value: string): ConfApi;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ConfApi.AsObject;
+  static toObject(includeInstance: boolean, msg: ConfApi): ConfApi.AsObject;
+  static serializeBinaryToWriter(message: ConfApi, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ConfApi;
+  static deserializeBinaryFromReader(message: ConfApi, reader: jspb.BinaryReader): ConfApi;
+}
+
+export namespace ConfApi {
+  export type AsObject = {
+    id: number,
+    createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    api: string,
+    scope: string,
+    desc: string,
+  }
+}
+

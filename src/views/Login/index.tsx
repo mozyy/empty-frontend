@@ -15,10 +15,15 @@ import useRouterParams from '../../hooks/routerParams';
 
 const Login: React.FC = () => {
   const [state, setState] = useInputField({
-    mobile: '',
-    password: '',
+    mobile: '18381335182',
+    password: 'smqy123',
   });
   const userClient = useGrpcClient(UserClient);
+  // @ts-ignore
+  const [isPending, startTransition] = React.useTransition({
+    timeoutMs: 3000,
+  });
+  console.log(222, startTransition, isPending);
   const [oauth, setOauth] = useRecoilState(oauthState);
   const history = useHistory();
   const query = useRouterParams();
@@ -34,17 +39,19 @@ const Login: React.FC = () => {
     //   console.log(2222, token);
     //   setOauth(token);
     // });
-    const req = new LoginRequest();
-    req.setMobile(state.mobile.trim());
-    req.setPassword(state.password.trim());
-    userClient.login(req, { Authorization: 'Bearer some-secret-token' }).then((res) => {
-      console.log(123, res);
-      const newOauth = oAuth.createToken(res.getAccessToken(),
-        res.getRefreshToken(), res.getTokenType(), { });
-      console.log(22222, newOauth);
-      newOauth.expiresIn(res.getExpiresSeconds());
-      setOauth(newOauth);
-      history.replace(query.get('redirectURI') || '/');
+    startTransition(() => {
+      const req = new LoginRequest();
+      req.setMobile(state.mobile.trim());
+      req.setPassword(state.password.trim());
+      userClient.login(req, { Authorization: 'Bearer some-secret-token' }).then((res) => {
+        console.log(123, res);
+        const newOauth = oAuth.createToken(res.getAccessToken(),
+          res.getRefreshToken(), res.getTokenType(), { });
+        console.log(22222, newOauth);
+        newOauth.expiresIn(res.getExpiresSeconds());
+        setOauth(newOauth);
+        history.replace(query.get('redirectURI') || '/');
+      });
     });
     e.preventDefault();
   };
@@ -62,7 +69,14 @@ const Login: React.FC = () => {
           onChange={setState('password')}
         />
       </Box>
-      <Button sx={{ flex: 1, marginTop: 1 }} variant="contained" type="submit">登录</Button>
+      <Button
+        disabled={isPending}
+        sx={{ flex: 1, marginTop: 1 }}
+        variant="contained"
+        type="submit"
+      >
+        登录
+      </Button>
       <ELink to="/register">
         <Button sx={{ flex: 1, marginTop: 1 }}>注册</Button>
       </ELink>
