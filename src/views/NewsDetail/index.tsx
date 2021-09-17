@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { DetailRequest, DetailResponse } from '../../proto/news/news_pb';
-import useGrpcClient from '../../hooks/grpcClient';
+import { useGrpcRequest } from '../../hooks/grpcRequest';
+import { useClientNews } from '../../hooks/clients';
 
 const StyledImg = styled('img')({
   width: '100%',
@@ -18,18 +19,13 @@ interface Params {
 }
 
 const NewsDetail: React.FC = () => {
-  const [detail, setDetail] = useState<DetailResponse.AsObject>();
   const { link } = useParams<Params>();
-  const newsService = useGrpcClient(NewsClient);
-  useEffect(() => {
-    const detailRequest = new DetailRequest();
-    detailRequest.setUrl(decodeURIComponent(link));
-    newsService.detail(detailRequest, null).then((res) => {
-      console.log(res.toObject());
-      setDetail(res.toObject());
-    });
-  }, [link, newsService]);
-
+  const detailRequest = new DetailRequest();
+  detailRequest.setUrl(decodeURIComponent(link));
+  const { data, loading, error } = useGrpcRequest<DetailRequest, DetailResponse>(
+    useClientNews('detail'), detailRequest,
+  );
+  const detail = data?.toObject();
   return (
     <Box sx={{ padding: 1 }}>
       {detail ? (

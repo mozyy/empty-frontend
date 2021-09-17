@@ -3,9 +3,10 @@ import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useHistory } from 'react-router-dom';
 import { useInputField } from '../../hooks/inputField';
-import useGrpcClient from '../../hooks/grpcClient';
 import { UserClient } from '../../proto/user/UserServiceClientPb';
 import { RegisterRequest } from '../../proto/user/user_pb';
+import { useGrpcRequest } from '../../hooks/grpcRequest';
+import { useClientUser } from '../../hooks/clients';
 
 const Register: React.FC = () => {
   const [state, setState] = useInputField({
@@ -13,13 +14,13 @@ const Register: React.FC = () => {
     password: '',
   });
   const history = useHistory();
-  const userClient = useGrpcClient(UserClient);
+  const { data, run } = useGrpcRequest(useClientUser('register'), { manual: true });
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(123, state);
     const req = new RegisterRequest();
     req.setMobile(state.mobile);
     req.setPassword(state.password);
-    userClient.register(req, { Authorization: 'Bearer some-secret-token' })
+    run(req)
       .then(() => {
         history.goBack();
       });

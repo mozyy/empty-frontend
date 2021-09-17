@@ -1,34 +1,57 @@
 import * as React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { useRecoilState } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { stringify } from 'qs';
 import useRouterParams from '../../hooks/routerParams';
-import { oauthState } from '../../store/atoms';
+import { oauthState } from '../../store/selectors/oauth';
 
 const OauthAuthorize: React.FC = () => {
-  const params = useRouterParams();
-  console.log(params.forEach(console.log));
+  const query = useRouterParams();
   const history = useHistory();
+  const location = useLocation();
+  console.log(query.forEach(console.log), location);
   const [oauth, setOauth] = useRecoilState(oauthState);
-  React.useEffect(() => {
-    if (oauth) {
-      if (oauth.expired()) {
-        oauth.refresh().then((res) => {
-          setOauth(res);
-        }, () => {
-          history.push('/login');
-        });
-      } else {
-        console.log(1111, oauth);
-      }
-    } else {
-      history.push('/login');
+  // React.useEffect(() => {
+  //   const loginURI = `/login?${stringify({ redirectURI: query.get('redirectURI') })}`;
+  //   if (oauth) {
+  //     if (oauth.expired()) {
+  //       oauth.refresh().then((res) => {
+  //         setOauth(res);
+  //       }, () => {
+  //         history.replace(loginURI);
+  //       });
+  //     }
+  //   } else {
+  //     history.replace(loginURI);
+  //   }
+  // }, [oauth, history, setOauth, query]);
+  const redirectURI = query.get('redirectURI') || window.location.origin;
+  const loginURI = `/login?${stringify({ redirectURI })}`;
+  if (oauth) {
+    if (oauth.expired()) {
+      oauth.refresh().then((res) => {
+        setOauth(res);
+      }, () => {
+        history.replace(loginURI);
+      });
+      return null;
     }
-  }, [oauth, history, setOauth]);
+  } else {
+    history.replace(loginURI);
+    return null;
+  }
 
   return (
     <Box sx={{ padding: 1, display: 'flex', flexDirection: 'column' }}>
-      loading
+      <Button onClick={() => {
+        const callbackURI = new URL(redirectURI);
+        callbackURI.searchParams.set('code', oauth?.accessToken);
+        history.replace(`${redirectURI}`);
+      }}
+      >
+        auth
+      </Button>
     </Box>
   );
 };

@@ -1,32 +1,30 @@
-import React, {
-// useRef,
-} from 'react';
-import { selectorFamily, useRecoilValue } from 'recoil';
-// import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-// import { grpcAddress } from '../../env';
-// import { NewsClient } from '../../proto/news/NewsServiceClientPb';
+import React, { } from 'react';
 
-// const server = new NewsClient(grpcAddress);
-
-const newsList = selectorFamily({
-  key: 'newsList222', // unique ID (with respect to other atoms/selectors)
-  get: (i:string) => async () => {
-    const temp = await new Promise<string>((r) => {
-      setTimeout(() => r(`aaaaa${i}`), 2000);
-    });
-    console.log(3333, temp);
-    return temp;
-  }
-  , // default value (aka initial value)
-});
+import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
+import { useRecoilValue } from 'recoil';
+import { NewsClient } from '../../proto/news/NewsServiceClientPb';
+import { newsClientState } from '../../store/atoms/clients';
+import { useGrpcRequest } from '../../hooks/grpcRequest';
+import { useClientNews } from '../../hooks/clients';
 
 const News: React.FC = () => {
   // useOauth();
   // const s = useRef('start1');
-  console.log(111);
-  const news = useRecoilValue(newsList('temp'));
-  console.log(111222, news);
-  return <div>{news as string}</div>;
+  console.log(111, NewsClient);
+  // const list = useWrap(NewsClient, 'a', empty);
+  // const tem = useGrpcOauth(newsListState, {});
+  const newsClient = useClientNews('list');
+  const { data, error, loading } = useGrpcRequest(useClientNews('list'), new Empty());
+  if (error) {
+    return <div>error</div>;
+  }
+  if (loading) {
+    return <div>loading...</div>;
+  }
+  if (!data) {
+    return null;
+  }
+  return <div>{data.toString() }</div>;
 };
 
 export default News;

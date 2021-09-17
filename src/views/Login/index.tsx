@@ -1,59 +1,56 @@
 import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { useRecoilState } from 'recoil';
+import {
+  useRecoilCallback, useRecoilState, useRecoilTransaction_UNSTABLE,
+  useRecoilValue, useSetRecoilState,
+} from 'recoil';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useInputField } from '../../hooks/inputField';
 import ELink from '../../components/ELink';
-import { oauthState } from '../../store/atoms';
-import useGrpcClient from '../../hooks/grpcClient';
 import { UserClient } from '../../proto/user/UserServiceClientPb';
+// import { LoginRequest } from '../../proto/user/user_pb';
+// import { oAuth } from '../../utils/oauth';
+import useRouterParams from '../../hooks/routerParams';
+import { userClientState } from '../../store/atoms/clients';
 import { LoginRequest } from '../../proto/user/user_pb';
 import { oAuth } from '../../utils/oauth';
-import useRouterParams from '../../hooks/routerParams';
+import { useGrpcRequest } from '../../hooks/grpcRequest';
+import { useClientUser } from '../../hooks/clients';
+import { oauthState } from '../../store/selectors/oauth';
 
 const Login: React.FC = () => {
   const [state, setState] = useInputField({
     mobile: '18381335182',
     password: 'smqy123',
   });
-  const userClient = useGrpcClient(UserClient);
   // @ts-ignore
   const [isPending, startTransition] = React.useTransition({
     timeoutMs: 3000,
   });
-  console.log(222, startTransition, isPending);
+  console.log(22222222, isPending);
   const [oauth, setOauth] = useRecoilState(oauthState);
   const history = useHistory();
   const query = useRouterParams();
   console.log(123333, query.get('redirectURI'));
-  useEffect(() => {
-    if (oauth) {
-      history.replace('/');
-    }
-  }, [history, oauth]);
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(123, state);
-    // oAuth.owner.getToken(state.mobile, state.password).then((token) => {
-    //   console.log(2222, token);
-    //   setOauth(token);
-    // });
-    startTransition(() => {
-      const req = new LoginRequest();
-      req.setMobile(state.mobile.trim());
-      req.setPassword(state.password.trim());
-      userClient.login(req, { Authorization: 'Bearer some-secret-token' }).then((res) => {
-        console.log(123, res);
-        const newOauth = oAuth.createToken(res.getAccessToken(),
-          res.getRefreshToken(), res.getTokenType(), { });
-        console.log(22222, newOauth);
-        newOauth.expiresIn(res.getExpiresSeconds());
-        setOauth(newOauth);
-        history.replace(query.get('redirectURI') || '/');
-      });
-    });
+  const { run } = useGrpcRequest(useClientUser('login'), { manual: true });
+
+  if (oauth) {
+    history.replace(query.get('redirectURI') || '/');
+  }
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(123, state);
+    const request = new LoginRequest();
+    request.setMobile(state.mobile);
+    request.setPassword(state.password);
+    const resp = await run(request);
+    const newOauth = oAuth.createToken(resp.getAccessToken(),
+      resp.getRefreshToken(), resp.getTokenType(), { });
+    console.log(22222, newOauth);
+    newOauth.expiresIn(resp.getExpiresSeconds());
+    setOauth(newOauth);
   };
   return (
     <Box component="form" onSubmit={onSubmit} sx={{ padding: 1, display: 'flex', flexDirection: 'column' }}>

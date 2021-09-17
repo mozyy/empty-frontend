@@ -1,12 +1,15 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import List from '@material-ui/core/List';
 import { ListItem, ListSubheader } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+import { selector, useRecoilValue } from 'recoil';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { NewsItem } from '../../proto/news/news_pb';
 import { Item } from './components/Item';
-import useGrpcClient from '../../hooks/grpcClient';
+import { grpcAddress } from '../../env';
+import { useClientNews } from '../../hooks/clients';
+import { useGrpcRequest } from '../../hooks/grpcRequest';
 // import useOauth from '../../hooks/oauth';
 // interface NewsClass {
 //   type: string
@@ -24,26 +27,16 @@ const newsTypeMap:{ [key: string]: string } = {
 };
 
 const News: React.FC = () => {
-  const [news, setNews] = useState<NewsItem.AsObject[]>([]);
-  const [loading, setLoading] = useState(true);
-  console.log(loading);
-  const newsService = useGrpcClient(NewsClient);
-  // useOauth();
-
-  useEffect(() => {
-    setLoading(true);
-    newsService.list(new Empty(), null).then((res) => {
-      console.log(res.toObject());
-      setNews(res.toObject().listList);
-    }).finally(() => {
-      setLoading(false);
-    });
-  }, [newsService]);
+  // const [news, setNews] = useState<NewsItem.AsObject[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // console.log(loading);
+  const { data, loading, error } = useGrpcRequest(useClientNews('list'),
+    new Empty());
 
   const category = useMemo(() => {
     const cate:{ [key: string]:NewsItem.AsObject[] } = {};
 
-    news.forEach((item) => {
+    data?.toObject().listList.forEach((item) => {
       if (!cate[item.type]) {
         cate[item.type] = [item];
       } else {
@@ -51,7 +44,7 @@ const News: React.FC = () => {
       }
     });
     return cate;
-  }, [news]);
+  }, [data]);
 
   return (
     <List sx={{}}>
