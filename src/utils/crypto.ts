@@ -68,6 +68,7 @@ export function uuid() {
   s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
   // eslint-disable-next-line no-bitwise
   s[19] = hexDigits.substr((Number(s[19]) & 0x3) | 0x8, 1);
+  // eslint-disable-next-line no-multi-assign
   s[8] = s[13] = s[18] = s[23] = '-';
 
   const value = s.join('');
@@ -87,7 +88,7 @@ export function getTimeStamp() {
  * @param  {[type]} prama [description]
  * @return {[type]}       [description]
  */
-export function encryptMd5(prama) {
+export function encryptMd5(prama: string) {
   return CryptoJs.MD5(prama).toString();
 }
 
@@ -96,7 +97,7 @@ export function encryptMd5(prama) {
  * @param  {[type]} data [description]
  * @return {[type]}      [description]
  */
-export function authorization(currTimeStamp, au, body) {
+export function authorization(currTimeStamp:string, au :string, body: string) {
   const data = {
     os: 'wxapp',
     version: '1.0',
@@ -125,7 +126,7 @@ export function uploadHeaders() {
  * @param  {[type]} prama [description]
  * @return {[type]}       [description]
  */
-export function encryptBase64(prama) {
+export function encryptBase64(prama:string) {
   const str = CryptoJs.enc.Utf8.parse(prama);
   return CryptoJs.enc.Base64.stringify(str);
 }
@@ -135,7 +136,7 @@ export function encryptBase64(prama) {
  * @param  {[type]} prama [description]
  * @return {[type]}       [description]
  */
-export function decryptBase64(prama) {
+export function decryptBase64(prama:string) {
   const str = CryptoJs.enc.Base64.parse(prama);
   return str.toString(CryptoJs.enc.Utf8);
 }

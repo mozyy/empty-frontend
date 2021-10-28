@@ -1,7 +1,9 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import React, { useMemo } from 'react';
 import List from '@material-ui/core/List';
-import { ListItem, ListSubheader } from '@material-ui/core';
+import {
+  Avatar, ListItem, ListSubheader, Skeleton,
+} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { selector, useRecoilValue } from 'recoil';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
@@ -16,7 +18,7 @@ import { useGrpcRequest } from '../../hooks/grpcRequest';
 //   list:
 // }
 
-const newsTypeMap:{ [key: string]: string } = {
+const newsTypeMap: { [key: string]: string } = {
   it_tech: '业界资讯',
   science: '科学资讯',
   movie: '影视资讯',
@@ -34,7 +36,7 @@ const News: React.FC = () => {
     new Empty());
 
   const category = useMemo(() => {
-    const cate:{ [key: string]:NewsItem.AsObject[] } = {};
+    const cate: { [key: string]: NewsItem.AsObject[] } = {};
 
     data?.toObject().listList.forEach((item) => {
       if (!cate[item.type]) {
@@ -52,15 +54,17 @@ const News: React.FC = () => {
         <ListItem key={type}>
           <Paper>
             <List>
-              <ListSubheader>{ newsTypeMap[type] }</ListSubheader>
+              <ListSubheader>{newsTypeMap[type]}</ListSubheader>
               {item.map((i) => <Item item={i} key={i.link} />)}
             </List>
           </Paper>
         </ListItem>
       ))}
-      {/* {loading && <Skeleton variant="circular">
-      <Avatar />
-    </Skeleton>} */}
+      {loading && (
+        <Skeleton variant="circular">
+          <Avatar />
+        </Skeleton>
+      )}
     </List>
   );
 };

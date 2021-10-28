@@ -41,13 +41,13 @@ const NewsDetail: React.FC = () => {
             {detail.summary}
           </Typography>
           <Divider sx={{ mb: 1 }} />
-          {detail.contentList.map((item) => (
+          {detail.contentList.map((item, index) => (
             item.type === 1 ? (
-              <Typography>
+              <Typography key={index}>
                 {item.content}
               </Typography>
             )
-              : <StyledImg src={item.content} referrerPolicy="no-referrer" alt={detail.title} loading="lazy" />
+              : <StyledImg key={index} src={item.content} referrerPolicy="no-referrer" alt={detail.title} loading="lazy" />
           ))}
         </Box>
       ) : (

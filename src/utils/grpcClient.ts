@@ -12,7 +12,7 @@ implements grpcWeb.UnaryInterceptor<REQ, RESP> {
       console.error('grpc error:', (request.getMethodDescriptor() as any)?.name, e, request.getRequestMessage().toObject());
       return Promise.reject(e);
     });
-    console.log('%c[rpc]: ', 'color: red', (request.getMethodDescriptor() as any)?.name,
+    console.log('%c[rpc]: ', 'color: red ', (request.getMethodDescriptor() as any)?.name,
       request.getRequestMessage().toObject(), response.getResponseMessage().toObject());
     return response;
   }

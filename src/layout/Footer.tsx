@@ -27,7 +27,7 @@ const Footer:React.FC = () => {
       {' '}
       版权所有
       <br />
-      <Link href="https://beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备2021007564号-1</Link>
+      <Link href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2021007564号-1</Link>
     </Box>
   );
 };
