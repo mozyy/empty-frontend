@@ -10,6 +10,7 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CommentIcon from '@material-ui/icons/Comment';
 import { LinkProps } from 'react-router-dom';
 import Skeleton from '@material-ui/core/Skeleton';
+import { Divider } from '@material-ui/core';
 import { NewsItem } from '../../../proto/news/news_pb';
 import ELink from '../../../components/ELink';
 
@@ -36,6 +37,7 @@ export const ItemView: React.FC<ItemViewProps> = (props) => {
       <ListItemAvatar sx={{
         width: theme.typography.pxToRem(100),
         height: theme.typography.pxToRem(100),
+        marginRight: 1,
       }}
       >
         {avatar}
@@ -60,10 +62,33 @@ export const Item: React.FC<ItemProps> = (props) => {
   [to]);
 
   return (
-    <ItemView component={RenderLink} avatar={<img src={item.image} referrerPolicy="no-referrer" alt={item.title} />}>
+    <ItemView component={RenderLink} avatar={<img src={item.image} referrerPolicy="no-referrer" alt={item.title} width={100} height={100} />}>
       <ListItemText
         primary={item.title}
-        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          '& .MuiListItemText-primary': {
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            /* 这个数字是设置要显示省略号的行数 */
+            WebkitBoxOrient: 'vertical',
+          },
+        }}
+        classes={{
+          // primary: {
+          //   color: 'red',
+          //   textOverflow: 'ellipsis',
+          //   overflow: 'hidden',
+          //   display: '-webkit-box',
+          //   WebkitLineClamp: 2,
+          //   /* 这个数字是设置要显示省略号的行数 */
+          //   WebkitBoxOrient: 'vertical',
+          // },
+        }}
         secondary={(
           <>
             {/* <StyledBox> */}

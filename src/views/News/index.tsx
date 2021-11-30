@@ -2,7 +2,7 @@ import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import React, { useMemo } from 'react';
 import List from '@material-ui/core/List';
 import {
-  Avatar, ListItem, ListSubheader, Skeleton,
+  Avatar, Box, Divider, ListItem, ListSubheader, Skeleton,
 } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { selector, useRecoilValue } from 'recoil';
@@ -52,19 +52,33 @@ const News: React.FC = () => {
     <List sx={{}}>
       {Object.entries(category).map(([type, item]) => (
         <ListItem key={type}>
-          <Paper>
+          <Paper sx={{ flex: 'auto' }}>
             <List>
               <ListSubheader>{newsTypeMap[type]}</ListSubheader>
-              {item.map((i) => <Item item={i} key={i.link} />)}
+              {item.map((i) => (
+                <Box key={i.link}>
+                  <Divider component="li" />
+                  <Item item={i} />
+                </Box>
+              ))}
             </List>
           </Paper>
         </ListItem>
       ))}
-      {loading && (
-        <Skeleton variant="circular">
-          <Avatar />
-        </Skeleton>
-      )}
+      {loading && Array.from({ length: 4 }, (v, i) => (
+        <ListItem key={i}>
+          <Paper sx={{ flex: 'auto' }}>
+            <List sx={{ paddingX: 2, paddingY: 1, display: 'flex' }}>
+              <Skeleton variant="rectangular" sx={{ mr: 1 }} width={100} height={100} />
+              <Box sx={{ flex: 'auto' }}>
+                <Skeleton height={24} />
+                <Skeleton height={24} width="80%" />
+                <Skeleton height={20} width={80} sx={{ mt: 2 }} />
+              </Box>
+            </List>
+          </Paper>
+        </ListItem>
+      ))}
     </List>
   );
 };

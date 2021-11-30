@@ -18,7 +18,7 @@ export const useOauthRefresh = () => {
   return useCallback(() => {
     const redireURI = `/login?${stringify({ redirectURI: window.location.pathname + window.location.search })}`;
     if (!oauth) {
-      history.push(redireURI);
+      history.replace(redireURI);
       return Promise.reject(Error('no token'));
     }
     return oauth.refresh().then((newOauth) => {
@@ -26,7 +26,7 @@ export const useOauthRefresh = () => {
       return newOauth;
     }, (err) => {
       setOauth(undefined);
-      history.push(redireURI);
+      history.replace(redireURI);
       return Promise.reject(Error(`token refresh error: ${err}`));
     });
   }, [oauth, history, setOauth]);
