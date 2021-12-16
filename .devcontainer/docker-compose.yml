@@ -11,8 +11,6 @@ services:
         - USER_UID=1000
         - USER_GID=1000
         - VARIANT=14
-        - HTTP_PROXY=${proxy_addr}
-        - HTTPS_PROXY=${proxy_addr}
 
     image: mozyy/empty-compose-app
 
@@ -43,9 +41,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.news
-      args:
-        - HTTP_PROXY=${proxy_addr}
-        - HTTPS_PROXY=${proxy_addr}
     image: mozyy/empty-compose-news
     networks:
       - envoymesh
