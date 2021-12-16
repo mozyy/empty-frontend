@@ -2,13 +2,14 @@ import { dectyptAES, enctyptAES } from './crypto';
 
 export const storageKeys = {
   OAUTH_TOKEN: 'OAUTH_TOKEN',
-
+  REMEMBER_PASSWORD: 'REMEMBER_PASSWORD',
 };
 
 type StorageKey = keyof typeof storageKeys;
 
-export const setStorage = (key: StorageKey, value: string) => {
-  localStorage.setItem(enctyptAES(storageKeys[key]), enctyptAES(value));
+export const setStorage = (key: StorageKey, value: any) => {
+  const str = JSON.stringify(value);
+  localStorage.setItem(enctyptAES(storageKeys[key]), enctyptAES(str));
 };
 
 export const getStorage = (key: StorageKey) => {
@@ -16,7 +17,8 @@ export const getStorage = (key: StorageKey) => {
   if (!data) {
     return null;
   }
-  return dectyptAES(data);
+  const str = dectyptAES(data);
+  return JSON.parse(str);
 };
 
 export const removeStorage = (key: StorageKey) => {

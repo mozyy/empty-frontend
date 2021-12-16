@@ -42,7 +42,7 @@
     "qs": "^6.10.1",
     "react": "^18.0.0-alpha-46a0f050a-20210828",
     "react-dom": "^18.0.0-alpha-46a0f050a-20210828",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.1.1",
     "react-scripts": "^4.0.3",
     "recoil": "^0.4.0",
     "redoc": "^2.0.0-rc.53",

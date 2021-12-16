@@ -8,13 +8,12 @@ export const textState = atom({
   default: '', // default value (aka initial value)
 });
 
-const tokenStr = getStorage('OAUTH_TOKEN');
+const tokenSto = getStorage('OAUTH_TOKEN');
 let newOauth:ClientOAuth2.Token|undefined;
-if (tokenStr) {
-  const newToken = JSON.parse(tokenStr);
-  newOauth = oAuth.createToken(newToken.accessToken,
-    newToken.accessToken, newToken.accessToken, { });
-  newOauth.expiresIn(new Date(newToken.expires));
+if (tokenSto) {
+  newOauth = oAuth.createToken(tokenSto.accessToken,
+    tokenSto.accessToken, tokenSto.accessToken, { });
+  newOauth.expiresIn(new Date(tokenSto.expires));
 }
 
 export const oauthAtomState = atom<ClientOAuth2.Token|undefined>({

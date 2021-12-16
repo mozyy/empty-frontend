@@ -22,8 +22,12 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import ImageIcon from '@material-ui/icons/Image';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SystemUpdateIcon from '@material-ui/icons/SystemUpdate';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import ELink from '../components/ELink';
+import { useIsLogined } from '../hooks/oauth';
+import { oauthState } from '../store/selectors/oauth';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,12 +76,16 @@ const Header:React.FC = () => {
     setMobileMoreAnchorEl,
   ] = React.useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const installingViaButtonRef = React.useRef(false);
   const [beforeInstallEvent, setBeforeInstallEvent] = useState<BeforeInstallPromptEvent>();
+  const [oauth, setOauth] = useRecoilState(oauthState);
+  console.log(1111, oauth);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const isLogined = useIsLogined();
 
   useEffect(() => {
     const onBeforeInstallPromptEvent = (event: BeforeInstallPromptEvent) => {
@@ -130,9 +138,6 @@ const Header:React.FC = () => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleLogin = () => {
-
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -145,6 +150,16 @@ const Header:React.FC = () => {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleLogin = () => {
+    if (isLogined) {
+      setOauth(undefined);
+      navigate('/');
+      handleMenuClose();
+      return;
+    }
+    navigate('/login');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -222,7 +237,7 @@ const Header:React.FC = () => {
         >
           <LoginIcon />
         </IconButton>
-        <p>登录</p>
+        <p>{isLogined ? '退出' : '登录'}</p>
       </MenuItem>
       {beforeInstallEvent && (
       <MenuItem onClick={onInstallClick}>
@@ -236,7 +251,7 @@ const Header:React.FC = () => {
   );
   const toPage = (path:string) => () => {
     setDrawerOpen(false);
-    history.push(path);
+    navigate(path);
   };
 
   return (
@@ -252,6 +267,16 @@ const Header:React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
+          <ELink to="/" color="inherit">
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="home"
+              sx={{ mr: 2 }}
+            >
+              <HomeIcon />
+            </IconButton>
+          </ELink>
           <Typography
             variant="h6"
             noWrap
@@ -260,7 +285,7 @@ const Header:React.FC = () => {
           >
             个人网站
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -268,7 +293,7 @@ const Header:React.FC = () => {
               placeholder="搜索"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton aria-label="show 4 new mails" color="inherit">

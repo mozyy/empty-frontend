@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useInputField } from '../../hooks/inputField';
 import { UserClient } from '../../proto/user/UserServiceClientPb';
 import { RegisterRequest } from '../../proto/user/user_pb';
@@ -13,7 +13,7 @@ const Register: React.FC = () => {
     mobile: '',
     password: '',
   });
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data, run } = useGrpcRequest(useClientUser('register'), { manual: true });
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(123, state);
@@ -22,7 +22,7 @@ const Register: React.FC = () => {
     req.setPassword(state.password);
     run(req)
       .then(() => {
-        history.goBack();
+        navigate(-1);
       });
     e.preventDefault();
   };

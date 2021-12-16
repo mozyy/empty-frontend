@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import { useRecoilState } from 'recoil';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { stringify } from 'qs';
-import useRouterParams from '../../hooks/routerParams';
 import { oauthState } from '../../store/selectors/oauth';
 
 const OauthAuthorize: React.FC = () => {
-  const query = useRouterParams();
-  const history = useHistory();
+  const [query] = useSearchParams();
+  const navigate = useNavigate();
   const location = useLocation();
   console.log(query.forEach(console.log), location);
   const [oauth, setOauth] = useRecoilState(oauthState);
@@ -33,12 +32,12 @@ const OauthAuthorize: React.FC = () => {
       oauth.refresh().then((res) => {
         setOauth(res);
       }, () => {
-        history.replace(loginURI);
+        navigate(loginURI, { replace: true });
       });
       return null;
     }
   } else {
-    history.replace(loginURI);
+    navigate(loginURI, { replace: true });
     return null;
   }
 
@@ -47,7 +46,7 @@ const OauthAuthorize: React.FC = () => {
       <Button onClick={() => {
         const callbackURI = new URL(redirectURI);
         callbackURI.searchParams.set('code', oauth?.accessToken);
-        history.replace(`${redirectURI}`);
+        navigate(redirectURI, { replace: true });
       }}
       >
         auth

@@ -2,7 +2,7 @@ import {
   Box, Divider, Skeleton, Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { DetailRequest, DetailResponse } from '../../proto/news/news_pb';
@@ -14,14 +14,10 @@ const StyledImg = styled('img')({
   // backgroundColor: '#292929'
 });
 
-interface Params {
-  link: string
-}
-
 const NewsDetail: React.FC = () => {
-  const { link } = useParams<Params>();
+  const { link } = useParams();
   const detailRequest = new DetailRequest();
-  detailRequest.setUrl(decodeURIComponent(link));
+  detailRequest.setUrl(decodeURIComponent(link || ''));
   const { data, loading, error } = useGrpcRequest<DetailRequest, DetailResponse>(
     useClientNews('detail'), detailRequest,
   );

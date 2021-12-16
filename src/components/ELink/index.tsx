@@ -5,7 +5,7 @@ import { OverridableComponent, OverrideProps } from '@material-ui/core/Overridab
 
 export type ELinkProps<
   M extends LinkTypeMap = LinkTypeMap,
-  C extends RouterLink = RouterLink,
+  C extends typeof RouterLink = typeof RouterLink,
   > = OverridableComponent<M>&OverrideProps<M, C>;
 
 const ELink = React.forwardRef<HTMLAnchorElement, ELinkProps>(

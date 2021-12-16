@@ -22,18 +22,16 @@ export const oauthState = selector<ClientOAuth2.Token | undefined>({
     console.log(newValue);
     if (newValue) {
       const tokenValue = ((newValue as any));
-      const tokenStr = JSON.stringify({
+      const newToken = {
         accessToken: tokenValue.accessToken,
         refreshToken: tokenValue.refreshToken,
         tokenType: tokenValue.tokenType,
         expires: tokenValue.expires,
-      });
-      const newToken = JSON.parse(tokenStr);
+      };
       const newOauth = oAuth.createToken(newToken.accessToken,
         newToken.accessToken, newToken.accessToken, { });
       newOauth.expiresIn(new Date(newToken.expires));
-      console.log(89898, tokenStr, newToken, newOauth);
-      setStorage('OAUTH_TOKEN', tokenStr);
+      setStorage('OAUTH_TOKEN', newToken);
     } else {
       removeStorage('OAUTH_TOKEN');
     }
