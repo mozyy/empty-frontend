@@ -1,10 +1,10 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import React, { useMemo } from 'react';
-import List from '@material-ui/core/List';
+import React, { useEffect, useMemo, useRef } from 'react';
+import List from '@mui/material/List';
 import {
   Avatar, Box, Divider, ListItem, ListSubheader, Skeleton,
-} from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
+} from '@mui/material';
+import Paper from '@mui/material/Paper';
 import { selector, useRecoilValue } from 'recoil';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
 import { NewsItem } from '../../proto/news/news_pb';

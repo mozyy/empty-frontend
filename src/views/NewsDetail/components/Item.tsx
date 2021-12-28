@@ -1,13 +1,13 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import CommentIcon from '@material-ui/icons/Comment';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Typography from '@mui/material/Typography';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { experimentalStyled as styled } from '@mui/material/styles';
+import { Box } from '@mui/material';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import CommentIcon from '@mui/icons-material/Comment';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { NewsItem } from '../../../proto/news/news_pb';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { stringify } from 'qs';

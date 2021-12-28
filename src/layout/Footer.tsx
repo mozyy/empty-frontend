@@ -1,19 +1,18 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import IconButton from '@material-ui/core/IconButton';
-// import Typography from '@material-ui/core/Typography';
-// import InputBase from '@material-ui/core/InputBase';
-// import Badge from '@material-ui/core/Badge';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Menu from '@material-ui/core/Menu';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import SearchIcon from '@material-ui/icons/Search';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-// import MailIcon from '@material-ui/icons/Mail';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link } from '@material-ui/core';
+// import Toolbar from '@mui/material/Toolbar';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import InputBase from '@mui/material/InputBase';
+// import Badge from '@mui/material/Badge';
+// import MenuItem from '@mui/material/MenuItem';
+// import Menu from '@mui/material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import SearchIcon from '@mui/icons-material/Search';
+// import AccountCircle from '@mui/icons-material/AccountCircle';
+// import MailIcon from '@mui/icons-material/Mail';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link, Box } from '@mui/material';
 
 const Footer:React.FC = () => {
   const year = new Date().getFullYear();

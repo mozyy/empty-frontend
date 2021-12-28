@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Box, Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { Box, Button } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import { useInputField } from '../../hooks/inputField';
 import { UserClient } from '../../proto/user/UserServiceClientPb';

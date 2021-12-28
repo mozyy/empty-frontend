@@ -1,16 +1,16 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography, { TypographyProps } from '@material-ui/core/Typography';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { experimentalStyled as styled, useTheme } from '@material-ui/core/styles';
-// import { Box } from '@material-ui/core';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import CommentIcon from '@material-ui/icons/Comment';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Typography, { TypographyProps } from '@mui/material/Typography';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { experimentalStyled as styled, useTheme } from '@mui/material/styles';
+// import { Box } from '@mui/material';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import CommentIcon from '@mui/icons-material/Comment';
 import { LinkProps } from 'react-router-dom';
-import Skeleton from '@material-ui/core/Skeleton';
-import { Divider } from '@material-ui/core';
+import Skeleton from '@mui/material/Skeleton';
+import { Divider } from '@mui/material';
 import { NewsItem } from '../../../proto/news/news_pb';
 import ELink from '../../../components/ELink';
 

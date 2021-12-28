@@ -2,14 +2,13 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import blue from '@material-ui/core/colors/blue';
-import pink from '@material-ui/core/colors/pink';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { zhCN } from '@material-ui/core/locale';
+import { blue, pink } from '@mui/material/colors';
+import { CssBaseline } from '@mui/material';
+import { zhCN } from '@mui/material/locale';
 import {
   createTheme,
   ThemeProvider,
-} from '@material-ui/core/styles';
+} from '@mui/material/styles';
 import React, { FC } from 'react';
 import {
   BrowserRouter as Router,

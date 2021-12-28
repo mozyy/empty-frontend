@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {
   Box, Button, Checkbox, FormControlLabel, IconButton, InputAdornment,
-} from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+} from '@mui/material';
+import TextField from '@mui/material/TextField';
 import {
   useRecoilCallback, useRecoilState, useRecoilTransaction_UNSTABLE,
   useRecoilValue, useSetRecoilState,
 } from 'recoil';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { setFieldAction, useInputField } from '../../hooks/inputField';
 import ELink from '../../components/ELink';
 import { UserClient } from '../../proto/user/UserServiceClientPb';

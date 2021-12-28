@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Link, LinkTypeMap } from '@material-ui/core';
+import { Link, LinkTypeMap } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { OverridableComponent, OverrideProps } from '@material-ui/core/OverridableComponent';
+import { OverridableComponent, OverrideProps } from '@mui/material/OverridableComponent';
 
 export type ELinkProps<
   M extends LinkTypeMap = LinkTypeMap,
@@ -9,7 +9,7 @@ export type ELinkProps<
   > = OverridableComponent<M>&OverrideProps<M, C>;
 
 const ELink = React.forwardRef<HTMLAnchorElement, ELinkProps>(
-  (props, ref) => <Link component={RouterLink} ref={ref} {...props} />,
+  (props, ref) => <Link component={RouterLink} ref={ref} color="inherit" {...props} />,
 );
 
 export default ELink;
