@@ -11,17 +11,18 @@ const Layout:React.FC = () => {
   useEffect(() => {
     const top = sessionStorage.getItem(`_locationTop_${key}`);
     console.log(222222, boxRef.current, top, key);
-    if (boxRef.current) {
+    const box = boxRef.current;
+    if (box) {
       setTimeout(() => {
-        if (boxRef.current) {
-          boxRef.current.scrollTo({ top: Number(top) || 0 });
+        if (box) {
+          box.scrollTo({ top: Number(top) || 0 });
         }
       }, 1000);
     }
     return () => {
-      console.log(444444444, boxRef.current?.scrollTop, key);
-      if (boxRef.current) {
-        sessionStorage.setItem(`_locationTop_${key}`, String(boxRef.current?.scrollTop));
+      console.log(444444444, box, box?.scrollTop, key);
+      if (box) {
+        sessionStorage.setItem(`_locationTop_${key}`, String(box.scrollTop));
       }
     };
   }, [key]);
