@@ -4,11 +4,13 @@ import React, {
   Component, FC, lazy, Suspense, useEffect,
 } from 'react';
 import {
-  Route, Routes, useLocation, useNavigate,
+  Route, Routes, useLocation, useNavigate, useRoutes,
 } from 'react-router-dom';
 import grpcWeb from 'grpc-web';
 import { stringify } from 'qs';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Layout from '../layout/Layout';
+import { routesAtomState } from '../store/atoms/routes';
 
 const Doc = lazy(() => import('../views/Doc'));
 const Login = lazy(() => import('../views/Login'));
@@ -81,25 +83,53 @@ const Routers:FC = () => {
   useEffect(() => {
     console.log(6666, loca);
   }, [loca]);
-
-  return (
-    <ESuspense>
-      <ErrorBoundaryClass>
-        <Routes>
-          <Route path="/doc" element={<ESuspense><Doc /></ESuspense>} />
-          <Route path="/login" element={<ESuspense><Login /></ESuspense>} />
-          <Route path="/register" element={<ESuspense><Register /></ESuspense>} />
-          <Route path="/oauth/authorize" element={<ESuspense><OauthAuthorize /></ESuspense>} />
-
-          <Route path="/" element={<Layout />}>
-            <Route path="/newsDetail/:link" element={<ESuspense><NewsDetail /></ESuspense>} />
-            <Route path="/gallery" element={<ESuspense><Gallery /></ESuspense>} />
-            <Route index element={(<ESuspense><News /></ESuspense>)} />
-          </Route>
-        </Routes>
-      </ErrorBoundaryClass>
-    </ESuspense>
-  );
+  const [routesState, setRoutesState] = useRecoilState(routesAtomState);
+  const element = useRoutes(routesState);
+  useEffect(() => {
+    if (routesState.length === 0) {
+      setRoutesState([
+        {
+          path: '/doc',
+          name: '文档',
+          element: <ESuspense><Doc /></ESuspense>,
+        },
+        {
+          path: '/login',
+          name: '文档',
+          element: <ESuspense><Login /></ESuspense>,
+        },
+        {
+          path: '/register',
+          name: '文档',
+          element: <ESuspense><Register /></ESuspense>,
+        },
+        {
+          path: '/oauth/authorize',
+          name: '文档',
+          element: <ESuspense><OauthAuthorize /></ESuspense>,
+        },
+        {
+          path: '/',
+          name: '首页',
+          element: <ESuspense><Layout /></ESuspense>,
+          children: [
+            {
+              path: '/newsDetail/:link',
+              name: '新闻详情',
+              element: <ESuspense><NewsDetail /></ESuspense>,
+            },
+            {
+              path: '/gallery',
+              name: '图库',
+              element: <ESuspense><Gallery /></ESuspense>,
+            },
+            { index: true, name: '新闻', element: <ESuspense><News /></ESuspense> },
+          ],
+        },
+      ]);
+    }
+  }, [routesState.length, setRoutesState]);
+  return element;
 };
 
 export default Routers;

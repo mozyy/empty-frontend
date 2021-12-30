@@ -8,6 +8,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer,
 } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -22,11 +25,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useNavigate, useRoutes } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ELink from '../components/ELink';
 import { useIsLogined } from '../hooks/oauth';
 import { oauthState } from '../store/selectors/oauth';
+import { List as MenuList } from './Menu';
+import { routesAtomState } from '../store/atoms/routes';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -69,6 +75,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header:React.FC = () => {
+  const routes = useRecoilValue(routesAtomState);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [
     mobileMoreAnchorEl,
@@ -360,6 +367,57 @@ const Header:React.FC = () => {
               <ListItemText primary="图库" />
             </ListItem>
           </List>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Accordion 1</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <List>
+                <ListItem onClick={toPage('/')}>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="首页" />
+                </ListItem>
+                <ListItem onClick={toPage('/gallery')}>
+                  <ListItemIcon>
+                    <ImageIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="图库" />
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Accordion 2</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <List>
+                <ListItem onClick={toPage('/')}>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="首页" />
+                </ListItem>
+                <ListItem onClick={toPage('/gallery')}>
+                  <ListItemIcon>
+                    <ImageIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="图库" />
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
+          <MenuList routes={routes} />
         </Box>
       </SwipeableDrawer>
     </Box>
