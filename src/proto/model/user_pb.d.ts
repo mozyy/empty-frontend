@@ -1,7 +1,8 @@
 import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
-import * as protoc$gen$orm_orm_orm_pb from '../../protoc-gen-orm/orm/orm_pb';
+import * as gorm_options_gorm_pb from '../../gorm/options/gorm_pb';
+import * as gorm_types_types_pb from '../../gorm/types/types_pb';
 
 
 export class User extends jspb.Message {
@@ -18,8 +19,8 @@ export class User extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): User;
 
-  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): User;
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): User;
   hasDeletedAt(): boolean;
   clearDeletedAt(): User;
 
@@ -42,7 +43,7 @@ export namespace User {
     id: number,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
     mobile: string,
     passwordHash: string,
   }

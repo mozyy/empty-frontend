@@ -2,6 +2,7 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
@@ -12,10 +13,22 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = Function('return this')();
+var global = (function() {
+  if (this) { return this; }
+  if (typeof window !== 'undefined') { return window; }
+  if (typeof global !== 'undefined') { return global; }
+  if (typeof self !== 'undefined') { return self; }
+  return Function('return this')();
+}.call(null));
 
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
 goog.object.extend(proto, google_protobuf_empty_pb);
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
+goog.object.extend(proto, google_protobuf_timestamp_pb);
+var gorm_options_gorm_pb = require('../../gorm/options/gorm_pb.js');
+goog.object.extend(proto, gorm_options_gorm_pb);
+var gorm_types_types_pb = require('../../gorm/types/types_pb.js');
+goog.object.extend(proto, gorm_types_types_pb);
 goog.exportSymbol('proto.news.DetailRequest', null, global);
 goog.exportSymbol('proto.news.DetailResponse', null, global);
 goog.exportSymbol('proto.news.DetailResponse.DetailContent', null, global);
@@ -158,13 +171,17 @@ proto.news.NewsItem.prototype.toObject = function(opt_includeInstance) {
  */
 proto.news.NewsItem.toObject = function(includeInstance, msg) {
   var f, obj = {
-    link: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    image: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    title: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    time: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    view: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    comment: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    type: jspb.Message.getFieldWithDefault(msg, 7, "")
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    deletedAt: (f = msg.getDeletedAt()) && gorm_types_types_pb.DeletedAt.toObject(includeInstance, f),
+    link: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    image: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    title: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    time: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    view: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    comment: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    type: jspb.Message.getFieldWithDefault(msg, 11, "")
   };
 
   if (includeInstance) {
@@ -202,30 +219,49 @@ proto.news.NewsItem.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setUpdatedAt(value);
+      break;
+    case 4:
+      var value = new gorm_types_types_pb.DeletedAt;
+      reader.readMessage(value,gorm_types_types_pb.DeletedAt.deserializeBinaryFromReader);
+      msg.setDeletedAt(value);
+      break;
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setLink(value);
       break;
-    case 2:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setImage(value);
       break;
-    case 3:
+    case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setTitle(value);
       break;
-    case 4:
+    case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setTime(value);
       break;
-    case 5:
+    case 9:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setView(value);
       break;
-    case 6:
+    case 10:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setComment(value);
       break;
-    case 7:
+    case 11:
       var value = /** @type {string} */ (reader.readString());
       msg.setType(value);
       break;
@@ -258,52 +294,83 @@ proto.news.NewsItem.prototype.serializeBinary = function() {
  */
 proto.news.NewsItem.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getDeletedAt();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      gorm_types_types_pb.DeletedAt.serializeBinaryToWriter
+    );
+  }
   f = message.getLink();
   if (f.length > 0) {
     writer.writeString(
-      1,
+      5,
       f
     );
   }
   f = message.getImage();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      6,
       f
     );
   }
   f = message.getTitle();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      7,
       f
     );
   }
   f = message.getTime();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      8,
       f
     );
   }
   f = message.getView();
   if (f !== 0) {
     writer.writeInt32(
-      5,
+      9,
       f
     );
   }
   f = message.getComment();
   if (f !== 0) {
     writer.writeInt32(
-      6,
+      10,
       f
     );
   }
   f = message.getType();
   if (f.length > 0) {
     writer.writeString(
-      7,
+      11,
       f
     );
   }
@@ -311,11 +378,140 @@ proto.news.NewsItem.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string link = 1;
+ * optional uint32 ID = 1;
+ * @return {number}
+ */
+proto.news.NewsItem.prototype.getId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.setId = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 2;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.news.NewsItem.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.news.NewsItem} returns this
+*/
+proto.news.NewsItem.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.NewsItem.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp updated_at = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.news.NewsItem.prototype.getUpdatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.news.NewsItem} returns this
+*/
+proto.news.NewsItem.prototype.setUpdatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.clearUpdatedAt = function() {
+  return this.setUpdatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.NewsItem.prototype.hasUpdatedAt = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional types.DeletedAt deleted_at = 4;
+ * @return {?proto.types.DeletedAt}
+ */
+proto.news.NewsItem.prototype.getDeletedAt = function() {
+  return /** @type{?proto.types.DeletedAt} */ (
+    jspb.Message.getWrapperField(this, gorm_types_types_pb.DeletedAt, 4));
+};
+
+
+/**
+ * @param {?proto.types.DeletedAt|undefined} value
+ * @return {!proto.news.NewsItem} returns this
+*/
+proto.news.NewsItem.prototype.setDeletedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.clearDeletedAt = function() {
+  return this.setDeletedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.NewsItem.prototype.hasDeletedAt = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional string link = 5;
  * @return {string}
  */
 proto.news.NewsItem.prototype.getLink = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
@@ -324,16 +520,16 @@ proto.news.NewsItem.prototype.getLink = function() {
  * @return {!proto.news.NewsItem} returns this
  */
 proto.news.NewsItem.prototype.setLink = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional string image = 2;
+ * optional string image = 6;
  * @return {string}
  */
 proto.news.NewsItem.prototype.getImage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
@@ -342,87 +538,15 @@ proto.news.NewsItem.prototype.getImage = function() {
  * @return {!proto.news.NewsItem} returns this
  */
 proto.news.NewsItem.prototype.setImage = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
 /**
- * optional string title = 3;
+ * optional string title = 7;
  * @return {string}
  */
 proto.news.NewsItem.prototype.getTitle = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.news.NewsItem} returns this
- */
-proto.news.NewsItem.prototype.setTitle = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string time = 4;
- * @return {string}
- */
-proto.news.NewsItem.prototype.getTime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.news.NewsItem} returns this
- */
-proto.news.NewsItem.prototype.setTime = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
-};
-
-
-/**
- * optional int32 view = 5;
- * @return {number}
- */
-proto.news.NewsItem.prototype.getView = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.news.NewsItem} returns this
- */
-proto.news.NewsItem.prototype.setView = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
-};
-
-
-/**
- * optional int32 comment = 6;
- * @return {number}
- */
-proto.news.NewsItem.prototype.getComment = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.news.NewsItem} returns this
- */
-proto.news.NewsItem.prototype.setComment = function(value) {
-  return jspb.Message.setProto3IntField(this, 6, value);
-};
-
-
-/**
- * optional string type = 7;
- * @return {string}
- */
-proto.news.NewsItem.prototype.getType = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
@@ -431,8 +555,80 @@ proto.news.NewsItem.prototype.getType = function() {
  * @param {string} value
  * @return {!proto.news.NewsItem} returns this
  */
-proto.news.NewsItem.prototype.setType = function(value) {
+proto.news.NewsItem.prototype.setTitle = function(value) {
   return jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string time = 8;
+ * @return {string}
+ */
+proto.news.NewsItem.prototype.getTime = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.setTime = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional int32 view = 9;
+ * @return {number}
+ */
+proto.news.NewsItem.prototype.getView = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.setView = function(value) {
+  return jspb.Message.setProto3IntField(this, 9, value);
+};
+
+
+/**
+ * optional int32 comment = 10;
+ * @return {number}
+ */
+proto.news.NewsItem.prototype.getComment = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.setComment = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
+};
+
+
+/**
+ * optional string type = 11;
+ * @return {string}
+ */
+proto.news.NewsItem.prototype.getType = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.news.NewsItem} returns this
+ */
+proto.news.NewsItem.prototype.setType = function(value) {
+  return jspb.Message.setProto3StringField(this, 11, value);
 };
 
 
@@ -732,7 +928,7 @@ proto.news.DetailRequest.prototype.setUrl = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.news.DetailResponse.repeatedFields_ = [5];
+proto.news.DetailResponse.repeatedFields_ = [9];
 
 
 
@@ -765,12 +961,17 @@ proto.news.DetailResponse.prototype.toObject = function(opt_includeInstance) {
  */
 proto.news.DetailResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    title: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    from: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    time: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    summary: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    deletedAt: (f = msg.getDeletedAt()) && gorm_types_types_pb.DeletedAt.toObject(includeInstance, f),
+    title: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    from: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    time: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    summary: jspb.Message.getFieldWithDefault(msg, 8, ""),
     contentList: jspb.Message.toObjectList(msg.getContentList(),
-    proto.news.DetailResponse.DetailContent.toObject, includeInstance)
+    proto.news.DetailResponse.DetailContent.toObject, includeInstance),
+    no: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
   if (includeInstance) {
@@ -808,25 +1009,48 @@ proto.news.DetailResponse.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setUpdatedAt(value);
+      break;
+    case 4:
+      var value = new gorm_types_types_pb.DeletedAt;
+      reader.readMessage(value,gorm_types_types_pb.DeletedAt.deserializeBinaryFromReader);
+      msg.setDeletedAt(value);
+      break;
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setTitle(value);
       break;
-    case 2:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setFrom(value);
       break;
-    case 3:
+    case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setTime(value);
       break;
-    case 4:
+    case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setSummary(value);
       break;
-    case 5:
+    case 9:
       var value = new proto.news.DetailResponse.DetailContent;
       reader.readMessage(value,proto.news.DetailResponse.DetailContent.deserializeBinaryFromReader);
       msg.addContent(value);
+      break;
+    case 10:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNo(value);
       break;
     default:
       reader.skipField();
@@ -857,40 +1081,78 @@ proto.news.DetailResponse.prototype.serializeBinary = function() {
  */
 proto.news.DetailResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getDeletedAt();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      gorm_types_types_pb.DeletedAt.serializeBinaryToWriter
+    );
+  }
   f = message.getTitle();
   if (f.length > 0) {
     writer.writeString(
-      1,
+      5,
       f
     );
   }
   f = message.getFrom();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      6,
       f
     );
   }
   f = message.getTime();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      7,
       f
     );
   }
   f = message.getSummary();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      8,
       f
     );
   }
   f = message.getContentList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      5,
+      9,
       f,
       proto.news.DetailResponse.DetailContent.serializeBinaryToWriter
+    );
+  }
+  f = message.getNo();
+  if (f.length > 0) {
+    writer.writeString(
+      10,
+      f
     );
   }
 };
@@ -928,8 +1190,13 @@ proto.news.DetailResponse.DetailContent.prototype.toObject = function(opt_includ
  */
 proto.news.DetailResponse.DetailContent.toObject = function(includeInstance, msg) {
   var f, obj = {
-    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    content: jspb.Message.getFieldWithDefault(msg, 2, "")
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    deletedAt: (f = msg.getDeletedAt()) && gorm_types_types_pb.DeletedAt.toObject(includeInstance, f),
+    type: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    content: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    newsDetailid: jspb.Message.getFieldWithDefault(msg, 7, 0)
   };
 
   if (includeInstance) {
@@ -967,12 +1234,35 @@ proto.news.DetailResponse.DetailContent.deserializeBinaryFromReader = function(m
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setUpdatedAt(value);
+      break;
+    case 4:
+      var value = new gorm_types_types_pb.DeletedAt;
+      reader.readMessage(value,gorm_types_types_pb.DeletedAt.deserializeBinaryFromReader);
+      msg.setDeletedAt(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setType(value);
       break;
-    case 2:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setContent(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setNewsDetailid(value);
       break;
     default:
       reader.skipField();
@@ -1003,17 +1293,55 @@ proto.news.DetailResponse.DetailContent.prototype.serializeBinary = function() {
  */
 proto.news.DetailResponse.DetailContent.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getDeletedAt();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      gorm_types_types_pb.DeletedAt.serializeBinaryToWriter
+    );
+  }
   f = message.getType();
   if (f !== 0) {
     writer.writeInt32(
-      1,
+      5,
       f
     );
   }
   f = message.getContent();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      6,
+      f
+    );
+  }
+  f = message.getNewsDetailid();
+  if (f !== 0) {
+    writer.writeUint32(
+      7,
       f
     );
   }
@@ -1021,10 +1349,10 @@ proto.news.DetailResponse.DetailContent.serializeBinaryToWriter = function(messa
 
 
 /**
- * optional int32 type = 1;
+ * optional uint32 ID = 1;
  * @return {number}
  */
-proto.news.DetailResponse.DetailContent.prototype.getType = function() {
+proto.news.DetailResponse.DetailContent.prototype.getId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -1033,17 +1361,146 @@ proto.news.DetailResponse.DetailContent.prototype.getType = function() {
  * @param {number} value
  * @return {!proto.news.DetailResponse.DetailContent} returns this
  */
-proto.news.DetailResponse.DetailContent.prototype.setType = function(value) {
+proto.news.DetailResponse.DetailContent.prototype.setId = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
 /**
- * optional string content = 2;
+ * optional google.protobuf.Timestamp created_at = 2;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.news.DetailResponse.DetailContent.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+*/
+proto.news.DetailResponse.DetailContent.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+ */
+proto.news.DetailResponse.DetailContent.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.DetailResponse.DetailContent.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp updated_at = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.news.DetailResponse.DetailContent.prototype.getUpdatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+*/
+proto.news.DetailResponse.DetailContent.prototype.setUpdatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+ */
+proto.news.DetailResponse.DetailContent.prototype.clearUpdatedAt = function() {
+  return this.setUpdatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.DetailResponse.DetailContent.prototype.hasUpdatedAt = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional types.DeletedAt deleted_at = 4;
+ * @return {?proto.types.DeletedAt}
+ */
+proto.news.DetailResponse.DetailContent.prototype.getDeletedAt = function() {
+  return /** @type{?proto.types.DeletedAt} */ (
+    jspb.Message.getWrapperField(this, gorm_types_types_pb.DeletedAt, 4));
+};
+
+
+/**
+ * @param {?proto.types.DeletedAt|undefined} value
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+*/
+proto.news.DetailResponse.DetailContent.prototype.setDeletedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+ */
+proto.news.DetailResponse.DetailContent.prototype.clearDeletedAt = function() {
+  return this.setDeletedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.DetailResponse.DetailContent.prototype.hasDeletedAt = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional int32 type = 5;
+ * @return {number}
+ */
+proto.news.DetailResponse.DetailContent.prototype.getType = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+ */
+proto.news.DetailResponse.DetailContent.prototype.setType = function(value) {
+  return jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional string content = 6;
  * @return {string}
  */
 proto.news.DetailResponse.DetailContent.prototype.getContent = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
@@ -1052,16 +1509,163 @@ proto.news.DetailResponse.DetailContent.prototype.getContent = function() {
  * @return {!proto.news.DetailResponse.DetailContent} returns this
  */
 proto.news.DetailResponse.DetailContent.prototype.setContent = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
 /**
- * optional string title = 1;
+ * optional uint32 news_detailID = 7;
+ * @return {number}
+ */
+proto.news.DetailResponse.DetailContent.prototype.getNewsDetailid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.news.DetailResponse.DetailContent} returns this
+ */
+proto.news.DetailResponse.DetailContent.prototype.setNewsDetailid = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional uint32 ID = 1;
+ * @return {number}
+ */
+proto.news.DetailResponse.prototype.getId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.news.DetailResponse} returns this
+ */
+proto.news.DetailResponse.prototype.setId = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 2;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.news.DetailResponse.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.news.DetailResponse} returns this
+*/
+proto.news.DetailResponse.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.DetailResponse} returns this
+ */
+proto.news.DetailResponse.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.DetailResponse.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp updated_at = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.news.DetailResponse.prototype.getUpdatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.news.DetailResponse} returns this
+*/
+proto.news.DetailResponse.prototype.setUpdatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.DetailResponse} returns this
+ */
+proto.news.DetailResponse.prototype.clearUpdatedAt = function() {
+  return this.setUpdatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.DetailResponse.prototype.hasUpdatedAt = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional types.DeletedAt deleted_at = 4;
+ * @return {?proto.types.DeletedAt}
+ */
+proto.news.DetailResponse.prototype.getDeletedAt = function() {
+  return /** @type{?proto.types.DeletedAt} */ (
+    jspb.Message.getWrapperField(this, gorm_types_types_pb.DeletedAt, 4));
+};
+
+
+/**
+ * @param {?proto.types.DeletedAt|undefined} value
+ * @return {!proto.news.DetailResponse} returns this
+*/
+proto.news.DetailResponse.prototype.setDeletedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.news.DetailResponse} returns this
+ */
+proto.news.DetailResponse.prototype.clearDeletedAt = function() {
+  return this.setDeletedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.news.DetailResponse.prototype.hasDeletedAt = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional string title = 5;
  * @return {string}
  */
 proto.news.DetailResponse.prototype.getTitle = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
@@ -1070,16 +1674,16 @@ proto.news.DetailResponse.prototype.getTitle = function() {
  * @return {!proto.news.DetailResponse} returns this
  */
 proto.news.DetailResponse.prototype.setTitle = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional string from = 2;
+ * optional string from = 6;
  * @return {string}
  */
 proto.news.DetailResponse.prototype.getFrom = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
@@ -1088,16 +1692,16 @@ proto.news.DetailResponse.prototype.getFrom = function() {
  * @return {!proto.news.DetailResponse} returns this
  */
 proto.news.DetailResponse.prototype.setFrom = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
 /**
- * optional string time = 3;
+ * optional string time = 7;
  * @return {string}
  */
 proto.news.DetailResponse.prototype.getTime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
@@ -1106,16 +1710,16 @@ proto.news.DetailResponse.prototype.getTime = function() {
  * @return {!proto.news.DetailResponse} returns this
  */
 proto.news.DetailResponse.prototype.setTime = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 
 /**
- * optional string summary = 4;
+ * optional string summary = 8;
  * @return {string}
  */
 proto.news.DetailResponse.prototype.getSummary = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
@@ -1124,17 +1728,17 @@ proto.news.DetailResponse.prototype.getSummary = function() {
  * @return {!proto.news.DetailResponse} returns this
  */
 proto.news.DetailResponse.prototype.setSummary = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3StringField(this, 8, value);
 };
 
 
 /**
- * repeated DetailContent content = 5;
+ * repeated DetailContent content = 9;
  * @return {!Array<!proto.news.DetailResponse.DetailContent>}
  */
 proto.news.DetailResponse.prototype.getContentList = function() {
   return /** @type{!Array<!proto.news.DetailResponse.DetailContent>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.news.DetailResponse.DetailContent, 5));
+    jspb.Message.getRepeatedWrapperField(this, proto.news.DetailResponse.DetailContent, 9));
 };
 
 
@@ -1143,7 +1747,7 @@ proto.news.DetailResponse.prototype.getContentList = function() {
  * @return {!proto.news.DetailResponse} returns this
 */
 proto.news.DetailResponse.prototype.setContentList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 5, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -1153,7 +1757,7 @@ proto.news.DetailResponse.prototype.setContentList = function(value) {
  * @return {!proto.news.DetailResponse.DetailContent}
  */
 proto.news.DetailResponse.prototype.addContent = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.news.DetailResponse.DetailContent, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.news.DetailResponse.DetailContent, opt_index);
 };
 
 
@@ -1163,6 +1767,24 @@ proto.news.DetailResponse.prototype.addContent = function(opt_value, opt_index) 
  */
 proto.news.DetailResponse.prototype.clearContentList = function() {
   return this.setContentList([]);
+};
+
+
+/**
+ * optional string no = 10;
+ * @return {string}
+ */
+proto.news.DetailResponse.prototype.getNo = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.news.DetailResponse} returns this
+ */
+proto.news.DetailResponse.prototype.setNo = function(value) {
+  return jspb.Message.setProto3StringField(this, 10, value);
 };
 
 

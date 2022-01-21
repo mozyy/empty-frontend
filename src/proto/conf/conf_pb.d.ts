@@ -1,8 +1,9 @@
 import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-import * as protoc$gen$orm_orm_orm_pb from '../../protoc-gen-orm/orm/orm_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
+import * as gorm_options_gorm_pb from '../../gorm/options/gorm_pb';
+import * as gorm_types_types_pb from '../../gorm/types/types_pb';
 import * as proto_model_oauth_pb from '../../proto/model/oauth_pb';
 
 
@@ -20,8 +21,8 @@ export class Config extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): Config;
 
-  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): Config;
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): Config;
   hasDeletedAt(): boolean;
   clearDeletedAt(): Config;
 
@@ -55,7 +56,7 @@ export namespace Config {
     id: number,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
     type: string,
     value: string,
     content: string,
@@ -68,6 +69,21 @@ export class DeleteType extends jspb.Message {
   getId(): number;
   setId(value: number): DeleteType;
 
+  getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): DeleteType;
+  hasCreatedAt(): boolean;
+  clearCreatedAt(): DeleteType;
+
+  getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): DeleteType;
+  hasUpdatedAt(): boolean;
+  clearUpdatedAt(): DeleteType;
+
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): DeleteType;
+  hasDeletedAt(): boolean;
+  clearDeletedAt(): DeleteType;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteType.AsObject;
   static toObject(includeInstance: boolean, msg: DeleteType): DeleteType.AsObject;
@@ -79,6 +95,9 @@ export class DeleteType extends jspb.Message {
 export namespace DeleteType {
   export type AsObject = {
     id: number,
+    createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
   }
 }
 

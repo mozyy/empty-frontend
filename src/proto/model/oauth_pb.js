@@ -2,6 +2,7 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
@@ -12,12 +13,20 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = Function('return this')();
+var global = (function() {
+  if (this) { return this; }
+  if (typeof window !== 'undefined') { return window; }
+  if (typeof global !== 'undefined') { return global; }
+  if (typeof self !== 'undefined') { return self; }
+  return Function('return this')();
+}.call(null));
 
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
-var protoc$gen$orm_orm_orm_pb = require('../../protoc-gen-orm/orm/orm_pb.js');
-goog.object.extend(proto, protoc$gen$orm_orm_orm_pb);
+var gorm_options_gorm_pb = require('../../gorm/options/gorm_pb.js');
+goog.object.extend(proto, gorm_options_gorm_pb);
+var gorm_types_types_pb = require('../../gorm/types/types_pb.js');
+goog.object.extend(proto, gorm_types_types_pb);
 goog.exportSymbol('proto.model.OAuthClient', null, global);
 goog.exportSymbol('proto.model.OAuthToken', null, global);
 /**
@@ -97,7 +106,7 @@ proto.model.OAuthToken.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    deletedAt: (f = msg.getDeletedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    deletedAt: (f = msg.getDeletedAt()) && gorm_types_types_pb.DeletedAt.toObject(includeInstance, f),
     accessToken: jspb.Message.getFieldWithDefault(msg, 5, ""),
     tokenType: jspb.Message.getFieldWithDefault(msg, 6, ""),
     refreshToken: jspb.Message.getFieldWithDefault(msg, 7, ""),
@@ -153,8 +162,8 @@ proto.model.OAuthToken.deserializeBinaryFromReader = function(msg, reader) {
       msg.setUpdatedAt(value);
       break;
     case 4:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      var value = new gorm_types_types_pb.DeletedAt;
+      reader.readMessage(value,gorm_types_types_pb.DeletedAt.deserializeBinaryFromReader);
       msg.setDeletedAt(value);
       break;
     case 5:
@@ -230,7 +239,7 @@ proto.model.OAuthToken.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       4,
       f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+      gorm_types_types_pb.DeletedAt.serializeBinaryToWriter
     );
   }
   f = message.getAccessToken();
@@ -357,17 +366,17 @@ proto.model.OAuthToken.prototype.hasUpdatedAt = function() {
 
 
 /**
- * optional google.protobuf.Timestamp deleted_at = 4;
- * @return {?proto.google.protobuf.Timestamp}
+ * optional types.DeletedAt deleted_at = 4;
+ * @return {?proto.types.DeletedAt}
  */
 proto.model.OAuthToken.prototype.getDeletedAt = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+  return /** @type{?proto.types.DeletedAt} */ (
+    jspb.Message.getWrapperField(this, gorm_types_types_pb.DeletedAt, 4));
 };
 
 
 /**
- * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @param {?proto.types.DeletedAt|undefined} value
  * @return {!proto.model.OAuthToken} returns this
 */
 proto.model.OAuthToken.prototype.setDeletedAt = function(value) {
@@ -500,7 +509,7 @@ proto.model.OAuthClient.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    deletedAt: (f = msg.getDeletedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    deletedAt: (f = msg.getDeletedAt()) && gorm_types_types_pb.DeletedAt.toObject(includeInstance, f),
     secret: jspb.Message.getFieldWithDefault(msg, 5, ""),
     domain: jspb.Message.getFieldWithDefault(msg, 6, ""),
     userid: jspb.Message.getFieldWithDefault(msg, 7, "")
@@ -555,8 +564,8 @@ proto.model.OAuthClient.deserializeBinaryFromReader = function(msg, reader) {
       msg.setUpdatedAt(value);
       break;
     case 4:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      var value = new gorm_types_types_pb.DeletedAt;
+      reader.readMessage(value,gorm_types_types_pb.DeletedAt.deserializeBinaryFromReader);
       msg.setDeletedAt(value);
       break;
     case 5:
@@ -628,7 +637,7 @@ proto.model.OAuthClient.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       4,
       f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+      gorm_types_types_pb.DeletedAt.serializeBinaryToWriter
     );
   }
   f = message.getSecret();
@@ -748,17 +757,17 @@ proto.model.OAuthClient.prototype.hasUpdatedAt = function() {
 
 
 /**
- * optional google.protobuf.Timestamp deleted_at = 4;
- * @return {?proto.google.protobuf.Timestamp}
+ * optional types.DeletedAt deleted_at = 4;
+ * @return {?proto.types.DeletedAt}
  */
 proto.model.OAuthClient.prototype.getDeletedAt = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+  return /** @type{?proto.types.DeletedAt} */ (
+    jspb.Message.getWrapperField(this, gorm_types_types_pb.DeletedAt, 4));
 };
 
 
 /**
- * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @param {?proto.types.DeletedAt|undefined} value
  * @return {!proto.model.OAuthClient} returns this
 */
 proto.model.OAuthClient.prototype.setDeletedAt = function(value) {

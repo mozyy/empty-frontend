@@ -1,7 +1,8 @@
 import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
-import * as protoc$gen$orm_orm_orm_pb from '../../protoc-gen-orm/orm/orm_pb';
+import * as gorm_options_gorm_pb from '../../gorm/options/gorm_pb';
+import * as gorm_types_types_pb from '../../gorm/types/types_pb';
 
 
 export class Conf extends jspb.Message {
@@ -18,8 +19,8 @@ export class Conf extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): Conf;
 
-  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): Conf;
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): Conf;
   hasDeletedAt(): boolean;
   clearDeletedAt(): Conf;
 
@@ -48,7 +49,7 @@ export namespace Conf {
     id: number,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
     type: string,
     value: string,
     content: string,
@@ -70,8 +71,8 @@ export class ConfApi extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): ConfApi;
 
-  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): ConfApi;
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): ConfApi;
   hasDeletedAt(): boolean;
   clearDeletedAt(): ConfApi;
 
@@ -97,7 +98,7 @@ export namespace ConfApi {
     id: number,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
     api: string,
     scope: string,
     desc: string,

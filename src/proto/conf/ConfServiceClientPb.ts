@@ -13,8 +13,8 @@
 
 import * as grpcWeb from 'grpc-web';
 
-import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 import * as proto_conf_conf_pb from '../../proto/conf/conf_pb';
+import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
 
 export class ConfClient {
@@ -36,7 +36,10 @@ export class ConfClient {
     this.options_ = options;
   }
 
-  methodInfoCreate = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoCreate = new grpcWeb.MethodDescriptor(
+    '/conf.Conf/Create',
+    grpcWeb.MethodType.UNARY,
+    proto_conf_conf_pb.CreateRequest,
     proto_conf_conf_pb.CreateResponse,
     (request: proto_conf_conf_pb.CreateRequest) => {
       return request.serializeBinary();
@@ -51,13 +54,13 @@ export class ConfClient {
   create(
     request: proto_conf_conf_pb.CreateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.CreateResponse) => void): grpcWeb.ClientReadableStream<proto_conf_conf_pb.CreateResponse>;
 
   create(
     request: proto_conf_conf_pb.CreateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.CreateResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -76,7 +79,10 @@ export class ConfClient {
     this.methodInfoCreate);
   }
 
-  methodInfoUpdate = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+    '/conf.Conf/Update',
+    grpcWeb.MethodType.UNARY,
+    proto_conf_conf_pb.CreateRequest,
     proto_conf_conf_pb.CreateResponse,
     (request: proto_conf_conf_pb.CreateRequest) => {
       return request.serializeBinary();
@@ -91,13 +97,13 @@ export class ConfClient {
   update(
     request: proto_conf_conf_pb.CreateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.CreateResponse) => void): grpcWeb.ClientReadableStream<proto_conf_conf_pb.CreateResponse>;
 
   update(
     request: proto_conf_conf_pb.CreateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.CreateResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -116,7 +122,10 @@ export class ConfClient {
     this.methodInfoUpdate);
   }
 
-  methodInfoRead = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoRead = new grpcWeb.MethodDescriptor(
+    '/conf.Conf/Read',
+    grpcWeb.MethodType.UNARY,
+    proto_conf_conf_pb.ReadRequest,
     proto_conf_conf_pb.CreateResponse,
     (request: proto_conf_conf_pb.ReadRequest) => {
       return request.serializeBinary();
@@ -131,13 +140,13 @@ export class ConfClient {
   read(
     request: proto_conf_conf_pb.ReadRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.CreateResponse) => void): grpcWeb.ClientReadableStream<proto_conf_conf_pb.CreateResponse>;
 
   read(
     request: proto_conf_conf_pb.ReadRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.CreateResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -156,7 +165,10 @@ export class ConfClient {
     this.methodInfoRead);
   }
 
-  methodInfoList = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoList = new grpcWeb.MethodDescriptor(
+    '/conf.Conf/List',
+    grpcWeb.MethodType.UNARY,
+    proto_conf_conf_pb.ListRequest,
     proto_conf_conf_pb.ListResponse,
     (request: proto_conf_conf_pb.ListRequest) => {
       return request.serializeBinary();
@@ -171,13 +183,13 @@ export class ConfClient {
   list(
     request: proto_conf_conf_pb.ListRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.ListResponse) => void): grpcWeb.ClientReadableStream<proto_conf_conf_pb.ListResponse>;
 
   list(
     request: proto_conf_conf_pb.ListRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: proto_conf_conf_pb.ListResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -196,7 +208,10 @@ export class ConfClient {
     this.methodInfoList);
   }
 
-  methodInfoDelete = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoDelete = new grpcWeb.MethodDescriptor(
+    '/conf.Conf/Delete',
+    grpcWeb.MethodType.UNARY,
+    proto_conf_conf_pb.DeleteRequest,
     google_protobuf_empty_pb.Empty,
     (request: proto_conf_conf_pb.DeleteRequest) => {
       return request.serializeBinary();
@@ -211,13 +226,13 @@ export class ConfClient {
   delete(
     request: proto_conf_conf_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   delete(
     request: proto_conf_conf_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -236,7 +251,10 @@ export class ConfClient {
     this.methodInfoDelete);
   }
 
-  methodInfoCustom = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoCustom = new grpcWeb.MethodDescriptor(
+    '/conf.Conf/Custom',
+    grpcWeb.MethodType.UNARY,
+    proto_conf_conf_pb.DeleteRequest,
     google_protobuf_empty_pb.Empty,
     (request: proto_conf_conf_pb.DeleteRequest) => {
       return request.serializeBinary();
@@ -251,13 +269,13 @@ export class ConfClient {
   custom(
     request: proto_conf_conf_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   custom(
     request: proto_conf_conf_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(

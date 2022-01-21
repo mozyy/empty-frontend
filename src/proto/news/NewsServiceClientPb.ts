@@ -36,7 +36,10 @@ export class NewsClient {
     this.options_ = options;
   }
 
-  methodInfoList = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoList = new grpcWeb.MethodDescriptor(
+    '/news.News/List',
+    grpcWeb.MethodType.UNARY,
+    google_protobuf_empty_pb.Empty,
     proto_news_news_pb.ListResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
@@ -51,13 +54,13 @@ export class NewsClient {
   list(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: proto_news_news_pb.ListResponse) => void): grpcWeb.ClientReadableStream<proto_news_news_pb.ListResponse>;
 
   list(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: proto_news_news_pb.ListResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -76,7 +79,10 @@ export class NewsClient {
     this.methodInfoList);
   }
 
-  methodInfoDetail = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoDetail = new grpcWeb.MethodDescriptor(
+    '/news.News/Detail',
+    grpcWeb.MethodType.UNARY,
+    proto_news_news_pb.DetailRequest,
     proto_news_news_pb.DetailResponse,
     (request: proto_news_news_pb.DetailRequest) => {
       return request.serializeBinary();
@@ -91,13 +97,13 @@ export class NewsClient {
   detail(
     request: proto_news_news_pb.DetailRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: proto_news_news_pb.DetailResponse) => void): grpcWeb.ClientReadableStream<proto_news_news_pb.DetailResponse>;
 
   detail(
     request: proto_news_news_pb.DetailRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: proto_news_news_pb.DetailResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(

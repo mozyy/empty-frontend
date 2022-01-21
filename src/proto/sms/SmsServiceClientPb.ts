@@ -36,7 +36,10 @@ export class SMSClient {
     this.options_ = options;
   }
 
-  methodInfoSend = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoSend = new grpcWeb.MethodDescriptor(
+    '/sms.SMS/Send',
+    grpcWeb.MethodType.UNARY,
+    proto_sms_sms_pb.SendRequest,
     google_protobuf_empty_pb.Empty,
     (request: proto_sms_sms_pb.SendRequest) => {
       return request.serializeBinary();
@@ -51,13 +54,13 @@ export class SMSClient {
   send(
     request: proto_sms_sms_pb.SendRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   send(
     request: proto_sms_sms_pb.SendRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
@@ -76,7 +79,10 @@ export class SMSClient {
     this.methodInfoSend);
   }
 
-  methodInfoValidation = new grpcWeb.AbstractClientBase.MethodInfo(
+  methodInfoValidation = new grpcWeb.MethodDescriptor(
+    '/sms.SMS/Validation',
+    grpcWeb.MethodType.UNARY,
+    proto_sms_sms_pb.ValidationRequest,
     google_protobuf_empty_pb.Empty,
     (request: proto_sms_sms_pb.ValidationRequest) => {
       return request.serializeBinary();
@@ -91,13 +97,13 @@ export class SMSClient {
   validation(
     request: proto_sms_sms_pb.ValidationRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
+    callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   validation(
     request: proto_sms_sms_pb.ValidationRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
+    callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(

@@ -1,7 +1,8 @@
 import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
-import * as protoc$gen$orm_orm_orm_pb from '../../protoc-gen-orm/orm/orm_pb';
+import * as gorm_options_gorm_pb from '../../gorm/options/gorm_pb';
+import * as gorm_types_types_pb from '../../gorm/types/types_pb';
 
 
 export class OAuthToken extends jspb.Message {
@@ -18,8 +19,8 @@ export class OAuthToken extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): OAuthToken;
 
-  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): OAuthToken;
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): OAuthToken;
   hasDeletedAt(): boolean;
   clearDeletedAt(): OAuthToken;
 
@@ -48,7 +49,7 @@ export namespace OAuthToken {
     id: number,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
     accessToken: string,
     tokenType: string,
     refreshToken: string,
@@ -70,8 +71,8 @@ export class OAuthClient extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): OAuthClient;
 
-  getDeletedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setDeletedAt(value?: google_protobuf_timestamp_pb.Timestamp): OAuthClient;
+  getDeletedAt(): gorm_types_types_pb.DeletedAt | undefined;
+  setDeletedAt(value?: gorm_types_types_pb.DeletedAt): OAuthClient;
   hasDeletedAt(): boolean;
   clearDeletedAt(): OAuthClient;
 
@@ -97,7 +98,7 @@ export namespace OAuthClient {
     id: number,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    deletedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    deletedAt?: gorm_types_types_pb.DeletedAt.AsObject,
     secret: string,
     domain: string,
     userid: string,
