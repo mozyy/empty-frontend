@@ -25,7 +25,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate, useRoutes } from 'react-router-dom';
+import { useLocation, useNavigate, useRoutes } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ELink from '../components/ELink';
@@ -92,6 +92,12 @@ const Header:React.FC = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const isLogined = useIsLogined();
+
+  const loca = useLocation();
+  useEffect(() => {
+    setDrawerOpen(false);
+    console.log(6666, loca.key);
+  }, [loca.key]);
 
   useEffect(() => {
     const onBeforeInstallPromptEvent = (event: BeforeInstallPromptEvent) => {

@@ -15,23 +15,27 @@ import { RouteObject } from 'react-router-dom';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { RouteItem } from '../store/atoms/routes';
+import ELink from '../components/ELink';
 
 interface ItemProps {
   icon?: ReactNode
   name?: ReactNode
+  path: string
 }
 const index = 1;
 
-export const Item:FC<ItemProps> = ({ icon, name = `子菜单${index}` }) => (
-  <MenuItem>
-    <ListItemIcon>
-      {icon || <ContentCut fontSize="small" />}
-    </ListItemIcon>
-    <ListItemText>{name}</ListItemText>
-    <Typography variant="body2" color="text.secondary">
-      ⌘X
-    </Typography>
-  </MenuItem>
+export const Item:FC<ItemProps> = ({ icon, name = `子菜单${index}`, path }) => (
+  <ELink to={path}>
+    <MenuItem>
+      <ListItemIcon>
+        {icon || <ContentCut fontSize="small" />}
+      </ListItemIcon>
+      <ListItemText>{name}</ListItemText>
+      <Typography variant="body2" color="text.secondary">
+        ⌘X
+      </Typography>
+    </MenuItem>
+  </ELink>
 );
 interface ListProps {
   routes: RouteItem[]
@@ -39,7 +43,7 @@ interface ListProps {
 
 export const List:FC<ListProps> = ({ routes }) => (
   <MenuList>
-    {routes.map((route, i) => (route.children?.length ? (
+    {routes.map((route, i) => (Array.isArray(route.children) ? (
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -57,6 +61,7 @@ export const List:FC<ListProps> = ({ routes }) => (
         key={route?.path || i}
         icon={<ContentCopy fontSize="small" />}
         name={route.name}
+        path={route?.path || ''}
       />
     )))}
 

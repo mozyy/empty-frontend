@@ -18,6 +18,7 @@ import {
 } from 'recoil';
 import './App.css';
 import Routers from './router/Routers';
+import PullDownRefresh from './components/PullDownRefresh';
 
 const theme = createTheme(
   {
@@ -40,7 +41,9 @@ const App: FC = () => (
 
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
-        <Routers />
+        <PullDownRefresh>
+          <Routers />
+        </PullDownRefresh>
       </ThemeProvider>
     </Router>
   </RecoilRoot>

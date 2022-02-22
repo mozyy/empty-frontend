@@ -36,9 +36,8 @@ export const useGrpcRequest = <REQ extends Message,
   } else {
     config = req;
   }
-  const [state, setState] = useState<GrpcHooksRes<REQ, RES>>({
+  const [state, setState] = useState<Omit<GrpcHooksRes<REQ, RES>, 'run'>>({
     loading: false,
-    run: Promise.reject,
   });
   const oauth = useRecoilValue(oauthState);
   const oauthRefresh = useOauthRefresh();
@@ -51,13 +50,13 @@ export const useGrpcRequest = <REQ extends Message,
       }
     }
     setState({
-      run, loading: true,
+      loading: true,
     });
-    const Authorization = `${'Bearer'} ${oauth?.accessToken}`;
+    const Authorization = oauth?.accessToken ? `${'Bearer'} ${oauth.accessToken}` : '';
     return method(request, { Authorization })
       .then((res) => {
         setState({
-          run, error: undefined, data: res, loading: false,
+          error: undefined, data: res, loading: false,
         });
         return res;
       }, (err: Error|grpcWeb.Error) => {
@@ -74,10 +73,9 @@ export const useGrpcRequest = <REQ extends Message,
   useEffect(() => {
     if (!config.manual && data) {
       run(data);
-    } else {
-      setState({ run, loading: false });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run]);
-  return state;
+  const value = useMemo(() => ({ ...state, run }), [state, run]);
+  return value;
 };

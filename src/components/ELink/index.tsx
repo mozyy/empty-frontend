@@ -9,7 +9,7 @@ export type ELinkProps<
   > = OverridableComponent<M>&OverrideProps<M, C>;
 
 const ELink = React.forwardRef<HTMLAnchorElement, ELinkProps>(
-  (props, ref) => <Link component={RouterLink} ref={ref} color="inherit" {...props} />,
+  (props, ref) => <Link component={RouterLink} ref={ref} color="inherit" underline="none" {...props} />,
 );
 
 export default ELink;

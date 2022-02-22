@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { LinearProgress } from '@mui/material';
 import React, {
-  Component, FC, lazy, Suspense, useEffect,
+  Component, FC, lazy, Suspense, SuspenseProps, useEffect,
 } from 'react';
 import {
   Route, Routes, useLocation, useNavigate, useRoutes,
@@ -20,8 +20,9 @@ const Gallery = lazy(() => import('../views/Gallery'));
 const News = lazy(() => import('../views/News'));
 const IndexTest = lazy(() => import('../views/News/indexTest'));
 const NewsDetail = lazy(() => import('../views/NewsDetail'));
+const Sources = lazy(() => import('../views/manage/Sources'));
 
-const ESuspense:FC = ({ children }) => <Suspense fallback={<LinearProgress />}>{children}</Suspense>;
+const ESusp:FC<Partial<SuspenseProps>> = ({ ...props }) => <Suspense fallback={<LinearProgress />} {...props} />;
 
 const ErrorBoundary:FC<{ error:any, onError:(error:any)=>void }> = (props) => {
   const { error, onError, children } = props;
@@ -63,24 +64,6 @@ class ErrorBoundaryClass extends Component<{}, { error: any }> {
 const Routers:FC = () => {
   const loca = useLocation();
   useEffect(() => {
-    const pushState = Math.random();
-    const handler = (event: any) => {
-      if (event.state === pushState) {
-        console.log(
-          `location: ${document.location}, state: ${JSON.stringify(event.state)}`,
-        );
-        window.history.replaceState('', '', '/');
-        window.removeEventListener('popstate', handler);
-      }
-    };
-    if (window.history.length === 1) {
-      window.history.pushState(pushState, 'pushStatttt');
-      window.addEventListener('popstate', handler);
-    }
-    window.addEventListener('popstate', handler);
-    return () => window.removeEventListener('popstate', handler);
-  }, []);
-  useEffect(() => {
     console.log(6666, loca);
   }, [loca]);
   const [routesState, setRoutesState] = useRecoilState(routesAtomState);
@@ -91,39 +74,57 @@ const Routers:FC = () => {
         {
           path: '/doc',
           name: '文档',
-          element: <ESuspense><Doc /></ESuspense>,
+          element: <ESusp><Doc /></ESusp>,
         },
         {
           path: '/login',
           name: '文档',
-          element: <ESuspense><Login /></ESuspense>,
+          element: <ESusp><Login /></ESusp>,
         },
         {
           path: '/register',
           name: '文档',
-          element: <ESuspense><Register /></ESuspense>,
+          element: <ESusp><Register /></ESusp>,
         },
         {
           path: '/oauth/authorize',
           name: '文档',
-          element: <ESuspense><OauthAuthorize /></ESuspense>,
+          element: <ESusp><OauthAuthorize /></ESusp>,
         },
         {
           path: '/',
           name: '首页',
-          element: <ESuspense><Layout /></ESuspense>,
+          element: <ESusp><Layout /></ESusp>,
           children: [
             {
               path: '/newsDetail/:link',
               name: '新闻详情',
-              element: <ESuspense><NewsDetail /></ESuspense>,
+              element: <ESusp><NewsDetail /></ESusp>,
             },
             {
               path: '/gallery',
               name: '图库',
-              element: <ESuspense><Gallery /></ESuspense>,
+              element: <ESusp><Gallery /></ESusp>,
             },
-            { index: true, name: '新闻', element: <ESuspense><News /></ESuspense> },
+            { index: true, name: '新闻', element: <ESusp><News /></ESusp> },
+          ],
+        },
+        {
+          path: '/manage',
+          name: '管理',
+          element: <ESusp><Layout /></ESusp>,
+          children: [
+            {
+              path: '/manage/sources',
+              name: '资源',
+              element: <ESusp><Sources /></ESusp>,
+            },
+            {
+              path: 'gallery',
+              name: '图库',
+              element: <ESusp><Gallery /></ESusp>,
+            },
+            { index: true, name: '新闻', element: <ESusp><News /></ESusp> },
           ],
         },
       ]);

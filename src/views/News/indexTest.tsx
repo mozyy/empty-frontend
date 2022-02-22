@@ -3,7 +3,7 @@ import React, { } from 'react';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { useRecoilValue } from 'recoil';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
-import { newsClientState } from '../../store/atoms/clients';
+import { clientStateNews } from '../../store/atoms/clients';
 import { useGrpcRequest } from '../../hooks/grpcRequest';
 import { useClientNews } from '../../hooks/clients';
 

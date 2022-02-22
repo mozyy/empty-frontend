@@ -29,8 +29,8 @@
 
 # CMD ["./app"]
 
-FROM nginx
-# FROM nginx:alpine
+# FROM nginx
+FROM nginx:alpine
 
 
 COPY empty-frontend.conf /etc/nginx/conf.d/empty-frontend.conf

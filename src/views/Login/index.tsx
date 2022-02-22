@@ -16,7 +16,7 @@ import ELink from '../../components/ELink';
 import { UserClient } from '../../proto/user/UserServiceClientPb';
 // import { LoginRequest } from '../../proto/user/user_pb';
 // import { oAuth } from '../../utils/oauth';
-import { userClientState } from '../../store/atoms/clients';
+import { clientStateUser } from '../../store/atoms/clients';
 import { LoginRequest } from '../../proto/user/user_pb';
 import { oAuth } from '../../utils/oauth';
 import { useGrpcRequest } from '../../hooks/grpcRequest';
