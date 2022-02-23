@@ -29,7 +29,6 @@ export const useGrpcRequest = <REQ extends Message,
     req: REQ | GrpcHooksParams = {}, params?: GrpcHooksParams) => {
   let data:REQ;
   let config:GrpcHooksParams;
-  console.log(888, req, Message, req instanceof Message);
   if (req instanceof Message) {
     data = req;
     config = params || {};
