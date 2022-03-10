@@ -1,17 +1,24 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, {
+  useEffect, useMemo, useRef, useState,
+} from 'react';
 import List from '@mui/material/List';
 import {
   Avatar, Box, Divider, ListItem, ListSubheader, Skeleton,
 } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { selector, useRecoilValue } from 'recoil';
+import useSWR, { useSWRConfig } from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import { NewsClient } from '../../proto/news/NewsServiceClientPb';
-import { NewsItem } from '../../proto/news/news_pb';
+import { DetailResponse, ListResponse, NewsItem } from '../../proto/news/news_pb';
 import { Item } from './components/Item';
 import { grpcAddress } from '../../env';
 import { useClientNews } from '../../hooks/clients';
 import { useGrpcRequest } from '../../hooks/grpcRequest';
+import { newsClient } from '../../grpcClients/news';
+import { clientStateNews } from '../../store/atoms/clients';
+import { useApiNewsList } from '../../api/news';
 // import useOauth from '../../hooks/oauth';
 // interface NewsClass {
 //   type: string
@@ -28,25 +35,37 @@ const newsTypeMap: { [key: string]: string } = {
   music: '音乐资讯',
 };
 
+let listValue:ListResponse;
+const emptys = new Empty();
+
 const News: React.FC = () => {
-  // const [news, setNews] = useState<NewsItem.AsObject[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // console.log(loading);
-  const { data, loading, error } = useGrpcRequest(useClientNews('list'),
-    new Empty());
+  const params = useMemo(() => new Empty(), []);
+  const t = useClientNews('list');
+  // const {
+  //   data: dataS, error: errorS, mutate,
+  // } = useSWRImmutable(emptys, useClientNews('list'));
+  const {
+    data: dataS, error: errorS, mutate,
+  } = useApiNewsList();
+  const { cache } = useSWRConfig();
+  const [dataA, setList] = useState<ListResponse>();
+
+  const data = dataS;
 
   const category = useMemo(() => {
     const cate: { [key: string]: NewsItem.AsObject[] } = {};
-
-    data?.toObject().listList.forEach((item) => {
-      if (!cate[item.type]) {
-        cate[item.type] = [item];
-      } else {
-        cate[item.type].push(item);
-      }
-    });
+    if (data) {
+      data?.toObject().listList.forEach((item) => {
+        if (!cate[item.type]) {
+          cate[item.type] = [item];
+        } else {
+          cate[item.type].push(item);
+        }
+      });
+    }
     return cate;
   }, [data]);
+  console.log(22323232, cache, data, dataS, errorS, mutate, cache);
 
   return (
     <List sx={{}}>
@@ -65,7 +84,7 @@ const News: React.FC = () => {
           </Paper>
         </ListItem>
       ))}
-      {loading && Array.from({ length: 4 }, (v, i) => (
+      {Array.from({ length: 4 }, (v, i) => (
         <ListItem key={i}>
           <Paper sx={{ flex: 'auto' }}>
             <List sx={{ paddingX: 2, paddingY: 1, display: 'flex' }}>

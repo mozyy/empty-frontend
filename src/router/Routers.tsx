@@ -11,8 +11,12 @@ import { stringify } from 'qs';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Layout from '../layout/Layout';
 import { routesAtomState } from '../store/atoms/routes';
+// import Test from '../views/Test';
+// import Test1 from '../views/Test2';
 
 const Doc = lazy(() => import('../views/Doc'));
+const Test = lazy(() => import('../views/Test'));
+const Test1 = lazy(() => import('../views/Test2'));
 const Login = lazy(() => import('../views/Login'));
 const Register = lazy(() => import('../views/Register'));
 const OauthAuthorize = lazy(() => import('../views/OauthAuthorize'));
@@ -64,13 +68,23 @@ class ErrorBoundaryClass extends Component<{}, { error: any }> {
 const Routers:FC = () => {
   const loca = useLocation();
   useEffect(() => {
-    console.log(6666, loca);
+    // console.log(6666, loca);
   }, [loca]);
   const [routesState, setRoutesState] = useRecoilState(routesAtomState);
   const element = useRoutes(routesState);
   useEffect(() => {
     if (routesState.length === 0) {
       setRoutesState([
+        // {
+        //   path: '/test',
+        //   name: 'test',
+        //   element: <ESusp><Test /></ESusp>,
+        // },
+        // {
+        //   path: '/test1',
+        //   name: 'test1',
+        //   element: <ESusp><Test1 /></ESusp>,
+        // },
         {
           path: '/doc',
           name: '文档',
@@ -105,6 +119,16 @@ const Routers:FC = () => {
               path: '/gallery',
               name: '图库',
               element: <ESusp><Gallery /></ESusp>,
+            },
+            {
+              path: '/test',
+              name: 'test',
+              element: <ESusp><Test /></ESusp>,
+            },
+            {
+              path: '/test1',
+              name: 'test1',
+              element: <ESusp><Test1 /></ESusp>,
             },
             { index: true, name: '新闻', element: <ESusp><News /></ESusp> },
           ],

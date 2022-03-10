@@ -2,4 +2,5 @@
   "editor.codeActionsOnSave": {
     // "source.organizeImports": true, // 格式化import
   },
+  "remote.localPortHost": "allInterfaces",
 }

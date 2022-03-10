@@ -8,24 +8,24 @@ const Layout:React.FC = () => {
   const { key } = useLocation();
   const boxRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const top = sessionStorage.getItem(`_locationTop_${key}`);
-    console.log(222222, boxRef.current, top, key);
-    const box = boxRef.current;
-    if (box) {
-      setTimeout(() => {
-        if (box) {
-          box.scrollTo({ top: Number(top) || 0 });
-        }
-      }, 1000);
-    }
-    return () => {
-      console.log(444444444, box, box?.scrollTop, key);
-      if (box) {
-        sessionStorage.setItem(`_locationTop_${key}`, String(box.scrollTop));
-      }
-    };
-  }, [key]);
+  // useEffect(() => {
+  //   const top = sessionStorage.getItem(`_locationTop_${key}`);
+  //   console.log(222222, boxRef.current, top, key);
+  //   const box = boxRef.current;
+  //   if (box) {
+  //     setTimeout(() => {
+  //       if (box) {
+  //         box.scrollTo({ top: Number(top) || 0 });
+  //       }
+  //     }, 1000);
+  //   }
+  //   return () => {
+  //     console.log(444444444, box, box?.scrollTop, key);
+  //     if (box) {
+  //       sessionStorage.setItem(`_locationTop_${key}`, String(box.scrollTop));
+  //     }
+  //   };
+  // }, [key]);
 
   return (
     <Box sx={{

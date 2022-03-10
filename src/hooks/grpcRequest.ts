@@ -18,10 +18,11 @@ interface GrpcHooksParams {
   manual?:boolean
 }
 
-type GrpcMethod<REQ, RES> =
-  ((request:REQ, metadata: grpcWeb.Metadata | null) => Promise<RES>)&
-  ((request: REQ, metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error, response: RES) => void)=>grpcWeb.ClientReadableStream<RES>);
+interface GrpcMethod<REQ, RES> {
+  (request:REQ, metadata: grpcWeb.Metadata | null): Promise<RES>
+  // (request: REQ, metadata: grpcWeb.Metadata | null,
+  //   callback: (err: grpcWeb.Error, response: RES) => void): grpcWeb.ClientReadableStream<RES>
+}
 
 export const useGrpcRequest = <REQ extends Message,
   RES extends Message>
