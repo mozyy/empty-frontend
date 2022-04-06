@@ -37,7 +37,7 @@ export class UserClient {
     this.options_ = options;
   }
 
-  methodInfoRegister = new grpcWeb.MethodDescriptor(
+  methodDescriptorRegister = new grpcWeb.MethodDescriptor(
     '/user.User/Register',
     grpcWeb.MethodType.UNARY,
     proto_user_user_pb.RegisterRequest,
@@ -69,7 +69,7 @@ export class UserClient {
           '/user.User/Register',
         request,
         metadata || {},
-        this.methodInfoRegister,
+        this.methodDescriptorRegister,
         callback);
     }
     return this.client_.unaryCall(
@@ -77,10 +77,10 @@ export class UserClient {
       '/user.User/Register',
     request,
     metadata || {},
-    this.methodInfoRegister);
+    this.methodDescriptorRegister);
   }
 
-  methodInfoLogin = new grpcWeb.MethodDescriptor(
+  methodDescriptorLogin = new grpcWeb.MethodDescriptor(
     '/user.User/Login',
     grpcWeb.MethodType.UNARY,
     proto_user_user_pb.LoginRequest,
@@ -112,7 +112,7 @@ export class UserClient {
           '/user.User/Login',
         request,
         metadata || {},
-        this.methodInfoLogin,
+        this.methodDescriptorLogin,
         callback);
     }
     return this.client_.unaryCall(
@@ -120,10 +120,10 @@ export class UserClient {
       '/user.User/Login',
     request,
     metadata || {},
-    this.methodInfoLogin);
+    this.methodDescriptorLogin);
   }
 
-  methodInfoInfo = new grpcWeb.MethodDescriptor(
+  methodDescriptorInfo = new grpcWeb.MethodDescriptor(
     '/user.User/Info',
     grpcWeb.MethodType.UNARY,
     google_protobuf_empty_pb.Empty,
@@ -155,7 +155,7 @@ export class UserClient {
           '/user.User/Info',
         request,
         metadata || {},
-        this.methodInfoInfo,
+        this.methodDescriptorInfo,
         callback);
     }
     return this.client_.unaryCall(
@@ -163,7 +163,7 @@ export class UserClient {
       '/user.User/Info',
     request,
     metadata || {},
-    this.methodInfoInfo);
+    this.methodDescriptorInfo);
   }
 
 }

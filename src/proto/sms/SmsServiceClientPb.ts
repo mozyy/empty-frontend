@@ -36,7 +36,7 @@ export class SMSClient {
     this.options_ = options;
   }
 
-  methodInfoSend = new grpcWeb.MethodDescriptor(
+  methodDescriptorSend = new grpcWeb.MethodDescriptor(
     '/sms.SMS/Send',
     grpcWeb.MethodType.UNARY,
     proto_sms_sms_pb.SendRequest,
@@ -68,7 +68,7 @@ export class SMSClient {
           '/sms.SMS/Send',
         request,
         metadata || {},
-        this.methodInfoSend,
+        this.methodDescriptorSend,
         callback);
     }
     return this.client_.unaryCall(
@@ -76,10 +76,10 @@ export class SMSClient {
       '/sms.SMS/Send',
     request,
     metadata || {},
-    this.methodInfoSend);
+    this.methodDescriptorSend);
   }
 
-  methodInfoValidation = new grpcWeb.MethodDescriptor(
+  methodDescriptorValidation = new grpcWeb.MethodDescriptor(
     '/sms.SMS/Validation',
     grpcWeb.MethodType.UNARY,
     proto_sms_sms_pb.ValidationRequest,
@@ -111,7 +111,7 @@ export class SMSClient {
           '/sms.SMS/Validation',
         request,
         metadata || {},
-        this.methodInfoValidation,
+        this.methodDescriptorValidation,
         callback);
     }
     return this.client_.unaryCall(
@@ -119,7 +119,7 @@ export class SMSClient {
       '/sms.SMS/Validation',
     request,
     metadata || {},
-    this.methodInfoValidation);
+    this.methodDescriptorValidation);
   }
 
 }

@@ -36,7 +36,7 @@ export class NewsClient {
     this.options_ = options;
   }
 
-  methodInfoList = new grpcWeb.MethodDescriptor(
+  methodDescriptorList = new grpcWeb.MethodDescriptor(
     '/news.News/List',
     grpcWeb.MethodType.UNARY,
     google_protobuf_empty_pb.Empty,
@@ -68,7 +68,7 @@ export class NewsClient {
           '/news.News/List',
         request,
         metadata || {},
-        this.methodInfoList,
+        this.methodDescriptorList,
         callback);
     }
     return this.client_.unaryCall(
@@ -76,10 +76,10 @@ export class NewsClient {
       '/news.News/List',
     request,
     metadata || {},
-    this.methodInfoList);
+    this.methodDescriptorList);
   }
 
-  methodInfoDetail = new grpcWeb.MethodDescriptor(
+  methodDescriptorDetail = new grpcWeb.MethodDescriptor(
     '/news.News/Detail',
     grpcWeb.MethodType.UNARY,
     proto_news_news_pb.DetailRequest,
@@ -111,7 +111,7 @@ export class NewsClient {
           '/news.News/Detail',
         request,
         metadata || {},
-        this.methodInfoDetail,
+        this.methodDescriptorDetail,
         callback);
     }
     return this.client_.unaryCall(
@@ -119,7 +119,7 @@ export class NewsClient {
       '/news.News/Detail',
     request,
     metadata || {},
-    this.methodInfoDetail);
+    this.methodDescriptorDetail);
   }
 
 }

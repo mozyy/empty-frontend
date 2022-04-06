@@ -36,7 +36,7 @@ export class SourcesClient {
     this.options_ = options;
   }
 
-  methodInfoCreate = new grpcWeb.MethodDescriptor(
+  methodDescriptorCreate = new grpcWeb.MethodDescriptor(
     '/manage.Sources/Create',
     grpcWeb.MethodType.UNARY,
     proto_manage_sources_pb.SourcesItem,
@@ -68,7 +68,7 @@ export class SourcesClient {
           '/manage.Sources/Create',
         request,
         metadata || {},
-        this.methodInfoCreate,
+        this.methodDescriptorCreate,
         callback);
     }
     return this.client_.unaryCall(
@@ -76,10 +76,10 @@ export class SourcesClient {
       '/manage.Sources/Create',
     request,
     metadata || {},
-    this.methodInfoCreate);
+    this.methodDescriptorCreate);
   }
 
-  methodInfoList = new grpcWeb.MethodDescriptor(
+  methodDescriptorList = new grpcWeb.MethodDescriptor(
     '/manage.Sources/List',
     grpcWeb.MethodType.UNARY,
     proto_manage_sources_pb.SourcesItem,
@@ -111,7 +111,7 @@ export class SourcesClient {
           '/manage.Sources/List',
         request,
         metadata || {},
-        this.methodInfoList,
+        this.methodDescriptorList,
         callback);
     }
     return this.client_.unaryCall(
@@ -119,7 +119,7 @@ export class SourcesClient {
       '/manage.Sources/List',
     request,
     metadata || {},
-    this.methodInfoList);
+    this.methodDescriptorList);
   }
 
 }

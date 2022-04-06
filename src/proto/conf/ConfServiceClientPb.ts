@@ -36,7 +36,7 @@ export class ConfClient {
     this.options_ = options;
   }
 
-  methodInfoCreate = new grpcWeb.MethodDescriptor(
+  methodDescriptorCreate = new grpcWeb.MethodDescriptor(
     '/conf.Conf/Create',
     grpcWeb.MethodType.UNARY,
     proto_conf_conf_pb.CreateRequest,
@@ -68,7 +68,7 @@ export class ConfClient {
           '/conf.Conf/Create',
         request,
         metadata || {},
-        this.methodInfoCreate,
+        this.methodDescriptorCreate,
         callback);
     }
     return this.client_.unaryCall(
@@ -76,10 +76,10 @@ export class ConfClient {
       '/conf.Conf/Create',
     request,
     metadata || {},
-    this.methodInfoCreate);
+    this.methodDescriptorCreate);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/conf.Conf/Update',
     grpcWeb.MethodType.UNARY,
     proto_conf_conf_pb.CreateRequest,
@@ -111,7 +111,7 @@ export class ConfClient {
           '/conf.Conf/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -119,10 +119,10 @@ export class ConfClient {
       '/conf.Conf/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
-  methodInfoRead = new grpcWeb.MethodDescriptor(
+  methodDescriptorRead = new grpcWeb.MethodDescriptor(
     '/conf.Conf/Read',
     grpcWeb.MethodType.UNARY,
     proto_conf_conf_pb.ReadRequest,
@@ -154,7 +154,7 @@ export class ConfClient {
           '/conf.Conf/Read',
         request,
         metadata || {},
-        this.methodInfoRead,
+        this.methodDescriptorRead,
         callback);
     }
     return this.client_.unaryCall(
@@ -162,10 +162,10 @@ export class ConfClient {
       '/conf.Conf/Read',
     request,
     metadata || {},
-    this.methodInfoRead);
+    this.methodDescriptorRead);
   }
 
-  methodInfoList = new grpcWeb.MethodDescriptor(
+  methodDescriptorList = new grpcWeb.MethodDescriptor(
     '/conf.Conf/List',
     grpcWeb.MethodType.UNARY,
     proto_conf_conf_pb.ListRequest,
@@ -197,7 +197,7 @@ export class ConfClient {
           '/conf.Conf/List',
         request,
         metadata || {},
-        this.methodInfoList,
+        this.methodDescriptorList,
         callback);
     }
     return this.client_.unaryCall(
@@ -205,10 +205,10 @@ export class ConfClient {
       '/conf.Conf/List',
     request,
     metadata || {},
-    this.methodInfoList);
+    this.methodDescriptorList);
   }
 
-  methodInfoDelete = new grpcWeb.MethodDescriptor(
+  methodDescriptorDelete = new grpcWeb.MethodDescriptor(
     '/conf.Conf/Delete',
     grpcWeb.MethodType.UNARY,
     proto_conf_conf_pb.DeleteRequest,
@@ -240,7 +240,7 @@ export class ConfClient {
           '/conf.Conf/Delete',
         request,
         metadata || {},
-        this.methodInfoDelete,
+        this.methodDescriptorDelete,
         callback);
     }
     return this.client_.unaryCall(
@@ -248,10 +248,10 @@ export class ConfClient {
       '/conf.Conf/Delete',
     request,
     metadata || {},
-    this.methodInfoDelete);
+    this.methodDescriptorDelete);
   }
 
-  methodInfoCustom = new grpcWeb.MethodDescriptor(
+  methodDescriptorCustom = new grpcWeb.MethodDescriptor(
     '/conf.Conf/Custom',
     grpcWeb.MethodType.UNARY,
     proto_conf_conf_pb.DeleteRequest,
@@ -283,7 +283,7 @@ export class ConfClient {
           '/conf.Conf/Custom',
         request,
         metadata || {},
-        this.methodInfoCustom,
+        this.methodDescriptorCustom,
         callback);
     }
     return this.client_.unaryCall(
@@ -291,7 +291,7 @@ export class ConfClient {
       '/conf.Conf/Custom',
     request,
     metadata || {},
-    this.methodInfoCustom);
+    this.methodDescriptorCustom);
   }
 
 }

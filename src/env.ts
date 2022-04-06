@@ -11,7 +11,7 @@ interface EnvConfig {
 
 const configs:{ [key: string]: EnvConfig } = {
   dev: {
-    host: 'http://192.168.120.181:50052',
+    host: 'http://localhost:50052',
     PaletteOptions: {
       primary: blue,
     },
