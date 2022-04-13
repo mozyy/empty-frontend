@@ -1,9 +1,0 @@
-FROM mozyy/empty-compose-app
-
-COPY . /repo
-
-RUN pwd
-
-WORKDIR repo
-
-RUN git submodule --quiet update --init --recursive
