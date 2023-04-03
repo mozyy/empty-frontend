@@ -1,6 +1,4 @@
 {
-  "editor.codeActionsOnSave": {
-    // "source.organizeImports": true, // 格式化import
-  },
-  "remote.localPortHost": "allInterfaces",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -1,37 +1,21 @@
-# FROM node:lts-buster AS builder
+FROM node:18-alpine
 
-# WORKDIR /workspace
+WORKDIR /app
 
-# # COPY package.json empty-frontend/package.json
+ENV NODE_ENV production
 
-# # RUN cd empty-frontend && yarn
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# RUN git clone --depth 1 https://github.com/mozyy/empty-frontend.git
+COPY /src/public ./public
 
-# WORKDIR /workspace/empty-frontend
+COPY --chown=nextjs:nodejs /.next/standalone ./
+COPY --chown=nextjs:nodejs /.next/static ./.next/static
 
-# RUN yarn &&
+USER nextjs
 
-# # 为了跳过 docker 缓存
-# # ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-# RUN git pull && yarn && yarn rs:build
+EXPOSE 3000
 
-# FROM golang
+ENV PORT 3000
 
-# ENV GO111MODULE=on
-# ENV GOPROXY=https://goproxy.cn
-
-# COPY simple-server /workspace/simple-server
-
-# WORKDIR /workspace/simple-server
-
-# RUN go build -o app server.go
-
-# CMD ["./app"]
-
-# FROM nginx
-FROM nginx:alpine
-
-
-COPY empty-frontend.conf /etc/nginx/conf.d/empty-frontend.conf
-COPY build /usr/share/nginx/empty-frontend
+CMD ["node", "server.js"]
