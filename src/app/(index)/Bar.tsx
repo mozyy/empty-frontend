@@ -40,6 +40,7 @@ export default function Bar() {
             <Tab LinkComponent={Link} label="首页" href="/" />
             <Tab LinkComponent={Link} label="博客" href="/blog" />
             <Tab LinkComponent={Link} label="工具" href="/tool" />
+            <Tab LinkComponent={Link} label="文档" href="/docs" />
           </Tabs>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>

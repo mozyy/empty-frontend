@@ -1,4 +1,4 @@
-import FeauterCard from '@/component/FeauterCardProps';
+import FeauterCard from '@/component/FeauterCard';
 import {
   Unstable_Grid2 as Grid,
   Box, Typography,

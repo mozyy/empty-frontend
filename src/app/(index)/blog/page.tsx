@@ -1,11 +1,12 @@
-import { BlogApi } from '../../../openapi';
+import { BlogServiceApi } from '../../../api/blog';
+import BlogCard from './BlogCard';
 import { Box, Unstable_Grid2 as Grid, Typography } from '@/mui/material';
-import FeauterCard from '@/component/FeauterCardProps';
+import FeauterCard from '@/component/FeauterCard';
 
 export default async function Blog() {
-  const blogApi = new BlogApi();
-  const res = await blogApi.get({ cache: 'no-store' });
-  const [first, ...blogs] = res;
+  const blogApi = new BlogServiceApi();
+  const res = await blogApi.blogServiceList();
+  const [first, ...blogs] = res.blogs || [];
   return (
     <Box>
       <Grid container spacing={{ xs: 2, lg: 4 }} justifyContent="center">
@@ -13,21 +14,11 @@ export default async function Blog() {
           <Typography variant="h3">Blog.</Typography>
         </Grid>
         <Grid xs={12} lg={10}>
-          <FeauterCard
-            title={first.title}
-            href={`/blog/${first.id}`}
-            image={first.image}
-            content={first.summary}
-          />
+          <BlogCard blog={first} />
         </Grid>
         {blogs.map((blog) => (
           <Grid xs={12} sm={6} lg={5} key={blog.id}>
-            <FeauterCard
-              title={blog.title}
-              href={`/blog/${blog.id}`}
-              image={blog.image}
-              content={blog.summary}
-            />
+            <BlogCard blog={blog} />
           </Grid>
         ))}
       </Grid>
