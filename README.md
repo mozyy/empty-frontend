@@ -1,8 +1,8 @@
 # empty-frontend
 
 openapi-generator-cli generate -g typescript-fetch \
--i ../empty-backend/proto/openapi/blog/blog.swagger.json \
--o src/openapi/blog
+-i ./src/api/openapi/blog/blog.swagger.json \
+-o src/api/blog
 
 ## Troubleshooting
 

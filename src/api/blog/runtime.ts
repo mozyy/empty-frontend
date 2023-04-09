@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://http://127.0.0.1:51051".replace(/\/+$/, "");
+export const BASE_PATH = "http://127.0.0.1:51051".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
@@ -134,6 +134,7 @@ export class BaseAPI {
     protected async request(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction): Promise<Response> {
         const { url, init } = await this.createFetchParams(context, initOverrides);
         const response = await this.fetchApi(url, init);
+        console.log(222, response)
         if (response && (response.status >= 200 && response.status < 300)) {
             return response;
         }
@@ -254,6 +255,7 @@ function isFormData(value: any): value is FormData {
 export class ResponseError extends Error {
     override name: "ResponseError" = "ResponseError";
     constructor(public response: Response, msg?: string) {
+        console.log(1111, response)
         super(msg);
     }
 }

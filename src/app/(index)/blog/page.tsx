@@ -5,7 +5,7 @@ import FeauterCard from '@/component/FeauterCard';
 
 export default async function Blog() {
   const blogApi = new BlogServiceApi();
-  const res = await blogApi.blogServiceList();
+  const res = await blogApi.blogServiceList({ cache: 'no-cache' });
   const [first, ...blogs] = res.blogs || [];
   return (
     <Box>
