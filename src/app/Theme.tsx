@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { ThemeProvider, createTheme } from '@/mui/material';
+import { AdapterDayjs, LocalizationProvider } from '@/mui/x-date-pickers';
 
 export const theme = createTheme({
   palette: {
@@ -15,10 +16,12 @@ export const theme = createTheme({
   },
 });
 
-export default function Theme({ children }:PropsWithChildren) {
+export default function Theme({ children }: PropsWithChildren) {
   return (
     <ThemeProvider theme={theme}>
-      {children}
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+        {children}
+      </LocalizationProvider>
     </ThemeProvider>
   );
 }

@@ -4,7 +4,8 @@ module.exports = {
     // 'linebreak-style': 0,
     // // '@typescript-eslint/dot-notation': 0,
     // 'react/prop-types': 0,
-    // 'react/jsx-props-no-spreading': 0,
+    'react/jsx-props-no-spreading': 'off',
+    
     // 'no-bitwise': 0,
     // 'import/prefer-default-export': 0,
     // 'no-underscore-dangle': 0,
