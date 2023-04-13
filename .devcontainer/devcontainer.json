@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/docker-from-docker-compose
 {
   "name": "EmptyFrontend",
-  "image": "mozyy/empty-dev-container:1.0.4",
+  "image": "mozyy/empty-dev-container:1.1.0",
   "runArgs": ["--init"],
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
@@ -12,36 +12,39 @@
   // Use this environment variable if you need to bind mount your local source code into a new container.
   "remoteEnv": {
     // "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
-    "http_proxy": "${localEnv:proxy_addr}",
-    "https_proxy": "${localEnv:proxy_addr}",
-    "mysql_dsn": "${localEnv:mysql_dsn}",
-    "postgresql_dsn": "${localEnv:postgresql_dsn}"
   },
 
-  // Set *default* container specific settings.json values on container create.
-  "settings": {
-    "terminal.integrated.profiles.linux": {
-      "zsh (login)": {
-        "path": "zsh",
-        "args": ["-l"]
-      }
+// Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "lldb.executable": "/usr/bin/lldb",
+        // VS Code don't watch files under ./target
+        "files.watcherExclude": {
+          "**/target/**": true
+        },
+        "rust-analyzer.checkOnSave.command": "clippy"
+      },
+
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "dbaeumer.vscode-eslint",
+        "mutantdino.resourcemonitor"
+      ]
     }
   },
 
-  // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "ms-azuretools.vscode-docker",
-    "esbenp.prettier-vscode",
-    "eamodio.gitlens",
-    "dbaeumer.vscode-eslint"
-  ],
-
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000]
+  // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "docker --version",
+  // "postCreateCommand": "rustc --version",
 
-  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-  // "remoteUser": "root"
+  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode"
 }
