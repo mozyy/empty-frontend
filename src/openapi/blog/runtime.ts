@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://127.0.0.1:51051".replace(/\/+$/, "");
+export const BASE_PATH = "http://envoy:51051".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path

@@ -1,4 +1,4 @@
-import { BlogServiceApi } from '../../../api/blog';
+import { BlogServiceApi } from '../../../openapi/blog';
 import BlogCard from './BlogCard';
 import { Box, Unstable_Grid2 as Grid, Typography } from '@/mui/material';
 import FeauterCard from '@/component/FeauterCard';

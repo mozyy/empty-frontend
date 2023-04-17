@@ -19,7 +19,7 @@ export const theme = createTheme({
 export default function Theme({ children }: PropsWithChildren) {
   return (
     <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs} >
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         {children}
       </LocalizationProvider>
     </ThemeProvider>

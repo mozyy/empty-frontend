@@ -1,5 +1,6 @@
 'use client';
 
+// @ts-ignore
 import { register, GB2260 } from 'gb2260';
 // @ts-ignore
 import GBdata from 'gb2260/lib/201607';
@@ -11,7 +12,7 @@ import {
 } from '@/mui/material';
 import { TabList, TabContext, TabPanel } from '@/mui/lab';
 import { DatePicker } from '@/mui/x-date-pickers';
-import { sexEnum, sexEnumDesc } from '@/utils/state';
+import { SexEnum, sexEnumDesc } from '@/utils/state';
 
 register('201607', GBdata);
 const gbdata = new GB2260('201607');
@@ -37,7 +38,7 @@ export default function IdCard() {
   const [prefectures, setPrefectures] = useState([]);
   const [counties, setCounties] = useState([]);
   const [date, setDate] = useState<Dayjs | null>(dayjs('1999-06-08'));
-  const [sex, setSex] = useState(sexEnum.MAN);
+  const [sex, setSex] = useState(SexEnum.MAN);
   const [ids, setIds] = useState<string[]>([]);
 
   const reducer = useCallback((state: State, action: { type: string, value: Value }):State => {
@@ -91,10 +92,12 @@ export default function IdCard() {
   });
   const generate = () => {
     if (!state.city?.code) {
-      return console.log('no contie');
+      console.log('no contie');
+      return;
     }
     if (!date) {
-      return console.log('no date');
+      console.log('no date');
+      return;
     }
     const prefix = `${state.city.code}${date.format('YYYYMMDD')}`;
     const arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
@@ -102,7 +105,7 @@ export default function IdCard() {
     const random = () => {
       const sortCode = `${Math.floor(Math.random() * 99 + 1)}`;
       let sexCode = Math.floor(Math.random() * 5) * 2;
-      if (sex === sexEnum.MAN) {
+      if (sex === SexEnum.MAN) {
         sexCode += 1;
       }
       const str = prefix + sortCode + sexCode;
@@ -195,9 +198,9 @@ export default function IdCard() {
             <GridItem>
               <FormControl sx={{ minWidth: 100 }}>
                 <InputLabel id="sex-label">姓别</InputLabel>
-                <Select<sexEnum> labelId="sex-label" label="姓别" value={sex} onChange={(e) => setSex(Number(e.target.value))}>
-                  <MenuItem value={sexEnum.MAN}>{sexEnumDesc(sexEnum.MAN)}</MenuItem>
-                  <MenuItem value={sexEnum.WOMAN}>{sexEnumDesc(sexEnum.WOMAN)}</MenuItem>
+                <Select<SexEnum> labelId="sex-label" label="姓别" value={sex} onChange={(e) => setSex(Number(e.target.value))}>
+                  <MenuItem value={SexEnum.MAN}>{sexEnumDesc(SexEnum.MAN)}</MenuItem>
+                  <MenuItem value={SexEnum.WOMAN}>{sexEnumDesc(SexEnum.WOMAN)}</MenuItem>
                 </Select>
               </FormControl>
             </GridItem>
