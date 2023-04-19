@@ -27,3 +27,4 @@ export { default as MenuItem } from '@mui/material/MenuItem';
 export { default as Select } from '@mui/material/Select';
 export { default as FormControl } from '@mui/material/FormControl';
 export { default as InputLabel } from '@mui/material/InputLabel';
+export { default as Paper } from '@mui/material/Paper';

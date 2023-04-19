@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { V1Blog } from '../../../api/blog';
+import { V1Blog } from '../../../openapi/blog';
 import FeauterCard from '../../../component/FeauterCard';
 import {
   ArrowForwardIos, Favorite, Share,

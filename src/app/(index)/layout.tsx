@@ -15,13 +15,16 @@ export const metadata = {
 export default async function RootLayout({ children }:PropsWithChildren) {
   const session = await getServerSession(authOptions);
   return (
-    <main>
+    <Box sx={{ display: 'flex', height: '100%', flexDirection: 'column' }} component="main">
       {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
       {/* <AppBar /> */}
       <Bar />
-      <Box sx={{ p: 3 }}>
+      <Box sx={{
+        p: 3, flex: 'auto', display: 'flex', flexDirection: 'column',
+      }}
+      >
         {children}
       </Box>
-    </main>
+    </Box>
   );
 }

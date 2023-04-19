@@ -15,3 +15,10 @@ replace `node_modules/@rushstack/eslint-patch/lib/modern-module-resolution.js`25
 docker run --name envoy -p 51051:51051 -it --rm \
   -v "vsc-remote-containers-empty:/workspaces:ro" \
   envoyproxy/envoy:v1.25-latest -c /workspaces/empty-backend/envoy.yaml
+
+
+grpc_tools_node_protoc -I../empty-backend/proto/proto -I../empty-backend/proto/third_party --js_out=import_style=commonjs,binary:src/grpc/ \
+--grpc_out=grpc_js:src/grpc/ ../empty-backend/proto/proto/blog/blog.proto
+
+### deploy
+`npm run build` `tar zcvf next.tar.gz .next/standalone/ .next/static/` `tar zxvf next.tar.gz`

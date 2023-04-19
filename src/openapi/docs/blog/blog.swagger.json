@@ -9,7 +9,10 @@
       "name": "BlogService"
     }
   ],
-  "host": "127.0.0.1:51051",
+  "host": "yyuck.com",
+  "schemes": [
+    "https"
+  ],
   "consumes": [
     "application/json"
   ],
