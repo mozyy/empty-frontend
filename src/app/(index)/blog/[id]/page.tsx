@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { marked } from 'marked';
 import { BlogServiceApi } from '../../../../openapi/blog';
+import Blog from '../Blog';
 import { Box, Unstable_Grid2 as Grid, Typography } from '@/mui/material';
 
 export default async function Detail({ params: { id } }:{ params: { id:string } }) {
@@ -11,28 +12,9 @@ export default async function Detail({ params: { id } }:{ params: { id:string } 
   // const MDX = await MDXRemote({ source: blog.markdown! });
   const markdown = marked(blog.markdown!);
 
+  const viewBlog = { ...blog, markdown };
+
   return (
-    <Grid container spacing={{ xs: 2, lg: 4 }}>
-      <Grid xs={12}>
-        <Typography variant="h4">{blog.title}</Typography>
-        <Typography>{`${blog.author}  ${blog.createdAt!.toLocaleDateString()}`}</Typography>
-      </Grid>
-      <Grid xs={12}>
-        <Image
-          src={blog.image!}
-          width={820}
-          height={547}
-          priority
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
-          alt="blog"
-        />
-      </Grid>
-      <Grid xs={12}>
-        <Box dangerouslySetInnerHTML={{ __html: markdown }} />
-      </Grid>
-    </Grid>
+    <Blog blog={viewBlog} />
   );
 }

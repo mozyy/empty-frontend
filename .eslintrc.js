@@ -17,7 +17,7 @@ module.exports = {
     // "react/jsx-fragments": 'off',
     // // "no-console": 'off',
     "@typescript-eslint/no-unused-vars": "warn",
-    "import/prefer-default-export": "warn",
+    "import/prefer-default-export": "off",
     // "react/function-component-definition": [
     //   "warn",
     //   { namedComponents: "arrow-function" },
