@@ -9,3 +9,4 @@ export { default as AccountCircle } from '@mui/icons-material/AccountCircle';
 export { default as Menu } from '@mui/icons-material/Menu';
 export { default as MoreVert } from '@mui/icons-material/MoreVert';
 export { default as Notifications } from '@mui/icons-material/Notifications';
+export { default as Delete } from '@mui/icons-material/Delete';

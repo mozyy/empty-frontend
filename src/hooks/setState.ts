@@ -1,18 +1,20 @@
 import { useCallback, useReducer } from 'react';
 
-const SET_FIELD = 'SET_FIELD';
-const SET_FIELDS = 'SET_FIELDS';
+enum ActionEnum {
+  SET_FIELDS,
+  SET_ALL_FIELDS,
+}
 
-type InputFieldAction = {
-  type: string
-  value: Object
-};
+interface SetStateAction {
+  type: ActionEnum
+  value: Record<string, any>
+}
 
-const inputFieldReducer = <S>(state:S, action:InputFieldAction):S => {
+const inputFieldReducer = <S>(state:S, action:SetStateAction):S => {
   switch (action.type) {
-    case SET_FIELD:
+    case ActionEnum.SET_FIELDS:
       return { ...state, ...action.value };
-    case SET_FIELDS:
+    case ActionEnum.SET_ALL_FIELDS:
       return { ...action.value } as S;
     default:
       return state;
@@ -20,28 +22,38 @@ const inputFieldReducer = <S>(state:S, action:InputFieldAction):S => {
 };
 
 // 所有字段替换
-export const setFieldsAction = (value) => ({
-  type: SET_FIELDS,
+export const setAllFieldsAction = <S extends Record<string, any>>(value:S) => ({
+  type: ActionEnum.SET_ALL_FIELDS,
   value,
 });
 // 更新部分字段
-export const setFieldAction = (value) => ({
-  type: SET_FIELD,
+export const setFieldsAction = <S extends Record<string, any>>(value:S) => ({
+  type: ActionEnum.SET_FIELDS,
   value,
 });
 
+export interface SetState<S extends Record<string, any> = Record<string, any>> {
+  <K extends keyof S>(key: K):(value: S[K])=>void
+  <K extends keyof S>(obj: Pick<S, K>): void
+}
+
 /**
- * 页面表单的常用hooks
- * 方便在input 中的onChange里使用: onChange={setField('key')}
- * @param initialState T
+ * useSetState
+ * @param initialState state
+ * @returns [state, setState, setAllState]
  */
-export const useSetState = <T>(initialState:T)
-  :[T, (key: keyof T) => (value: any) => void, React.Dispatch<InputFieldAction>] => {
-  const [state, dispatch] = useReducer<React.Reducer<T, InputFieldAction>>(
+export const useSetState = <S extends Record<string, any>>(initialState:S) => {
+  const [state, dispatch] = useReducer<React.Reducer<S, SetStateAction>>(
     inputFieldReducer,
     initialState,
   );
-  const setState = useCallback((key: keyof T) => (value:
-  any) => dispatch(setFieldAction({ [key]: value })), []);
-  return [state, setState, dispatch];
+  const setState:SetState<S> = (value:any): any => {
+    if (typeof value === 'string') {
+      return (v:unknown) => dispatch(setFieldsAction({ [value]: v }));
+    }
+    return dispatch(setFieldsAction(value as any));
+  };
+  const setAllState = (value:S) => dispatch(setAllFieldsAction(value));
+
+  return [state, setState, setAllState] as const;
 };

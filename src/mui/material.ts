@@ -32,3 +32,6 @@ export { default as ButtonBase } from '@mui/material/ButtonBase';
 export { default as Input } from '@mui/material/Input';
 export { default as OutlinedInput } from '@mui/material/OutlinedInput';
 export { styled } from '@mui/material/styles';
+export { default as ImageList } from '@mui/material/ImageList';
+export { default as ImageListItem } from '@mui/material/ImageListItem';
+export { default as ImageListItemBar } from '@mui/material/ImageListItemBar';

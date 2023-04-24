@@ -3,12 +3,12 @@ import Image from 'next/image';
 import { V1Blog } from '../../../openapi/blog';
 import { Box, Unstable_Grid2 as Grid, Typography } from '@/mui/material';
 
-export default function Blog({ blog }:{ blog: V1Blog }) {
+export default function BlogComponent({ blog }:{ blog: V1Blog }) {
   return (
     <Grid container spacing={{ xs: 2, lg: 4 }}>
       <Grid xs={12}>
         <Typography variant="h4">{blog.title}</Typography>
-        <Typography>{`${blog.author}  ${blog.createdAt!.toLocaleDateString()}`}</Typography>
+        <Typography>{`${blog.author}  ${blog.createdAt?.toLocaleDateString()}`}</Typography>
       </Grid>
       <Grid xs={12}>
         <Image

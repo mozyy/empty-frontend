@@ -10,6 +10,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.unsplash.com',
       },
+      {
+        hostname: `${process.env.NEXT_PUBLIC_OSS_BUCKET}.oss-${process.env.NEXT_PUBLIC_OSS_LOCATION}.aliyuncs.com`,
+      },
     ],
   },
   // webpack(config) {

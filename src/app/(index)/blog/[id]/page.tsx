@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { marked } from 'marked';
 import { BlogServiceApi } from '../../../../openapi/blog';
-import Blog from '../Blog';
+import BlogComponent from '../BlogComponent';
 import { Box, Unstable_Grid2 as Grid, Typography } from '@/mui/material';
 
 export default async function Detail({ params: { id } }:{ params: { id:string } }) {
@@ -15,6 +15,6 @@ export default async function Detail({ params: { id } }:{ params: { id:string } 
   const viewBlog = { ...blog, markdown };
 
   return (
-    <Blog blog={viewBlog} />
+    <BlogComponent blog={viewBlog} />
   );
 }

@@ -43,6 +43,7 @@ module.exports = {
         "patterns": ["@mui/*"]
       }
     ],
+    "react-hooks/exhaustive-deps": 'error'
   },
   parserOptions: {
     project: "./tsconfig.json",
