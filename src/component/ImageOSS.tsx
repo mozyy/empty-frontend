@@ -1,4 +1,5 @@
 import { envBrowser } from '@/env.browser';
+import { envServer } from '@/env.server';
 import uck from '../assets/images/uck.png';
 import { Box, Button, ButtonBase } from '@/mui/material';
 
@@ -28,7 +29,7 @@ export default function ImageOSS(props: ImageOSSProps) {
     const {
       name, process = 'quality,q_75', format = 'webp', ...otherProps
     } = props;
-    srcValue = name ? `${prefix}${name}?x-oss-process=image/${process}/format,${format}` : uck as string;
+    srcValue = name ? `${prefix}${name}?x-oss-process=image/${process}/format,${format}` : uck.src;
     imgProps = otherProps;
   } else if ('src' in props) {
     const { src, ...otherProps } = props;

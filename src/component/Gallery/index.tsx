@@ -1,27 +1,32 @@
 'use client';
 
-import Image from 'next/image';
 import useSWR from 'swr';
 import OSS from 'ali-oss';
 import MD5 from 'crypto-js/md5';
 import encLATIN1 from 'crypto-js/enc-latin1';
 import encHEX from 'crypto-js/enc-hex';
-import { use, useEffect, useState } from 'react';
-import { xml2json } from 'xml-js';
+import { useEffect, useState } from 'react';
 import { envBrowser } from '@/env.browser';
 import ImageOSS from '../ImageOSS';
 import {
-  ImageList, ImageListItem, Unstable_Grid2 as Grid, Button, Box, ImageListItemBar, IconButton,
+  ImageList, ImageListItem, Unstable_Grid2 as Grid, Button, ImageListItemBar,
+  IconButton, Modal, ModalProps, Paper, useMediaQuery, useTheme,
 } from '@/mui/material';
 import { Delete } from '@/mui/icons-material';
 
 const fetcher = (url:string) => fetch(url, { method: 'POST' }).then((res) => res.json()).then((res) => { console.log(res); return res; });
+export interface GalleryProps extends Omit<ModalProps, 'children'> {
+}
 
-export default function Gallery() {
+export default function Gallery(props: GalleryProps) {
+  const { ...modalProps } = props;
   const { data: { credentials: { accessKeyId, accessKeySecret, securityToken } } } = useSWR('/api/oss/sts', fetcher, { focusThrottleInterval: 1000 * 6, suspense: true });
-  // 26923FBC-5714-5832-ABC4-AA12820306DC
   const [client, setClient] = useState<OSS>();
   const [list, setList] = useState<any[]>([]);
+  const theme = useTheme();
+  const matcheUpSm = useMediaQuery(theme.breakpoints.up('sm'));
+  const matcheUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const matcheUpLg = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
     const OSSClient = new OSS({
@@ -72,38 +77,58 @@ export default function Gallery() {
     await client?.delete(name);
   };
 
+  const getCols = () => {
+    if (matcheUpLg) return 5;
+    if (matcheUpMd) return 4;
+    if (matcheUpSm) return 3;
+    return 2;
+  };
+
   return (
-    <Grid container spacing={2}>
-      <Grid xs={12} sx={{ textAlign: 'right' }}>
-        <Button component="label">
-          Upload
-          <input hidden accept="image/*" multiple type="file" onChange={(e) => upload(e.target.files)} />
-        </Button>
-      </Grid>
-      <Grid xs={12}>
-        <ImageList>
-          {list.map((item) => (
-            <ImageListItem key={item.name}>
-              <ImageOSS name={item.name} process="resize,w_164,h_164/quality,q_75" alt={item.name} />
-              <ImageListItemBar
-                sx={{
-                  background: 'rgba(0,0,0,0)',
-                }}
-                position="top"
-                actionIcon={(
-                  <IconButton
-                    sx={{ color: 'white', background: 'rgba(0,0,0,0.5)' }}
-                    aria-label={`delete ${item.name}`}
-                    onClick={() => deleteItem(item.name)}
-                  >
-                    <Delete />
-                  </IconButton>
-              )}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Grid>
-    </Grid>
+    <Modal {...modalProps}>
+      <Paper sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: { xs: '90vw', sm: '80vw', md: '60vw' },
+        minHeight: '50vh',
+        p: 2,
+      }}
+      >
+        <Grid container spacing={2}>
+          <Grid xs={12} sx={{ textAlign: 'right' }}>
+            <Button component="label">
+              Upload
+              <input hidden accept="image/*" multiple type="file" onChange={(e) => upload(e.target.files)} />
+            </Button>
+          </Grid>
+          <Grid xs={12}>
+            <ImageList cols={getCols()}>
+              {list.map((item) => (
+                <ImageListItem key={item.name}>
+                  <ImageOSS name={item.name} process="resize,w_164,h_164/quality,q_75" alt={item.name} />
+                  <ImageListItemBar
+                    sx={{
+                      background: 'rgba(0,0,0,0)',
+                    }}
+                    position="top"
+                    actionIcon={(
+                      <IconButton
+                        sx={{ color: 'white', background: 'rgba(0,0,0,0.5)' }}
+                        aria-label={`delete ${item.name}`}
+                        onClick={() => deleteItem(item.name)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    )}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Modal>
   );
 }

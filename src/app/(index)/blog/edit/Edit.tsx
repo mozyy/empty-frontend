@@ -24,6 +24,7 @@ interface EditProps {
 }
 
 export default function Edit({ blog, setBlog, onSubmit }:EditProps) {
+  const [gallery, setGallery] = useState(false);
   const getFieldProps = (label: string, key: keyof V1NewBlog) => ({
     label,
     fullWidth: true,
@@ -38,7 +39,8 @@ export default function Edit({ blog, setBlog, onSubmit }:EditProps) {
       <Box sx={{ textAlign: 'right', mb: 1 }}>
         <Button variant="contained" onClick={() => onSubmit(blog)}>submit </Button>
       </Box>
-      <Gallery />
+      <Button variant="contained" onClick={() => setGallery(true)}>Gallery</Button>
+      <Gallery open={gallery} onClose={() => setGallery(false)} />
       <Grid container spacing={{ xs: 2, lg: 4 }}>
         <Grid container xs={12} md={6}>
           <Grid xs={12}>

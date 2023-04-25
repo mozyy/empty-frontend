@@ -2,16 +2,18 @@
 
 import { useState } from 'react';
 import Edit from '../Edit';
+import { V1NewBlog, V1NewBlogFromJSON } from '@/openapi/blog';
+import { useSetState } from '@/hooks/setState';
 
 export default function Update({ id }:{ id:string }) {
-  const [markdown, setMarkdown] = useState('');
+  const [blog, setBlog] = useSetState(V1NewBlogFromJSON({}));
 
-  const onSubmit = (value:string) => {
+  const onSubmit = (value:V1NewBlog) => {
     console.log(111, value);
-    setMarkdown(value);
+    setBlog(value);
   };
 
   return (
-    <Edit markdown={markdown} onSubmit={onSubmit} key={markdown} />
+    <Edit blog={blog} onSubmit={onSubmit} setBlog={setBlog} />
   );
 }
