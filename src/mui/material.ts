@@ -42,3 +42,4 @@ export { default as DialogTitle } from '@mui/material/DialogTitle';
 export { default as DialogContent } from '@mui/material/DialogContent';
 export { default as DialogContentText } from '@mui/material/DialogContentText';
 export { default as DialogActions } from '@mui/material/DialogActions';
+export { default as Snackbar, type SnackbarProps } from '@mui/material/Snackbar';

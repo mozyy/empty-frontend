@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useReducer } from 'react';
 
 enum ActionEnum {
@@ -36,6 +38,9 @@ export interface SetState<S extends Record<string, any> = Record<string, any>> {
   <K extends keyof S>(key: K):(value: S[K])=>void
   <K extends keyof S>(obj: Pick<S, K>): void
 }
+export interface SetAllState<S extends Record<string, any> = Record<string, any>> {
+  (value:S):void
+}
 
 /**
  * useSetState
@@ -47,13 +52,13 @@ export const useSetState = <S extends Record<string, any>>(initialState:S) => {
     inputFieldReducer,
     initialState,
   );
-  const setState:SetState<S> = (value:any): any => {
+  const setState:SetState<S> = useCallback((value:any): any => {
     if (typeof value === 'string') {
       return (v:unknown) => dispatch(setFieldsAction({ [value]: v }));
     }
     return dispatch(setFieldsAction(value as any));
-  };
-  const setAllState = (value:S) => dispatch(setAllFieldsAction(value));
+  }, []);
+  const setAllState:SetAllState<S> = (value:S) => dispatch(setAllFieldsAction(value));
 
   return [state, setState, setAllState] as const;
 };

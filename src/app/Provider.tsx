@@ -2,8 +2,10 @@
 
 import { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
+import { RecoilRoot } from 'recoil';
 import { ThemeProvider, createTheme } from '@/mui/material';
 import { AdapterDayjs, LocalizationProvider } from '@/mui/x-date-pickers';
+import SnackbarProvider from '@/component/SnackbarProvider';
 
 export const theme = createTheme({
   palette: {
@@ -17,7 +19,7 @@ export const theme = createTheme({
   },
 });
 
-export default function Theme({ children }: PropsWithChildren) {
+export default function Provider({ children }: PropsWithChildren) {
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -26,7 +28,9 @@ export default function Theme({ children }: PropsWithChildren) {
             suspense: true,
           }}
         >
-          {children}
+          <RecoilRoot>
+            {children}
+          </RecoilRoot>
         </SWRConfig>
       </LocalizationProvider>
     </ThemeProvider>
