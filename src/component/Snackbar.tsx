@@ -1,20 +1,41 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
-  Snackbar as SnackbarMUI, SnackbarProps,
+  Snackbar as SnackbarMUI, Alert, SnackbarProps,
 } from '@/mui/material';
-import { SnackbarSetAllStateContext } from '@/context/snackbar';
-import { useSetState } from '@/hooks/setState';
 import { snackbarState } from '@/store/snackbar';
 
 export default function Snackbar() {
-  const [props, setProps] = useRecoilState(snackbarState);
-  const onClose = () => {
-    setProps({ open: false });
+  const [state, setState] = useRecoilState(snackbarState);
+  const {
+    open, message, severity = 'info', snackbar, alert,
+  } = state;
+  const onClose:SnackbarProps['onClose'] = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    if (snackbar?.onClose) {
+      snackbar.onClose(event, reason);
+      return;
+    }
+    setState((v) => ({ ...v, open: false }));
+  };
+  const snackbarProps = {
+    open,
+    onClose,
+    autoHideDuration: 5000,
+    ...snackbar,
+  };
+  const alertProps = {
+    children: message,
+    severity,
+    onClose: (event: React.SyntheticEvent) => onClose(event, 'clickaway'),
+    ...alert,
   };
   return (
-    <SnackbarMUI autoHideDuration={2000} onClose={onClose} {...props} />
+    <SnackbarMUI {...snackbarProps}>
+      <Alert {...alertProps} />
+    </SnackbarMUI>
   );
 }

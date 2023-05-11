@@ -14,12 +14,16 @@ export interface AlertProps {
   onSubmit?: () =>void
 }
 
-export default function Alert(props:AlertProps) {
+export default function Alerts(props:AlertProps) {
   const {
-    open, onClose, title = '提示',
-    content, showCancel = true,
-    cancelText = '取消', confirmText = '确定',
-    onSubmit = () => onClose({}, 'escapeKeyDown'),
+    open,
+    onClose,
+    title = '提示',
+    content,
+    showCancel = true,
+    cancelText = '取消',
+    confirmText = '确定',
+    onSubmit = () => onClose({}, 'backdropClick'),
   } = props;
   return (
     <Dialog

@@ -8,11 +8,14 @@ import encHEX from 'crypto-js/enc-hex';
 import { useEffect, useState } from 'react';
 import { envBrowser } from '@/env.browser';
 import ImageOSS from '../ImageOSS';
+import Alerts from '../Alerts';
 import {
   ImageList, ImageListItem, Unstable_Grid2 as Grid, Button, ImageListItemBar,
   IconButton, Modal, ModalProps, Paper, useMediaQuery, useTheme,
 } from '@/mui/material';
 import { Delete } from '@/mui/icons-material';
+import { LoadingButton } from '@/mui/lab';
+import { useSnackbar } from '@/hooks/snackbar';
 
 const fetcher = (url:string) => fetch(url, { method: 'POST' }).then((res) => res.json()).then((res) => { console.log(res); return res; });
 export interface GalleryProps extends Omit<ModalProps, 'children'> {
@@ -22,7 +25,10 @@ export default function Gallery(props: GalleryProps) {
   const { ...modalProps } = props;
   const { data: { credentials: { accessKeyId, accessKeySecret, securityToken } } } = useSWR('/api/oss/sts', fetcher, { focusThrottleInterval: 1000 * 6, suspense: true });
   const [client, setClient] = useState<OSS>();
-  const [list, setList] = useState<any[]>([]);
+  const [list, setList] = useState<string[]>([]);
+  const [deleteAlert, setDeleteAlert] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const snackbar = useSnackbar();
   const theme = useTheme();
   const matcheUpSm = useMediaQuery(theme.breakpoints.up('sm'));
   const matcheUpMd = useMediaQuery(theme.breakpoints.up('md'));
@@ -39,20 +45,19 @@ export default function Gallery(props: GalleryProps) {
     });
     setClient(OSSClient);
     OSSClient.listV2({}, {}).then((res) => {
-      setList(res.objects.map((file) => ({
-        name: file.name,
-        url: file.url,
-      })));
+      setList(res.objects.map((file) => file.name));
     });
   }, [accessKeyId, accessKeySecret, securityToken]);
 
-  const upload = (files: FileList | null) => {
+  const upload = async (files: FileList | null) => {
+    setUploading(true);
     if (files) {
-      [...files].forEach((file) => {
+      const tasks = [...files].map((file) => new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
         reader.addEventListener('load', (e) => {
           const result = e.target?.result;
           if (!result) {
+            reject();
             return;
           }
           const hash = MD5(encLATIN1.parse(result as string));
@@ -66,11 +71,27 @@ export default function Gallery(props: GalleryProps) {
             'Content-Disposition': name,
             'x-oss-forbid-overwrite': 'true',
           };
-          client?.put(md5, file, { headers });
+          client?.put(md5, file, { headers }).then((res) => {
+            resolve(res.name);
+          }, (err) => {
+            if (err.code === 'FileAlreadyExists') {
+              console.warn('文件已存在: ', md5);
+              resolve(md5);
+            } else {
+              reject(err);
+            }
+          });
         });
         reader.readAsBinaryString(file);
+      }));
+      await Promise.all(tasks).then((res) => {
+        snackbar({ message: `上传成功:${res.join()}`, severity: 'success' });
+      }, (err) => {
+        console.error(err);
+        snackbar({ message: `上传失败:${err}`, severity: 'error' });
       });
     }
+    setUploading(false);
   };
 
   const deleteItem = async (name: string) => {
@@ -98,16 +119,16 @@ export default function Gallery(props: GalleryProps) {
       >
         <Grid container spacing={2}>
           <Grid xs={12} sx={{ textAlign: 'right' }}>
-            <Button component="label">
+            <LoadingButton loading={uploading} component="label">
               Upload
               <input hidden accept="image/*" multiple type="file" onChange={(e) => upload(e.target.files)} />
-            </Button>
+            </LoadingButton>
           </Grid>
           <Grid xs={12}>
             <ImageList cols={getCols()}>
-              {list.map((item) => (
-                <ImageListItem key={item.name}>
-                  <ImageOSS name={item.name} process="resize,w_164,h_164/quality,q_75" alt={item.name} />
+              {list.map((file) => (
+                <ImageListItem key={file}>
+                  <ImageOSS name={file} process="resize,w_164,h_164/quality,q_75" alt={file} />
                   <ImageListItemBar
                     sx={{
                       background: 'rgba(0,0,0,0)',
@@ -116,8 +137,8 @@ export default function Gallery(props: GalleryProps) {
                     actionIcon={(
                       <IconButton
                         sx={{ color: 'white', background: 'rgba(0,0,0,0.5)' }}
-                        aria-label={`delete ${item.name}`}
-                        onClick={() => deleteItem(item.name)}
+                        aria-label={`delete ${file}`}
+                        onClick={() => setDeleteAlert(file)}
                       >
                         <Delete />
                       </IconButton>
@@ -128,6 +149,12 @@ export default function Gallery(props: GalleryProps) {
             </ImageList>
           </Grid>
         </Grid>
+        <Alerts
+          open={!!deleteAlert}
+          onClose={() => setDeleteAlert('')}
+          content="确认删除?"
+          onSubmit={() => deleteItem(deleteAlert)}
+        />
       </Paper>
     </Modal>
   );
