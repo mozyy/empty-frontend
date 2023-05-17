@@ -13,7 +13,8 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }:PropsWithChildren) {
-  const session = await getServerSession(authOptions);
+  // console.log(11111111, 'server');
+  // const session = await getServerSession(authOptions);
   return (
     <Box sx={{ display: 'flex', height: '100%', flexDirection: 'column' }} component="main">
       {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}

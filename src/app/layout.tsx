@@ -5,7 +5,7 @@ import Footer from './Footer';
 import { CssBaseline, Box, Typography } from '@/mui/material';
 import Snackbar from '@/component/Snackbar';
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 export const metadata = {
   title: 'One-Word',

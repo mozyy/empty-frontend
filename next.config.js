@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    appDir: true,
     typedRoutes: true
   },
   images: {
@@ -21,7 +20,7 @@ const nextConfig = {
   //   config.optimization.usedExports = true;
   //   return config
   // }
-  output: 'standalone',
+  // output: 'standalone',
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

@@ -5,7 +5,6 @@ import { SWRConfig } from 'swr';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider, createTheme } from '@/mui/material';
 import { AdapterDayjs, LocalizationProvider } from '@/mui/x-date-pickers';
-import SnackbarProvider from '@/component/SnackbarProvider';
 
 export const theme = createTheme({
   palette: {
