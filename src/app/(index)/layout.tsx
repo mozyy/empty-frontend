@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next';
 import { PropsWithChildren } from 'react';
 import Bar from './Bar';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+// import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Box } from '@/mui/material';
 
 export const metadata = {

@@ -1,6 +1,5 @@
 import { getServerSession } from 'next-auth/next';
 import { PropsWithChildren } from 'react';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Box, Unstable_Grid2 as Grid, Typography } from '@/mui/material';
 
 export const metadata = {

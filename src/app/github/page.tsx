@@ -40,7 +40,7 @@ export default async function Index({ searchParams }:{ searchParams:{ label: str
           </Tabs>
         </Grid>
         <Grid xs={10} spacing={2} container>
-          {repos.items.map((item, i) => (
+          {repos.items.map((item:any, i:number) => (
             <Grid xs={4} key={item.id}>
               <Card>
                 <CardHeader

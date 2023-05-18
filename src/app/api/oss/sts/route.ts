@@ -1,3 +1,4 @@
+import 'server-only';
 import Sts20150401, { AssumeRoleRequest, AssumeRoleResponseBody } from '@alicloud/sts20150401';
 // 依赖的模块可通过下载工程中的模块依赖文件或右上角的获取 SDK 依赖信息查看
 import { Config } from '@alicloud/openapi-client';
