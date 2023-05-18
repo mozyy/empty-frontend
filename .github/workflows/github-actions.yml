@@ -9,10 +9,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
-          registry-url: "https://registry.npm.taobao.org"
-      - run: yarn
-      - run: GENERATE_SOURCEMAP=false REACT_APP_MODE=prod yarn rs:build
+          node-version: "lts"
+      - run: npm i
+      - run: npm run build
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1

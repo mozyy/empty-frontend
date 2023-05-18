@@ -20,7 +20,7 @@ const nextConfig = {
   //   config.optimization.usedExports = true;
   //   return config
   // }
-  // output: 'standalone',
+  output: 'standalone',
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

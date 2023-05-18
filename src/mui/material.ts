@@ -44,3 +44,4 @@ export { default as DialogContentText } from '@mui/material/DialogContentText';
 export { default as DialogActions } from '@mui/material/DialogActions';
 export { default as Snackbar, type SnackbarProps, type SnackbarCloseReason } from '@mui/material/Snackbar';
 export { default as Alert, type AlertProps } from '@mui/material/Alert';
+export { default as Avatar } from '@mui/material/Avatar';
