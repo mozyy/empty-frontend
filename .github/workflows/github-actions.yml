@@ -11,6 +11,10 @@ jobs:
         with:
           node-version: "18"
       - run: npm i
+      - run: echo "OSS_TEST $OSS_TEST. Today is $OSS_TEST2!"
+        env:
+          OSS_TEST: ${{ secrets.OSS_TEST }}
+          OSS_TEST2: ${{ vars.OSS_TEST2 }}
       - run: npm run build
         env:
           OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
