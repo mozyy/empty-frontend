@@ -1,19 +1,20 @@
 import Link from 'next/link';
 import qs from 'qs';
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import FeauterCard from '@/component/FeauterCard';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import {
   Unstable_Grid2 as Grid,
   Box, Typography, AppBar, IconButton, Tabs, Toolbar, Tab, Badge, Card,
-  CardHeader, Avatar, CardContent, CardActions, Button,
+  CardHeader, Avatar, CardContent, CardActions, Button, CardActionArea,
 } from '@/mui/material';
-import { MoreVert, Share, Star } from '@/mui/icons-material';
 
+dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 
 const labels = [
-  '', 'JavaScript', 'Python', 'Java', 'Go', 'TypeScript', 'C++', 'C', 'PHP', 'C#', 'Swift', 'Rust', 'Vue',
+  '', 'JavaScript', 'Rust', 'TypeScript', 'Go', 'Vue', 'Python', 'Java', 'C++', 'C', 'PHP', 'C#', 'Swift',
 ];
 
 export default async function Index({ searchParams }:{ searchParams:{ label: string } }) {
@@ -39,57 +40,46 @@ export default async function Index({ searchParams }:{ searchParams:{ label: str
             {labels.map((item) => (<Tab LinkComponent={Link} key={item} label={item || 'ALL'} href={`/github${qs.stringify({ label: item }, { addQueryPrefix: true })}`} />))}
           </Tabs>
         </Grid>
-        <Grid xs={10} spacing={2} container>
+        <Grid xs={12} lg={10} spacing={2} container>
           {repos.items.map((item:any, i:number) => (
-            <Grid xs={4} key={item.id}>
+            <Grid xs={12} sm={6} lg={4} key={item.id}>
               <Card>
-                <CardHeader
-                  avatar={(
-                    <Avatar aria-label={item.owner.login} src={item.owner.avatar_url} />
+                <CardActionArea LinkComponent={Link} href={item.html_url} target="_blank">
+                  <CardHeader
+                    avatar={(
+                      <Avatar aria-label={item.owner.login} src={item.owner.avatar_url} />
                     )}
-                  action={(
-                    <IconButton aria-label="settings">
-                      <MoreVert />
-                    </IconButton>
-                  )}
-                  title={(
-                    <a href={item.html_url} target="_blank">
-                      {`${i + 1} ${item.name}`}
-                    </a>
-                  )}
-                  subheader={item.full_name}
-                />
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      display: '-webkit-box',
-                      overflow: 'hidden',
-                      WebkitLineClamp: '2',
-                      WebkitBoxOrient: 'vertical',
-                      textOverflow: 'ellipsis',
-                    }}
-                    title={item.description}
-                  >
-                    {item.description}
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <Button aria-label="add to favorites">
-                    <Star />
-                    {item.stargazers_count}
-                  </Button>
-                  <Button aria-label="share">
-                    <Share />
-                    {item.forks_count}
-                  </Button>
-                </CardActions>
-                <CardActions disableSpacing>
-                  <Typography variant="body2" color="text.secondary">
-                    {`last commit: ${dayjs(item.pushed_at).fromNow(true)} ago`}
-                  </Typography>
-                </CardActions>
+                    title={`${i + 1} ${item.name}`}
+                    subheader={item.full_name}
+                  />
+                  <CardContent>
+                    <Typography
+                      sx={{
+                        mb: 1,
+                        display: '-webkit-box',
+                        overflow: 'hidden',
+                        WebkitLineClamp: '2',
+                        WebkitBoxOrient: 'vertical',
+                        textOverflow: 'ellipsis',
+                        height: '3em',
+                      }}
+                      title={item.description}
+                    >
+                      {item.description}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      ⭐
+                      {item.stargazers_count}
+                      {' '}
+                      ✨
+                      {item.forks_count}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span title={dayjs(item.pushed_at).locale('zh-cn').format('lll')}>{`last commit: ${dayjs(item.pushed_at).fromNow(true)} ago`}</span>
+                      <span>{item.language}</span>
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
               </Card>
             </Grid>
           ))}
