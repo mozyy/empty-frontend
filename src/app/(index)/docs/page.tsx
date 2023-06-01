@@ -6,6 +6,8 @@ export default function Docs() {
     <Grid container>
       <Grid xs={12}>
         <Link href="/docs/blog">blog</Link>
+        <br />
+        <Link href="/docs/lottery">lottery</Link>
       </Grid>
     </Grid>
   );

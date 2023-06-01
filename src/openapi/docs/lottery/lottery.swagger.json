@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "blog/blog.proto",
+    "title": "lottery/lottery.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "BlogService"
+      "name": "LotteryService"
     }
   ],
   "host": "yyuck.com",
@@ -20,14 +20,14 @@
     "application/json"
   ],
   "paths": {
-    "/blog.v1.BlogService/blogs": {
+    "/lottery.v1.LotteryService/lotterys": {
       "get": {
-        "operationId": "BlogService_List",
+        "operationId": "LotteryService_List",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/blogv1ListResponse"
+              "$ref": "#/definitions/lotteryv1ListResponse"
             }
           },
           "default": {
@@ -38,16 +38,16 @@
           }
         },
         "tags": [
-          "BlogService"
+          "LotteryService"
         ]
       },
       "post": {
-        "operationId": "BlogService_Create",
+        "operationId": "LotteryService_Create",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/blogv1CreateResponse"
+              "$ref": "#/definitions/lotteryv1CreateResponse"
             }
           },
           "default": {
@@ -63,23 +63,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/blogv1CreateRequest"
+              "$ref": "#/definitions/lotteryv1CreateRequest"
             }
           }
         ],
         "tags": [
-          "BlogService"
+          "LotteryService"
         ]
       }
     },
-    "/blog.v1.BlogService/blogs/{id}": {
+    "/lottery.v1.LotteryService/lotterys/{id}": {
       "get": {
-        "operationId": "BlogService_Get",
+        "operationId": "LotteryService_Get",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/blogv1GetResponse"
+              "$ref": "#/definitions/lotteryv1GetResponse"
             }
           },
           "default": {
@@ -99,16 +99,16 @@
           }
         ],
         "tags": [
-          "BlogService"
+          "LotteryService"
         ]
       },
       "delete": {
-        "operationId": "BlogService_Delete",
+        "operationId": "LotteryService_Delete",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/blogv1DeleteResponse"
+              "$ref": "#/definitions/lotteryv1DeleteResponse"
             }
           },
           "default": {
@@ -128,16 +128,16 @@
           }
         ],
         "tags": [
-          "BlogService"
+          "LotteryService"
         ]
       },
       "patch": {
-        "operationId": "BlogService_Update",
+        "operationId": "LotteryService_Update",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/blogv1UpdateResponse"
+              "$ref": "#/definitions/lotteryv1UpdateResponse"
             }
           },
           "default": {
@@ -162,64 +162,74 @@
             "schema": {
               "type": "object",
               "properties": {
-                "blog": {
-                  "$ref": "#/definitions/v1NewBlog"
+                "lottery": {
+                  "$ref": "#/definitions/v1NewLottery"
                 }
               }
             }
           }
         ],
         "tags": [
-          "BlogService"
+          "LotteryService"
         ]
       }
     }
   },
   "definitions": {
-    "blogv1CreateRequest": {
+    "lotteryv1CreateRequest": {
       "type": "object",
       "properties": {
-        "blog": {
-          "$ref": "#/definitions/v1NewBlog"
+        "lottery": {
+          "$ref": "#/definitions/v1NewLottery"
         }
       }
     },
-    "blogv1CreateResponse": {
+    "lotteryv1CreateResponse": {
       "type": "object",
       "properties": {
-        "blog": {
-          "$ref": "#/definitions/v1Blog"
+        "lottery": {
+          "$ref": "#/definitions/v1Lottery"
         }
       }
     },
-    "blogv1DeleteResponse": {
+    "lotteryv1DeleteResponse": {
       "type": "object"
     },
-    "blogv1GetResponse": {
+    "lotteryv1GetResponse": {
       "type": "object",
       "properties": {
-        "blog": {
-          "$ref": "#/definitions/v1Blog"
+        "lottery": {
+          "$ref": "#/definitions/v1Lottery"
         }
       }
     },
-    "blogv1ListResponse": {
+    "lotteryv1ListResponse": {
       "type": "object",
       "properties": {
-        "blogs": {
+        "lotterys": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1Blog"
+            "$ref": "#/definitions/v1Lottery"
           }
         }
       }
     },
-    "blogv1UpdateResponse": {
+    "lotteryv1Type": {
+      "type": "string",
+      "enum": [
+        "NUMBER",
+        "PERCENT"
+      ],
+      "default": "NUMBER",
+      "description": "- NUMBER: 个数\n - PERCENT: 几率",
+      "title": "抽签类型"
+    },
+    "lotteryv1UpdateResponse": {
       "type": "object",
       "properties": {
-        "blog": {
-          "$ref": "#/definitions/v1Blog"
+        "lottery": {
+          "$ref": "#/definitions/v1Lottery"
         }
       }
     },
@@ -251,7 +261,22 @@
         }
       }
     },
-    "v1Blog": {
+    "v1Item": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "lottery title"
+        },
+        "value": {
+          "type": "integer",
+          "format": "int32",
+          "title": "lottery summary"
+        }
+      },
+      "title": "Lottery item"
+    },
+    "v1Lottery": {
       "type": "object",
       "properties": {
         "id": {
@@ -261,23 +286,29 @@
         },
         "title": {
           "type": "string",
-          "title": "blog title"
+          "title": "lottery title"
         },
-        "image": {
-          "type": "string",
-          "title": "blog image"
+        "type": {
+          "$ref": "#/definitions/lotteryv1Type",
+          "title": "lottery image"
         },
-        "summary": {
-          "type": "string",
-          "title": "blog summary"
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Item"
+          }
         },
-        "markdown": {
-          "type": "string",
-          "title": "markdown"
+        "remark": {
+          "type": "boolean",
+          "title": "lottery summary"
         },
-        "author": {
-          "type": "string",
-          "title": "author"
+        "remarks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Remark"
+          }
         },
         "createdAt": {
           "type": "string",
@@ -288,33 +319,54 @@
           "format": "date-time"
         }
       },
-      "title": "Blog item"
+      "title": "Lottery item"
     },
-    "v1NewBlog": {
+    "v1NewLottery": {
       "type": "object",
       "properties": {
         "title": {
           "type": "string",
-          "title": "blog title"
+          "title": "lottery title"
         },
-        "image": {
-          "type": "string",
-          "title": "blog image"
+        "type": {
+          "$ref": "#/definitions/lotteryv1Type",
+          "title": "lottery image"
         },
-        "summary": {
-          "type": "string",
-          "title": "blog summary"
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Item"
+          },
+          "title": "lottery image"
         },
-        "markdown": {
-          "type": "string",
-          "title": "markdown"
+        "remark": {
+          "type": "boolean",
+          "title": "lottery summary"
         },
-        "author": {
+        "remarks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Remark"
+          },
+          "title": "lottery summary"
+        }
+      }
+    },
+    "v1Remark": {
+      "type": "object",
+      "properties": {
+        "name": {
           "type": "string",
-          "title": "author"
+          "title": "lottery title"
+        },
+        "require": {
+          "type": "boolean",
+          "title": "lottery summary"
         }
       },
-      "title": "New Blog item"
+      "title": "Lottery item"
     }
   }
 }

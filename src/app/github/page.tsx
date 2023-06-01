@@ -20,7 +20,9 @@ const labels = [
 export default async function Index({ searchParams }:{ searchParams:{ label: string } }) {
   const { label = '' } = searchParams;
   const value = labels.indexOf(label);
-  const repos = await fetch(`https://api.github.com/search/repositories?q=stars:>1000${label ? ` language:${label}` : ''}&sort=stars&per_page=42&page=1`)
+  const repos = await fetch(`https://api.github.com/search/repositories?q=stars:>1000${label ? ` language:${label}` : ''}&sort=stars&per_page=42&page=1`, {
+    next: { revalidate: 24 * 60 * 60 },
+  })
     .then((resp) => resp.json());
   return (
     <Box sx={{ p: 2 }}>
